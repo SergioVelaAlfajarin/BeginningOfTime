@@ -1,8 +1,9 @@
 <p align="center" style="margin-bottom: 0px !important;">
-  <img src="https://github.com/SergioVelaAlfajarin/BeginningOfTime/blob/master/src/main/resources/misc/logo720.png" alt="drawing" width="250"/>
+  <img src="src/main/resources/misc/logo720.png" alt="drawing" width="250"/>
 </p>
 <h1 align="center" style="margin-top: 0px;">The Beginning Of Time</h1>
 <p align="center"> Game made by Shiku</p>
+<!--
 <hr>
 <div style="font-size:16px; margin-top:20px;">
 Hey! The beginning of Time is a game created by Shiku.
@@ -25,3 +26,4 @@ Since it is a game meant to be played on terminal, you will have to do this.
 <hr>
 <p align="center"><a href="" target="_blank">Link to download the game</a></p>
 </div>
+-->
