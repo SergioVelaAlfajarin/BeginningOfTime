@@ -1,11 +1,10 @@
 package objects.entidades;
 
-
 public abstract class Entidad {
 	private final String nombre;
+	private final int claseEntidad;
 	private int actualHP;
 	private int maxHP;
-	private final int claseEntidad;
 	private int ad, ap, ar, mr, agl, lvl;
 	private boolean estado;
 	private boolean bloqueo;

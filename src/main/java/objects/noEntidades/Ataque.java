@@ -89,25 +89,19 @@ public abstract class Ataque {
 
 package objects.noEntidades;
 
+import java.util.Objects;
+
 import exception.JuegoException;
 import window.Main;
 
-import java.util.Objects;
-
 public final class Ataque {
-	//1:dmg, 2:minRequired, 3:stat, 4:scaling
-	private static final Object[] af_ad_1_info
-			= {30, 2, "ad", 4.5};
-	private static final Object[] gg_ad_2_info
-			= {60, 10, "ad", 4.0};
-	private static final Object[] bf_ad_3_info
-			= {42, 6, "ad", 3.5};
-	private static final Object[] as_ap_1_info
-			= {20, 2, "ap", 5.5};
-	private static final Object[] gc_ap_2_info
-			= {25, 10, "ap", 6.0};
-	private static final Object[] tm_ap_2_info
-			= {20, 6, "ap", 4.8};
+	// 1:dmg, 2:minRequired, 3:stat, 4:scaling
+	private static final Object[] af_ad_1_info = { 30, 2, "ad", 4.5 };
+	private static final Object[] gg_ad_2_info = { 60, 10, "ad", 4.0 };
+	private static final Object[] bf_ad_3_info = { 42, 6, "ad", 3.5 };
+	private static final Object[] as_ap_1_info = { 20, 2, "ap", 5.5 };
+	private static final Object[] gc_ap_2_info = { 25, 10, "ap", 6.0 };
+	private static final Object[] tm_ap_2_info = { 20, 6, "ap", 4.8 };
 
 	private final String ID;
 	private Integer dmgAtaque;
@@ -123,15 +117,28 @@ public final class Ataque {
 		initAtaque();
 	}
 
+	public static boolean isCritico(int posibilidad) {
+		int probabilidad = (int) (posibilidad * Math.PI);
+		return (Main.generarRandomNum(150)) < probabilidad;
+	}
+
+	public static int calcularReduccionDmgArmadura(int ar) {
+		return (int) (ar * Math.PI);
+	}
+
+	public static int calcularReduccionDmgMagico(int mr) {
+		return (int) (mr * (Math.PI * 1.5));
+	}
+
 	private void initAtaque() {
 		switch (ID.toLowerCase()) {
-			case "af_ad_1" -> rellenaVariables(af_ad_1_info);
-			case "gg_ad_2" -> rellenaVariables(gg_ad_2_info);
-			case "bf_ad_3" -> rellenaVariables(bf_ad_3_info);
-			case "as_ap_1" -> rellenaVariables(as_ap_1_info);
-			case "gc_ap_2" -> rellenaVariables(gc_ap_2_info);
-			case "tm_ap_2" -> rellenaVariables(tm_ap_2_info);
-			default -> throw new JuegoException("Ataque ID no valido");
+		case "af_ad_1" -> rellenaVariables(af_ad_1_info);
+		case "gg_ad_2" -> rellenaVariables(gg_ad_2_info);
+		case "bf_ad_3" -> rellenaVariables(bf_ad_3_info);
+		case "as_ap_1" -> rellenaVariables(as_ap_1_info);
+		case "gc_ap_2" -> rellenaVariables(gc_ap_2_info);
+		case "tm_ap_2" -> rellenaVariables(tm_ap_2_info);
+		default -> throw new JuegoException("Ataque ID no valido");
 		}
 	}
 
@@ -172,19 +179,6 @@ public final class Ataque {
 		escalado = (Double) arr[3];
 	}
 
-	public static boolean isCritico(int posibilidad) {
-		int probabilidad = (int) (posibilidad * Math.PI);
-		return (Main.generarRandomNum(150)) < probabilidad;
-	}
-
-	public static int calcularReduccionDmgArmadura(int ar) {
-		return (int) (ar * Math.PI);
-	}
-
-	public static int calcularReduccionDmgMagico(int mr) {
-		return (int) (mr * (Math.PI * 1.5));
-	}
-
 	@Override
 	public String toString() {
 		return "Ataque{wip}";
@@ -192,8 +186,10 @@ public final class Ataque {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Ataque attack)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof Ataque attack))
+			return false;
 		return Objects.equals(ID, attack.ID);
 	}
 

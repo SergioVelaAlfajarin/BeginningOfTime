@@ -1,8 +1,8 @@
 package gestores;
 
-import objects.noEntidades.Ataque;
-
 import java.util.ArrayList;
+
+import objects.noEntidades.Ataque;
 
 public abstract class GestorNoEntidad {
 

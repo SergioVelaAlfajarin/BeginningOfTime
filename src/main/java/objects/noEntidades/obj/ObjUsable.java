@@ -18,7 +18,7 @@ public final class ObjUsable extends Objeto {
 	}
 
 	private void initObjUsable() {
-		//asignar las cosas como en Ataque
+		// asignar las cosas como en Ataque
 	}
 
 	public String getID() {

@@ -1,13 +1,12 @@
 package window;
 
-
 import gestores.GestorEntidad;
 
 public abstract class Menu {
 
 	// MENUS ----------------------------------------------
 
-public static String menuInicialSecundario(int vecesJugado) {
+	public static String menuInicialSecundario(int vecesJugado) {
 		StringBuilder temp = new StringBuilder(Menu.muestraMarca() + "\n");
 
 		temp.append("0.- Empezar de nuevo");
@@ -172,7 +171,6 @@ public static String menuInicialSecundario(int vecesJugado) {
 
 	public static String muestraStats() {
 		StringBuilder sb = new StringBuilder();
-
 
 		return sb.toString();
 	}

@@ -1,14 +1,13 @@
 package window;
 
+import java.util.Scanner;
 
 import exception.JuegoException;
 import gestores.GestorEntidad;
 import gestores.GestorNoEntidad;
-import objects.entidades.Personaje;
 import objects.entidades.Enemigo;
+import objects.entidades.Personaje;
 import objects.noEntidades.Ataque;
-
-import java.util.Scanner;
 
 public class Main {
 	private static final int MAX_COMBATES = 8;
@@ -119,9 +118,7 @@ public class Main {
 			int ultPersonajeCreado = i - 1;
 			Personaje p = GestorEntidad.getPersonajePorID(ultPersonajeCreado);
 			if (p != null) {
-				printLn(Menu.msgPersonajeCreado().formatted(
-						i, Personaje.MAX_PERSONAJES, p.getNombre())
-				);
+				printLn(Menu.msgPersonajeCreado().formatted(i, Personaje.MAX_PERSONAJES, p.getNombre()));
 			}
 		}
 	}
@@ -163,11 +160,11 @@ public class Main {
 				}
 			} while (repetirCombate);
 
-			//crear nuevos enemigos
+			// crear nuevos enemigos
 		}
 	}
 
-	//TODO planificar turnos
+	// TODO planificar turnos
 
 	private static void ejecutaTurnos() {
 		int arrPersonajeSize = GestorEntidad.getSizePersonaje();
@@ -181,7 +178,7 @@ public class Main {
 		}
 
 		for (int i = 0; i < arrEnemigoSize; i++) {
-			//todo turno enemigo
+			// todo turno enemigo
 		}
 
 	}
@@ -192,41 +189,17 @@ public class Main {
 
 	private static void accionFisica(int opcion, Personaje p) throws JuegoException {
 		switch (opcion) {
-			case 1 -> ejecutaAtaque(
-					GestorNoEntidad.getAtaquePorID("af_ad_1"),
-					p.getAd(),
-					p.getAgl()
-			);
-			case 2 -> ejecutaAtaque(
-					GestorNoEntidad.getAtaquePorID("gg_ad_2"),
-					p.getAd(),
-					p.getAgl()
-			);
-			case 3 -> ejecutaAtaque(
-					GestorNoEntidad.getAtaquePorID("bf_ad_3"),
-					p.getAd(),
-					p.getAgl()
-			);
+		case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("af_ad_1"), p.getAd(), p.getAgl());
+		case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gg_ad_2"), p.getAd(), p.getAgl());
+		case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("bf_ad_3"), p.getAd(), p.getAgl());
 		}
 	}
 
 	private static void acccionMagico(int opcion, Personaje p) throws JuegoException {
 		switch (opcion) {
-			case 1 -> ejecutaAtaque(
-					GestorNoEntidad.getAtaquePorID("as_ap_1"),
-					p.getAp(),
-					p.getAgl()
-			);
-			case 2 -> ejecutaAtaque(
-					GestorNoEntidad.getAtaquePorID("gc_ap_2"),
-					p.getAp(),
-					p.getAgl()
-			);
-			case 3 -> ejecutaAtaque(
-					GestorNoEntidad.getAtaquePorID("tm_ap_2"),
-					p.getAp(),
-					p.getAgl()
-			);
+		case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("as_ap_1"), p.getAp(), p.getAgl());
+		case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gc_ap_2"), p.getAp(), p.getAgl());
+		case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("tm_ap_2"), p.getAp(), p.getAgl());
 		}
 	}
 
@@ -245,9 +218,8 @@ public class Main {
 		}
 
 		Enemigo e = pideEnemigo();
-		dmg -= at.getStat().equalsIgnoreCase("ad") ?
-				Ataque.calcularReduccionDmgArmadura(e.getAr()) :
-				Ataque.calcularReduccionDmgMagico(e.getMr());
+		dmg -= at.getStat().equalsIgnoreCase("ad") ? Ataque.calcularReduccionDmgArmadura(e.getAr())
+				: Ataque.calcularReduccionDmgMagico(e.getMr());
 
 		boolean isVivo = e.recibirDmg(dmg);
 
@@ -266,7 +238,7 @@ public class Main {
 		return sb.toString();
 	}
 
-	//TODO planificar turnos
+	// TODO planificar turnos
 
 	private static void salirJuego() {
 		if (pideConfirmacion(Menu.pideConfirmacion())) {
@@ -285,7 +257,7 @@ public class Main {
 		do {
 			doublePrintLn(Menu.menuInicialSecundario(contadorPartidas));
 			opcion = pideNumero(0, 5, Menu.pideAccion());
-			//si 0 es introducido y luego se introduce que no, el bucle se repetira.
+			// si 0 es introducido y luego se introduce que no, el bucle se repetira.
 			if ((opcion == 0) && (!pideConfirmacion(Menu.pideConfirmacion()))) {
 				opcion = Integer.MIN_VALUE;
 			}
