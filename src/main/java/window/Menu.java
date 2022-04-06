@@ -42,19 +42,19 @@ public abstract class Menu {
 				========================= ITEMS UPDATE 0.5 (ACTUAL) =========================
 				+ Nombre cambiado a The Beginning of Time.
 				+ Añadida historia.
-				+ Añadida posibilidad de que los enemigos suelten objetos o equipamiento después de cada combate.
-				+ Revisadas todas las opciones y mejorada la selección de las mismas.
+				+ Añadida posibilidad de que los enemigos suelten objetos o equipamiento despues de cada combate.
+				+ Revisadas todas las opciones y mejorada la seleccion de las mismas.
 				+ Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.
-				+ Ahora para subir de nivel será necesario alcanzar cierto nivel de XP.
+				+ Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.
 				+ Añadido nuevos menus, para incrementar la accesibilidad.
-				+ Estadísticas rediseñadas por completo, con más niveles.
+				+ Estadisticas rediseñadas por completo, con mas niveles.
 				+ Rama de habilidades de apoyo sustituidas por objetos.
 				+ Ahora los enemigos se dividen en 4 tipos.
 				+ Posibilidad de empezar Nueva Partida +, con tus personajes de la anterior partida y enemigos mas complicados.
 				+ Juego publicado en GitHub!
 
-				========================= CONTENT UPDATE 0.6 (PRÓXIMAMENTE) =================
-				 + Traducción a otros idiomas.
+				========================= CONTENT UPDATE 0.6 (PROXIMAMENTE) =================
+				 + Traduccion a otros idiomas.
 				 + Mas enemigos, personajes, objetos y equipamiento.""";
 	}
 
@@ -69,7 +69,7 @@ public abstract class Menu {
 
 	public static String menuClases() {
 		return """
-				0.- Ayuda e información sobre las clases.
+				0.- Ayuda e informacion sobre las clases.
 				1.- Tanque        (HP: 100, AD: 1, AP: 1, AR: 2, MR: 2, AGL: 0)
 				2.- Asesino       (HP: 90,  AD: 2, AP: 1, AR: 1, MR: 0, AGL: 3)
 				3.- Caballero     (HP: 90,  AD: 2, AP: 0, AR: 2, MR: 2, AGL: 1)
@@ -78,42 +78,41 @@ public abstract class Menu {
 	}
 
 	public static String changeLangMenu() {
-		return "\nEsta opción esta temporalmente deshabilitada.";
+		return "\nEsta opcion esta temporalmente deshabilitada.";
 	}
 
 	public static String menuAcciones() {
 		return """
-				1.- Físico
-				2.- Mágico
-				3.- Inventario
-				4.- Bloquear
-				5.- Varios""";
+				1.- Fisico
+				2.- Magico
+				3.- Varios
+				4.- Inventario
+				5.- Bloquear""";
 	}
 
 	public static String menuAccionesFisico() {
 		return """
-				1.- Ataque rápido   (Mínimo: 2 AD)
-				2.- Gran Golpe      (Mínimo: 9 AD)
-				3.- Barrido         (Mínimo: 5 AD)
+				1.- Ataque rapido   (Minimo: 2 AD)
+				2.- Gran Golpe      (Minimo: 9 AD)
+				3.- Barrido         (Minimo: 5 AD)
 				4.- Volver""";
 	}
 
 	public static String menuAccionesMagico() {
 		return """
-				1.- AquaSplash		(Mínimo: 2 AP)
-				2.- Combustion		(Mínimo: 9 AP)
-				3.- Tornado			(Mínimo: 5 AP)
+				1.- AquaSplash		(Minimo: 2 AP)
+				2.- Combustion		(Minimo: 9 AP)
+				3.- Tornado			(Minimo: 5 AP)
 				4.- Volver""";
 	}
 
 	public static String menuAccionesOtros() {
 		return """
-				1.- Estadísticas de Personajes y Enemigos
-				2.- Información del Juego
-				3.- Información de los ataques
-				4.- Limpiar pantalla
-				5.- Salir del juego
-				6.- volver""";
+				1.- Estadisticas de Personajes y Enemigos
+				2.- Informacion del Juego
+				3.- Informacion de los ataques
+				4.- Salir del juego
+				5.- volver""";
 	}
 
 	// MUESTRA COSAS -----------------------------------
@@ -137,36 +136,36 @@ public abstract class Menu {
 				============ AYUDA SOBRE LAS CLASES ================
 
 				1.- Tanque: Clase especializada en la resistencia y el aguante. Mucha vida y armadura.
-				Sera capaz de aguantar mas golpes que ninguna clase, pero sera poco ágil.
+				Sera capaz de aguantar mas golpes que ninguna clase, pero sera poco agil.
 				Nivel 20: (HP: 320, AD: 3, AP: 6, AR: 13, MR: 13, AGL: 4)
 
-				2.- Asesino: Clase especializada en el daño Físico. Mucho daño físico y agilidad.
-				Tendrá mas posibilidad de esquivar los ataques, pero a cambio tendrá muy poca armadura.
+				2.- Asesino: Clase especializada en el daño Fisico. Mucho daño fisico y agilidad.
+				Tendra mas posibilidad de esquivar los ataques, pero a cambio tendra muy poca armadura.
 				Nivel 20: (HP: 200,  AD: 18, AP: 4, AR: 5, MR: 5, AGL: 18)
 
-				3.- Caballero: Clase especializada en la estabilidad. Tendrá un poco de todo.
-				Esta clase hará un daño normal, y recibirá daño normal.
+				3.- Caballero: Clase especializada en la estabilidad. Tendra un poco de todo.
+				Esta clase hara un daño normal, y recibira daño normal.
 				Nivel 20: (HP: 250,  AD: 12, AP: 7, AR: 8, MR: 8, AGL: 10)
 
-				4.- Mago: Clase especializada en el daño Mágico. Mucho daño mágico.
-				Clase para jugadores veteranos. Sera capaz de realizar mucho daño, pero tendrá muy poca resistencia.
+				4.- Mago: Clase especializada en el daño Magico. Mucho daño magico.
+				Clase para jugadores veteranos. Sera capaz de realizar mucho daño, pero tendra muy poca resistencia.
 				Nivel 20: (HP: 160,  AD: 5, AP: 20, AR: 6, MR: 10, AGL: 12)
 
 				5.- Marginado: Clase para jugadores curtidos. No tiene ninguna ventaja. Le costara mas subir de nivel,
-				y sus estadísticas no aumentaran tanto como las otras clases. Un verdadero reto.
+				y sus estadisticas no aumentaran tanto como las otras clases. Un verdadero reto.
 				Nivel 20: (HP: 180,  AD: 8, AP: 8, AR: 5, MR: 6, AGL: 6)""";
 	}
 
 	public static String muestraAyudaAtaques() {
-		return "Aquí ira la ayuda de los ataques.";
+		return "Aqui ira la ayuda de los ataques.";
 	}
 
 	public static String muestraAyudaJuego() {
-		return "Aquí ira la ayuda del juego.";
+		return "Aqui ira la ayuda del juego.";
 	}
 
 	public static String muestraHistoriaJuego() {
-		return "Aquí ira la historia del juego.";
+		return "Aqui ira la historia del juego.";
 	}
 
 	public static String muestraStats() {
@@ -211,7 +210,7 @@ public abstract class Menu {
 	}
 
 	public static String msgSalirJuego() {
-		return "Hasta la próxima";
+		return "Hasta la proxima";
 	}
 
 	public static String pideClases() {
@@ -243,7 +242,7 @@ public abstract class Menu {
 	}
 
 	public static String msgBloqueo() {
-		return "Bloquear pasará el turno y reducirá el daño del siguiente ataque recibido.";
+		return "Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.";
 	}
 
 	public static String msgPosicionInventarioVacia() {

@@ -1,13 +1,13 @@
 package window;
 
-import java.util.Scanner;
-
 import exception.JuegoException;
 import gestores.GestorEntidad;
 import gestores.GestorNoEntidad;
 import objects.entidades.Enemigo;
 import objects.entidades.Personaje;
 import objects.noEntidades.Ataque;
+
+import java.util.Scanner;
 
 public class Main {
 	private static final int MAX_COMBATES = 8;
@@ -138,9 +138,9 @@ public class Main {
 		clear();
 		for (int i = 1; i <= MAX_COMBATES; i++) {
 			boolean repetirCombate;
-			if (i == 5) {
+			if (i == 4) {
 				clear();
-				doublePrintLn("aquí pasara algo");
+				doublePrintLn("aquí pasara algo relacionado con la historia");
 				pause();
 				clear();
 			}
@@ -151,6 +151,7 @@ public class Main {
 				boolean isAnyEnemigoVivo = GestorEntidad.isAnyEnemigoVivo();
 
 				if (isAnyEnemigoVivo && isAnyPersonajeVivo) {
+					clear();
 					ejecutaTurnos();
 					repetirCombate = true;
 				} else if (isAnyPersonajeVivo) {
@@ -177,17 +178,88 @@ public class Main {
 			}
 		}
 
+		/*
 		for (int i = 0; i < arrEnemigoSize; i++) {
 			// todo turno enemigo
 		}
-
+		*/
 	}
 
 	private static void accionesTurno(Personaje p) {
-
+		boolean repetirTurno;
+		do{
+			doublePrintLn(Menu.msgTurno().formatted(p.getNombre()));
+			printLn(Menu.menuAcciones() + "\n");
+			int accion = pideNumero(1,5,Menu.pideAccion());
+			repetirTurno = ejecutaAcciones(accion, p);
+			if(repetirTurno){
+				clear();
+			}
+		}while(repetirTurno);
 	}
 
-	private static void accionFisica(int opcion, Personaje p) throws JuegoException {
+	private static boolean ejecutaAcciones(int accion, Personaje p) {
+		return switch(accion) {
+			case 1 -> accionFisica(p);               //System.out.println("Accion fisica");
+			case 2 -> accionMagica(p);               //System.out.println("Accion magica");
+			case 3 -> accionVarios(p);               //System.out.println("varios");
+			case 4 -> accionBloquear(p);             //System.out.println("inventario");
+			default -> accionInventario(p);          //System.out.println("bloquear");
+		};
+	}
+
+	private static boolean accionFisica(Personaje p){
+		doublePrintLn(Menu.menuAccionesFisico());
+		int accionF = pideNumero(1,4,Menu.pideAccion());
+		if(accionF == 4){
+			return true;
+		}
+		try{
+			eligeAtaqueFisico(accionF, p);
+			return false;
+		}catch (JuegoException e){
+			printLn(e.getMessage());
+			return true;
+		}
+	}
+
+	private static boolean accionMagica(Personaje p){
+		doublePrintLn(Menu.menuAccionesMagico());
+		int accionM = pideNumero(1,4,Menu.pideAccion());
+		if(accionM == 4){
+			return true;
+		}
+		try{
+			eligeAtaqueMagico(accionM, p);
+			return false;
+		}catch (JuegoException e){
+			printLn(e.getMessage());
+			return true;
+		}
+	}
+
+	private static boolean accionVarios(Personaje p){
+		doublePrintLn(Menu.menuAccionesOtros());
+		int accionV = pideNumero(1,5,Menu.pideAccion());
+		switch(accionV){
+			case 1 -> clear();                  //stats personajes y enemigos
+			case 2 -> pause();                  //info game
+			case 3 -> clear();                  //info attacks
+			case 4 -> salirJuego();             //exitgame
+			//volver: no hay opcion porque volvera automaticamente.
+		}
+		return true;
+	}
+
+	private static boolean accionBloquear(Personaje p){
+		return false;
+	}
+
+	private static boolean accionInventario(Personaje p){
+		return false;
+	}
+
+	private static void eligeAtaqueFisico(int opcion, Personaje p) throws JuegoException {
 		switch (opcion) {
 		case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("af_ad_1"), p.getAd(), p.getAgl());
 		case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gg_ad_2"), p.getAd(), p.getAgl());
@@ -195,7 +267,7 @@ public class Main {
 		}
 	}
 
-	private static void acccionMagico(int opcion, Personaje p) throws JuegoException {
+	private static void eligeAtaqueMagico(int opcion, Personaje p) throws JuegoException {
 		switch (opcion) {
 		case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("as_ap_1"), p.getAp(), p.getAgl());
 		case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gc_ap_2"), p.getAp(), p.getAgl());
