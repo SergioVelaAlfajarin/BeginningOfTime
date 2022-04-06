@@ -1,4 +1,4 @@
-package objects.entidades;
+package modelo.entidades;
 
 import exception.JuegoException;
 import gestores.GestorEntidad;

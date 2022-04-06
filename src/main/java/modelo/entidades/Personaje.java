@@ -1,8 +1,8 @@
-package objects.entidades;
+package modelo.entidades;
 
 import gestores.GestorEntidad;
-import objects.noEntidades.obj.ObjEquipable;
-import objects.noEntidades.obj.ObjUsable;
+import modelo.noEntidades.obj.ObjEquipable;
+import modelo.noEntidades.obj.ObjUsable;
 import window.Menu;
 
 public final class Personaje extends Entidad {

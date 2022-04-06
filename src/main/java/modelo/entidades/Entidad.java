@@ -1,4 +1,4 @@
-package objects.entidades;
+package modelo.entidades;
 
 public abstract class Entidad {
 	private final String nombre;

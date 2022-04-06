@@ -2,7 +2,7 @@ package gestores;
 
 import java.util.ArrayList;
 
-import objects.noEntidades.Ataque;
+import modelo.noEntidades.Ataque;
 
 public abstract class GestorNoEntidad {
 

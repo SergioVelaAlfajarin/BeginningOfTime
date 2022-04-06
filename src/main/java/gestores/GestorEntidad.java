@@ -3,8 +3,8 @@ package gestores;
 import java.util.ArrayList;
 
 import exception.JuegoException;
-import objects.entidades.Enemigo;
-import objects.entidades.Personaje;
+import modelo.entidades.Enemigo;
+import modelo.entidades.Personaje;
 import window.Menu;
 
 public abstract class GestorEntidad {

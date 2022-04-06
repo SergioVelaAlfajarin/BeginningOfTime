@@ -87,7 +87,7 @@ public abstract class Ataque {
 
  */
 
-package objects.noEntidades;
+package modelo.noEntidades;
 
 import java.util.Objects;
 

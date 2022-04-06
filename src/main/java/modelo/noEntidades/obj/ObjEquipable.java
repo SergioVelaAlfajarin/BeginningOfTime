@@ -1,4 +1,4 @@
-package objects.noEntidades.obj;
+package modelo.noEntidades.obj;
 
 import exception.JuegoException;
 
