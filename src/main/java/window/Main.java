@@ -185,6 +185,10 @@ public class Main {
 		 */
 	}
 
+	private static void accionesTurno(Enemigo e) {
+
+	}
+
 	private static void accionesTurno(Personaje p) {
 		boolean repetirTurno;
 		do {

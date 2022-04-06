@@ -1,3 +1,5 @@
+rem ejecutar
+
 cd ..\..\..\out\production\BeginningOfTime
 java window.Main
 pause
