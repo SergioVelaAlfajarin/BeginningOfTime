@@ -1,4 +1,4 @@
-rem cd ..\out\production\TheBeginningOfTime
-rem java src.window.Main
-rem pause
-rem cd ..\..\..\rsc
+cd ..\..\..\out\production\BeginningOfTime
+java window.Main
+pause
+cd ..\..\..\src\main\resources
