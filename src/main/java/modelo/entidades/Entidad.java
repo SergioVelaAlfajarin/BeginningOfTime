@@ -1,5 +1,8 @@
 package modelo.entidades;
 
+import exception.JuegoException;
+import window.Menu;
+
 public abstract class Entidad {
 	private final String nombre;
 	private final int claseEntidad;
@@ -86,5 +89,20 @@ public abstract class Entidad {
 			actualHP = 0;
 		}
 		return estado;
+	}
+
+	@Override
+	public String toString() {
+		return "Entidad{" +
+				"nombre='" + nombre + '\'' +
+				", claseEntidad=" + claseEntidad +
+				'}';
+	}
+
+	public void activarBloqueo() throws JuegoException {
+		if (bloqueo) {
+			throw new JuegoException(Menu.errorBloqueoYaActivo());
+		}
+		bloqueo = true;
 	}
 }

@@ -1,11 +1,11 @@
 package gestores;
 
-import java.util.ArrayList;
-
 import exception.JuegoException;
 import modelo.entidades.Enemigo;
 import modelo.entidades.Personaje;
 import window.Menu;
+
+import java.util.ArrayList;
 
 public abstract class GestorEntidad {
 
@@ -84,7 +84,7 @@ public abstract class GestorEntidad {
 		Enemigo e = listaEnemigos.get(0);
 		if (e != null) {
 			int nivel = e.getLvl();
-			return new int[] { cantidad, nivel };
+			return new int[]{cantidad, nivel};
 		}
 		throw new JuegoException(Menu.errorEnemigoNoEncontrado());
 	}
@@ -105,5 +105,21 @@ public abstract class GestorEntidad {
 			}
 		}
 		return false;
+	}
+
+	public static String getStatsPersonajes() {
+		StringBuilder sb = new StringBuilder();
+		for (Personaje p : listaPersonajes) {
+			sb.append(p).append("\n");
+		}
+		return sb.toString();
+	}
+
+	public static String getStatsEnemigos() {
+		StringBuilder sb = new StringBuilder();
+		for (Enemigo e : listaEnemigos) {
+			sb.append(e).append("\n");
+		}
+		return sb.toString();
 	}
 }

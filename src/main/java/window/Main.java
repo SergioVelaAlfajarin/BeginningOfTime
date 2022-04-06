@@ -1,13 +1,13 @@
 package window;
 
-import java.util.Scanner;
-
 import exception.JuegoException;
 import gestores.GestorEntidad;
 import gestores.GestorNoEntidad;
 import modelo.entidades.Enemigo;
 import modelo.entidades.Personaje;
 import modelo.noEntidades.Ataque;
+
+import java.util.Scanner;
 
 public class Main {
 	private static final int MAX_COMBATES = 8;
@@ -25,7 +25,7 @@ public class Main {
 					opcionMenuInicio = juegoCompletado();
 				} while (opcionMenuInicio != 5);
 			} catch (JuegoException e) {
-				printLn(e.getMessage());
+				doublePrintLn(e.getMessage());
 			}
 		}
 	}
@@ -34,7 +34,7 @@ public class Main {
 		int numero;
 		clear();
 		do {
-			doublePrintLn(Menu.menuPrincipal());
+			doublePrintLn(Menu.menuPrincipal() + "\n");
 			numero = pideNumero(1, 5, Menu.pideAccion());
 			realizaAccionMenuPrincipal(numero);
 		} while (numero != 1 && numero != 5);
@@ -46,20 +46,16 @@ public class Main {
 		if (num == 0) {
 			resetJuego();
 		} else if (num == 2) {
-			printLn(Menu.menuCreditos());
+			doublePrintLn(Menu.menuCreditos());
 			pause();
-			clear();
 		} else if (num == 3) {
-			printLn(Menu.menuChangeLog());
+			doublePrintLn(Menu.menuChangeLog());
 			pause();
-			clear();
 		} else if (num == 4) {
-			printLn(Menu.changeLangMenu());
+			doublePrintLn(Menu.changeLangMenu());
 			pause();
-			clear();
-		} else if (num == 5) {
-			doublePrintLn(Menu.msgSalirJuego());
 		}
+		clear();
 	}
 
 	private static void rellenarArrays() {
@@ -97,7 +93,7 @@ public class Main {
 			claseElegida = pideNumero(0, 5, Menu.pideClases());
 			if (claseElegida == 0) {
 				clear();
-				printLn(Menu.muestraAyudaClases() + "\n");
+				doublePrintLn(Menu.muestraAyudaClases() + "\n");
 				pause();
 				clear();
 				repetir = true;
@@ -113,12 +109,14 @@ public class Main {
 
 	private static void muestraMsgPersonajeCreado(int i) {
 		if (GestorEntidad.isListaPersonajesVacio()) {
-			printLn(Menu.msgBienvenida());
+			printLn(Menu.msgCreacionClase());
 		} else {
 			int ultPersonajeCreado = i - 1;
 			Personaje p = GestorEntidad.getPersonajePorID(ultPersonajeCreado);
 			if (p != null) {
-				printLn(Menu.msgPersonajeCreado().formatted(i, Personaje.MAX_PERSONAJES, p.getNombre()));
+				printLn(Menu.msgPersonajeCreado().formatted(
+						p.getNombre(), i, Personaje.MAX_PERSONAJES
+				));
 			}
 		}
 	}
@@ -140,7 +138,7 @@ public class Main {
 			boolean repetirCombate;
 			if (i == 4) {
 				clear();
-				doublePrintLn("aquí pasara algo relacionado con la historia");
+				doublePrintLn("aquí pasara algo relacionado con la historia \n");
 				pause();
 				clear();
 			}
@@ -174,7 +172,9 @@ public class Main {
 		for (int i = 0; i < arrPersonajeSize; i++) {
 			Personaje p = GestorEntidad.getPersonajePorID(i);
 			if (p != null && p.isEstado()) {
+				clear();
 				accionesTurno(p);
+				pause();
 			}
 		}
 
@@ -187,9 +187,15 @@ public class Main {
 		boolean repetirTurno;
 		do {
 			doublePrintLn(Menu.msgTurno().formatted(p.getNombre()));
-			printLn(Menu.menuAcciones() + "\n");
+			doublePrintLn(Menu.menuAcciones() + "\n");
 			int accion = pideNumero(1, 5, Menu.pideAccion());
-			repetirTurno = ejecutaAcciones(accion, p);
+			try {
+				repetirTurno = ejecutaAcciones(accion, p);
+			} catch (JuegoException e) {
+				doublePrintLn(e.getMessage());
+				pause();
+				repetirTurno = true;
+			}
 			if (repetirTurno) {
 				clear();
 			}
@@ -198,78 +204,47 @@ public class Main {
 
 	private static boolean ejecutaAcciones(int accion, Personaje p) {
 		return switch (accion) {
-		case 1 -> accionFisica(p); // System.out.println("Accion fisica");
-		case 2 -> accionMagica(p); // System.out.println("Accion magica");
-		case 3 -> accionVarios(p); // System.out.println("varios");
-		case 4 -> accionBloquear(p); // System.out.println("inventario");
-		default -> accionInventario(p); // System.out.println("bloquear");
+			case 1 -> accionFisica(p); // System.out.println("Accion fisica");
+			case 2 -> accionMagica(p); // System.out.println("Accion magica");
+			case 3 -> accionVarios(); // System.out.println("varios");
+			case 4 -> accionBloquear(p); // System.out.println("inventario");
+			default -> accionInventario(p); // System.out.println("bloquear");
 		};
 	}
 
 	private static boolean accionFisica(Personaje p) {
-		doublePrintLn(Menu.menuAccionesFisico());
+		doublePrintLn(Menu.menuAccionesFisico() + "\n");
 		int accionF = pideNumero(1, 4, Menu.pideAccion());
 		if (accionF == 4) {
 			return true;
 		}
-		try {
-			eligeAtaqueFisico(accionF, p);
-			return false;
-		} catch (JuegoException e) {
-			printLn(e.getMessage());
-			return true;
-		}
+		eligeAtaqueFisico(accionF, p);
+		return false;
 	}
 
 	private static boolean accionMagica(Personaje p) {
-		doublePrintLn(Menu.menuAccionesMagico());
+		doublePrintLn(Menu.menuAccionesMagico() + "\n");
 		int accionM = pideNumero(1, 4, Menu.pideAccion());
 		if (accionM == 4) {
 			return true;
 		}
-		try {
-			eligeAtaqueMagico(accionM, p);
-			return false;
-		} catch (JuegoException e) {
-			printLn(e.getMessage());
-			return true;
-		}
-	}
-
-	private static boolean accionVarios(Personaje p) {
-		doublePrintLn(Menu.menuAccionesOtros());
-		int accionV = pideNumero(1, 5, Menu.pideAccion());
-		switch (accionV) {
-		case 1 -> clear(); // stats personajes y enemigos
-		case 2 -> pause(); // info game
-		case 3 -> clear(); // info attacks
-		case 4 -> salirJuego(); // exitgame
-		// volver: no hay opcion porque volvera automaticamente.
-		}
-		return true;
-	}
-
-	private static boolean accionBloquear(Personaje p) {
-		return false;
-	}
-
-	private static boolean accionInventario(Personaje p) {
+		eligeAtaqueMagico(accionM, p);
 		return false;
 	}
 
 	private static void eligeAtaqueFisico(int opcion, Personaje p) throws JuegoException {
 		switch (opcion) {
-		case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("af_ad_1"), p.getAd(), p.getAgl());
-		case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gg_ad_2"), p.getAd(), p.getAgl());
-		case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("bf_ad_3"), p.getAd(), p.getAgl());
+			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("af_ad_1"), p.getAd(), p.getAgl());
+			case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gg_ad_2"), p.getAd(), p.getAgl());
+			case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("bf_ad_3"), p.getAd(), p.getAgl());
 		}
 	}
 
 	private static void eligeAtaqueMagico(int opcion, Personaje p) throws JuegoException {
 		switch (opcion) {
-		case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("as_ap_1"), p.getAp(), p.getAgl());
-		case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gc_ap_2"), p.getAp(), p.getAgl());
-		case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("tm_ap_2"), p.getAp(), p.getAgl());
+			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("as_ap_1"), p.getAp(), p.getAgl());
+			case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gc_ap_2"), p.getAp(), p.getAgl());
+			case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("tm_ap_2"), p.getAp(), p.getAgl());
 		}
 	}
 
@@ -291,27 +266,82 @@ public class Main {
 		dmg -= at.getStat().equalsIgnoreCase("ad") ? Ataque.calcularReduccionDmgArmadura(e.getAr())
 				: Ataque.calcularReduccionDmgMagico(e.getMr());
 
+		boolean isBloqueo = e.isBloqueo();
+
+		if (isBloqueo) {
+			dmg /= 2;
+		}
+
 		boolean isVivo = e.recibirDmg(dmg);
 
-		String strInfo = buildInfoString(isCritico, isVivo, dmg, e.getNombre());
+		String strInfo = buildInfoString(isCritico, isVivo, isBloqueo, dmg, e.getNombre());
 		doublePrintLn(strInfo);
 	}
 
-	private static String buildInfoString(boolean isCritical, boolean isAlive, int dmg, String name) {
+	private static String buildInfoString(boolean isCritical, boolean isAlive,
+	                                      boolean isBloqueo, int dmg, String name) {
 		StringBuilder sb = new StringBuilder();
 		if (isCritical)
 			sb.append("Ataque critico! ");
-		sb.append("Has conseguido hacer %d pts de daño. ".formatted(dmg));
+		if (isBloqueo) {
+			sb.append("El enemigo estaba bloqueando y ha recibido %d de daño.".formatted(dmg));
+		} else {
+			sb.append("Has conseguido hacer %d pts de daño. ".formatted(dmg));
+		}
 		if (!isAlive)
 			sb.append("%s ha muerto".formatted(name));
 		sb.append("\n");
 		return sb.toString();
 	}
 
-	// TODO planificar turnos
+	private static boolean accionVarios() {
+		doublePrintLn(Menu.menuAccionesOtros() + "\n");
+		int accionV = pideNumero(1, 5, Menu.pideAccion());
+		switch (accionV) {
+			case 1 -> accionVariosEstadisticas(); // stats personajes y enemigos
+			case 2 -> accionVariosAyudaJuego(); // info game
+			case 3 -> accionVariosAyudaAtaques(); // info attacks
+			case 4 -> salirJuego(); // exitgame
+			// volver: no hay opcion porque volvera automaticamente.
+		}
+		return true;
+	}
+
+	private static void accionVariosEstadisticas() {
+		clear();
+		doublePrintLn(Menu.muestraStats());
+		pause();
+	}
+
+	private static void accionVariosAyudaJuego() {
+		clear();
+		doublePrintLn(Menu.muestraAyudaJuego());
+		pause();
+	}
+
+	private static void accionVariosAyudaAtaques() {
+		clear();
+		doublePrintLn(Menu.muestraAyudaAtaques());
+		pause();
+	}
+
+	private static boolean accionBloquear(Personaje p) {
+		printLn(Menu.msgBloqueo()); //mover esto a ayuda o dejar permanente???
+		boolean confirmacion = pideConfirmacion();
+		if (confirmacion) {
+			p.activarBloqueo();
+		}
+		return !confirmacion;
+	}
+
+	private static boolean accionInventario(Personaje p) {
+		doublePrintLn("INV wip");
+		return false;
+	}
 
 	private static void salirJuego() {
-		if (pideConfirmacion(Menu.pideConfirmacion())) {
+		if (pideConfirmacion()) {
+			doublePrintLn(Menu.msgSalirJuego());
 			System.exit(0);
 		}
 	}
@@ -328,7 +358,7 @@ public class Main {
 			doublePrintLn(Menu.menuInicialSecundario(contadorPartidas));
 			opcion = pideNumero(0, 5, Menu.pideAccion());
 			// si 0 es introducido y luego se introduce que no, el bucle se repetira.
-			if ((opcion == 0) && (!pideConfirmacion(Menu.pideConfirmacion()))) {
+			if ((opcion == 0) && (!pideConfirmacion())) {
 				opcion = Integer.MIN_VALUE;
 			}
 			realizaAccionMenuPrincipal(opcion);
@@ -340,6 +370,8 @@ public class Main {
 		GestorEntidad.resetArrays();
 		contadorPartidas = 0;
 	}
+
+	// Utilidades --------------
 
 	private static Enemigo pideEnemigo() {
 		boolean repetir;
@@ -390,10 +422,14 @@ public class Main {
 		return num;
 	}
 
-	private static boolean pideConfirmacion(String msgConfirmation) {
-		print(msgConfirmation);
+	private static boolean pideConfirmacion() {
+		print(Menu.pideConfirmacion());
 		String text = pideCadena();
-		return text.equalsIgnoreCase("1");
+		return text.equalsIgnoreCase("1") ||
+				text.equalsIgnoreCase("si") ||
+				text.equalsIgnoreCase("yes") ||
+				text.equalsIgnoreCase("y") ||
+				text.equalsIgnoreCase("s");
 	}
 
 	private static void clear() {
@@ -416,20 +452,14 @@ public class Main {
 		return (int) (Math.random() * n) + 1;
 	}
 
+	// metodos print -----------
+
 	private static void print(String txt) {
 		System.out.printf("%s", txt);
 	}
 
-	private static void printLn() {
-		System.out.printf("%n");
-	}
-
 	private static void printLn(String txt) {
 		System.out.printf("%s%n", txt);
-	}
-
-	private static void doublePrintLn() {
-		System.out.printf("%n%n");
 	}
 
 	private static void doublePrintLn(String txt) {

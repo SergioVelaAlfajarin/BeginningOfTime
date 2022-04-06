@@ -1,8 +1,8 @@
 package gestores;
 
-import java.util.ArrayList;
-
 import modelo.noEntidades.Ataque;
+
+import java.util.ArrayList;
 
 public abstract class GestorNoEntidad {
 
@@ -23,5 +23,13 @@ public abstract class GestorNoEntidad {
 
 	public static boolean isArrayAtaquesVacio() {
 		return listaAtaques.isEmpty();
+	}
+
+	public static String getInfoAtaques() {
+		StringBuilder sb = new StringBuilder();
+		for (Ataque a : listaAtaques) {
+			sb.append(a).append("\n");
+		}
+		return sb.toString();
 	}
 }

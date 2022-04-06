@@ -1,6 +1,7 @@
 package window;
 
 import gestores.GestorEntidad;
+import gestores.GestorNoEntidad;
 
 public abstract class Menu {
 
@@ -38,7 +39,6 @@ public abstract class Menu {
 
 	public static String menuChangeLog() {
 		return """
-
 				========================= ITEMS UPDATE 0.5 (ACTUAL) =========================
 				+ Nombre cambiado a The Beginning of Time.
 				+ Añadida historia.
@@ -60,7 +60,6 @@ public abstract class Menu {
 
 	public static String menuCreditos() {
 		return """
-
 				Idea original: Shiku.
 				Programador: Shiku.
 				Diseños conceptuales: Josert
@@ -157,7 +156,7 @@ public abstract class Menu {
 	}
 
 	public static String muestraAyudaAtaques() {
-		return "Aqui ira la ayuda de los ataques.";
+		return GestorNoEntidad.getInfoAtaques();
 	}
 
 	public static String muestraAyudaJuego() {
@@ -169,9 +168,9 @@ public abstract class Menu {
 	}
 
 	public static String muestraStats() {
-		StringBuilder sb = new StringBuilder();
-
-		return sb.toString();
+		return GestorEntidad.getStatsPersonajes() +
+				"\n" +
+				GestorEntidad.getStatsEnemigos();
 	}
 
 	// MENSAJES --------------------------------------------
@@ -249,6 +248,10 @@ public abstract class Menu {
 		return "Vacio";
 	}
 
+	public static String msgCreacionClase() {
+		return "Elige una clase para tu Personaje: ";
+	}
+
 	// ERRORES -----------------------------------------------------------
 
 	public static String errorEnemigoNoEncontrado() {
@@ -271,4 +274,8 @@ public abstract class Menu {
 		return "El juego ha encontrado un error y debe cerrarse.";
 	}
 
+
+	public static String errorBloqueoYaActivo() {
+		return "Bloquear ya estaba activo.";
+	}
 }

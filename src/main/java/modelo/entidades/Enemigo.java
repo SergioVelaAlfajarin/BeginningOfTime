@@ -11,8 +11,8 @@ public final class Enemigo extends Entidad {
 
 	public static final int MAX_ENEMIGOS = 4;
 	// types -1, -2, -3, -4
-	private static final String[] tipos = { "Lobo Generico", "Oso Marron", "Serpiente amenazante",
-			Personaje.NOMBRE_PERSONAJE_PRINCIPAL };
+	private static final String[] tipos = {"Lobo Generico", "Oso Marron", "Serpiente amenazante",
+			Personaje.NOMBRE_PERSONAJE_PRINCIPAL};
 	private final int ID;
 
 	public Enemigo(int n) throws JuegoException {
