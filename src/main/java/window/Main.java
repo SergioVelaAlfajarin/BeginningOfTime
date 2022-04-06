@@ -103,7 +103,6 @@ public class Main {
 				repetir = false;
 			}
 		} while (repetir);
-
 		crearPersonaje(claseElegida, nombreElegido);
 	}
 
@@ -173,6 +172,9 @@ public class Main {
 			Personaje p = GestorEntidad.getPersonajePorID(i);
 			if (p != null && p.isEstado()) {
 				clear();
+				if (p.isBloqueo()) {
+					p.desactivaBloqueo(); //todo
+				}
 				accionesTurno(p);
 				pause();
 			}
@@ -326,10 +328,14 @@ public class Main {
 	}
 
 	private static boolean accionBloquear(Personaje p) {
-		printLn(Menu.msgBloqueo()); //mover esto a ayuda o dejar permanente???
+		if (p.isBloqueo()) {
+			throw new JuegoException(Menu.errorBloqueoYaActivo());
+		}
+		doublePrintLn(Menu.msgBloqueo()); //mover esto a ayuda o dejar permanente???
 		boolean confirmacion = pideConfirmacion();
 		if (confirmacion) {
 			p.activarBloqueo();
+			doublePrintLn(Menu.confimaBloqueo().formatted(p.getNombre()));
 		}
 		return !confirmacion;
 	}

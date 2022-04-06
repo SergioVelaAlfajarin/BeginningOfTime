@@ -1,8 +1,5 @@
 package modelo.entidades;
 
-import exception.JuegoException;
-import window.Menu;
-
 public abstract class Entidad {
 	private final String nombre;
 	private final int claseEntidad;
@@ -99,10 +96,11 @@ public abstract class Entidad {
 				'}';
 	}
 
-	public void activarBloqueo() throws JuegoException {
-		if (bloqueo) {
-			throw new JuegoException(Menu.errorBloqueoYaActivo());
-		}
+	public void activarBloqueo() {
 		bloqueo = true;
+	}
+
+	public void desactivaBloqueo() {
+		bloqueo = false;
 	}
 }

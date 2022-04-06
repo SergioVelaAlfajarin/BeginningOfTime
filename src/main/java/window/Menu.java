@@ -42,7 +42,7 @@ public abstract class Menu {
 				========================= ITEMS UPDATE 0.5 (ACTUAL) =========================
 				+ Nombre cambiado a The Beginning of Time.
 				+ Añadida historia.
-				+ Añadida posibilidad de que los enemigos suelten objetos o equipamiento despues de cada combate.
+				+ Añadida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.
 				+ Revisadas todas las opciones y mejorada la seleccion de las mismas.
 				+ Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.
 				+ Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.
@@ -85,8 +85,8 @@ public abstract class Menu {
 				1.- Fisico
 				2.- Magico
 				3.- Varios
-				4.- Inventario
-				5.- Bloquear""";
+				4.- Bloquear
+				5.- Inventario""";
 	}
 
 	public static String menuAccionesFisico() {
@@ -277,5 +277,9 @@ public abstract class Menu {
 
 	public static String errorBloqueoYaActivo() {
 		return "Bloquear ya estaba activo.";
+	}
+
+	public static String confimaBloqueo() {
+		return "Ahora %s esta bloqueando.";
 	}
 }
