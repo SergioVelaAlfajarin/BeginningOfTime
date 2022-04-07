@@ -282,4 +282,8 @@ public abstract class Menu {
 	public static String confimaBloqueo() {
 		return "Ahora %s esta bloqueando.";
 	}
+
+	public static String errorNombreNoValido() {
+		return "Introduce un nombre valido.";
+	}
 }

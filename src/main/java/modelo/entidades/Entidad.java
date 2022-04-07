@@ -3,27 +3,36 @@ package modelo.entidades;
 public abstract class Entidad {
 	private final String nombre;
 	private final int claseEntidad;
-	private int actualHP;
-	private int maxHP;
-	private int ad, ap, ar, mr, agl, lvl;
-	private boolean estado;
-	private boolean bloqueo;
+
+	private int actualHP, maxHP, ad, ap, ar, mr, agl, lvl;
+	private int adAdicional, apAdicional, arAdicional, mrAdicional, aglAdicional, maxHPAdicional;
+
+	private boolean estado, bloqueo;
 
 	protected Entidad(String nombre, int claseEntidad) {
 		this.nombre = nombre;
 		this.claseEntidad = claseEntidad;
 		this.estado = true;
 		this.bloqueo = false;
-
-		setStats();
+		initEstadisticas();
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public int getClaseEntidad() {
+	public int getClaseEntidadInt() {
 		return claseEntidad;
+	}
+
+	public String getClaseEntidadString() {
+		return switch (claseEntidad) {
+			case 1 -> "Tanque";
+			case 2 -> "Asesino";
+			case 3 -> "Caballero";
+			case 4 -> "Mago";
+			default -> "Marginado";
+		};
 	}
 
 	public int getActualHP() {
@@ -31,27 +40,27 @@ public abstract class Entidad {
 	}
 
 	public int getMaxHP() {
-		return maxHP;
+		return maxHP + maxHPAdicional;
 	}
 
 	public int getAd() {
-		return ad;
+		return ad + adAdicional;
 	}
 
 	public int getAp() {
-		return ap;
+		return ap + apAdicional;
 	}
 
 	public int getAr() {
-		return ar;
+		return ar + arAdicional;
 	}
 
 	public int getMr() {
-		return mr;
+		return mr + mrAdicional;
 	}
 
 	public int getAgl() {
-		return agl;
+		return agl + aglAdicional;
 	}
 
 	public int getLvl() {
@@ -66,16 +75,36 @@ public abstract class Entidad {
 		return bloqueo;
 	}
 
-	private void setStats() {
-		// TODO metodo set Estadisticas y clase con las estadisticas
-		maxHP = 100;
+	public void activarBloqueo() {
+		bloqueo = true;
+	}
+
+	public void desactivaBloqueo() {
+		bloqueo = false;
+	}
+
+	private void initEstadisticas() {
+		initEstadisticasAdicionales(0);
+		/*
+		int[] stats = Estadisticas.getStats(3);
+		maxHP = stats[0] + maxHPAdicional;
 		actualHP = maxHP;
-		ad = 3;
-		ap = 3;
-		ar = 3;
-		mr = 3;
-		agl = 3;
+		ad = stats[1];
+		ap = stats[2];
+		ar = stats[3];
+		mr = stats[4];
+		agl = stats[5];*/
 		lvl = 3;
+	}
+
+	public void initEstadisticasAdicionales(int nPartida) {
+		nPartida *= 11;
+		maxHPAdicional += nPartida;
+		adAdicional += nPartida;
+		apAdicional += nPartida;
+		arAdicional += nPartida;
+		mrAdicional += nPartida;
+		aglAdicional += nPartida;
 	}
 
 	public boolean recibirDmg(int dmg) {
@@ -96,11 +125,4 @@ public abstract class Entidad {
 				'}';
 	}
 
-	public void activarBloqueo() {
-		bloqueo = true;
-	}
-
-	public void desactivaBloqueo() {
-		bloqueo = false;
-	}
 }

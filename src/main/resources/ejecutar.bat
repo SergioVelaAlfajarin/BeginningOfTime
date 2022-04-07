@@ -1,6 +1,6 @@
 rem ejecutar
 
-cd ..\..\..\out\production\BeginningOfTime
+cd ..\..\..\out\
 java window.Main
 pause
-cd ..\..\..\src\main\resources
+cd ..\src\main\resources

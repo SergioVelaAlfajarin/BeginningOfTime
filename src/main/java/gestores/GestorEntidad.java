@@ -122,4 +122,10 @@ public abstract class GestorEntidad {
 		}
 		return sb.toString();
 	}
+
+	public static void aumentaEstadisticasAdicionales(int nPartida) {
+		for (Personaje p : listaPersonajes) {
+			p.initEstadisticasAdicionales(nPartida);
+		}
+	}
 }

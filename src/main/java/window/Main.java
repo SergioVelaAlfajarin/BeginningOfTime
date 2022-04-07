@@ -13,6 +13,27 @@ public class Main {
 	private static final int MAX_COMBATES = 8;
 	private static int contadorPartidas = 0;
 
+	/**
+	 * Metodo main
+	 * <hr/>
+	 * Pedira la opcion principal a elegir. Si esta es 1, el juego comenzara.
+	 * Si no, el juego terminara.
+	 * <br/>
+	 * <p>
+	 * Una vez el juego empieza, Rellenara los arrays, si estan vacios,
+	 * mostrara la historia, y luego ejecutara los combates del juego.
+	 * Cuando este termine, se ejecutara el metodo juegoCompletado, que pedira de nuevo una opcion.
+	 *  <ul>
+	 *      <li> Si la opcion es 0, se empezara una nueva partida.</li>
+	 *      <li>
+	 *          Si la opcion es 1, se repetira la parte de los combates
+	 *          con los mismos personajes y enemigos mas poderosos.
+	 *      </li>
+	 *      <li>Si la opcion es 5, se saldra del juego.</li>
+	 *  </ul>
+	 *  Cada vuelta, tendra un contador que identificara el numero de partida actual.
+	 * </p>
+	 */
 	public static void main(String[] args) {
 		int opcionMenuInicio = menuInicial();
 		if (opcionMenuInicio == 1) {
@@ -30,6 +51,18 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Metodo menuInicial
+	 * <hr/>
+	 * <p>
+	 * Limpia la pantalla, y muestra el menu principal del juego. <br/>
+	 * Pedira un numero, dentro del rango indicado(1-5).<br/>
+	 * Por ultimo, realizara la accion correspondiente al numero.<br/>
+	 * El bucle continuara hasta que 1(Empezar juego) o 5(salir juego) sea introducido.<br/>
+	 * </p>
+	 *
+	 * @return Numero 1 o 5, empezar juego o salir juego.
+	 */
 	private static int menuInicial() {
 		int numero;
 		clear();
@@ -41,6 +74,21 @@ public class Main {
 		return numero;
 	}
 
+	/**
+	 * Metodo realizaAccionMenuPrincipal
+	 * <hr/>
+	 * Evalua la accion elegida en el menu principal.
+	 * <ul>
+	 *     <li>0: Reset Juego. Solo elegible desde el menu principal del final del juego.</li>
+	 *     <li>1: Empezar Juego. Este metodo no realiza ninguna accion si 1 es elegido.</li>
+	 *     <li>2: Menu creditos. Mostrara el menu de las personas relacionadas con el juego.</li>
+	 *     <li>3: Menu changelog. Mostrara los cambios respecto a la version anterior.</li>
+	 *     <li>4: Menu cambiar idioma. Permitira cambiar el idioma a uno de los disponibles. </li>
+	 *     <li>5: Salir juego. No realizara ninguna accion si 5 es elegido. </li>
+	 * </ul>
+	 *
+	 * @param num Accion elegida por el usuario en el menu principal.
+	 */
 	private static void realizaAccionMenuPrincipal(int num) {
 		clear();
 		if (num == 0) {
@@ -58,14 +106,26 @@ public class Main {
 		clear();
 	}
 
+	/**
+	 * Metodo rellenarArrays
+	 * <hr/>
+	 * <p>
+	 * Rellenara los arrays, si estos no estan vacios.
+	 * Se hace la comprobacion para ahorrar recursos al empezar Nueva Partida +.
+	 * </p>
+	 * <p>
+	 * Si la lista de personajes no esta vacia, significa que no es una partida nueva.
+	 * Por lo tanto, Aumentaran las estadisticas de todos los personajes y enemigos.
+	 * </p>
+	 */
 	private static void rellenarArrays() {
-		clear();
-
 		if (GestorEntidad.isListaPersonajesVacio()) {
 			for (int i = 0; i < Personaje.MAX_PERSONAJES; i++) {
 				buildPersonaje(i);
 				clear();
 			}
+		} else {
+			GestorEntidad.aumentaEstadisticasAdicionales(contadorPartidas);
 		}
 
 		if (GestorEntidad.isListaEnemigosVacio()) {
@@ -83,6 +143,24 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Metodo buildPersonaje
+	 * <hr/>
+	 * <p>
+	 * Mostrara un mensaje de bienvenida, o de confirmacion, dependiendo de si ya se ha creado
+	 * un personaje.
+	 * </p>
+	 * <p>
+	 * Imprimira el menu y luego pedira un numero del 0 al 5.
+	 * El 0 es la ayuda, y lo demas las clases correspondientes.
+	 * </p>
+	 * <p>
+	 * Si se introduce un 0 imprimira la ayuda de las clases.
+	 * Si no, pedira el nombre, comprobara EasterEggs, y creara un personaje.
+	 * </p>
+	 *
+	 * @param i Numero del personaje actual en creacion.
+	 */
 	private static void buildPersonaje(int i) {
 		boolean repetir;
 		int claseElegida;
@@ -90,22 +168,76 @@ public class Main {
 		do {
 			muestraMsgPersonajeCreado(i);
 			doublePrintLn(Menu.menuClases() + "\n");
+
 			claseElegida = pideNumero(0, 5, Menu.pideClases());
-			if (claseElegida == 0) {
-				clear();
-				doublePrintLn(Menu.muestraAyudaClases() + "\n");
-				pause();
-				clear();
-				repetir = true;
-			} else {
-				print(Menu.pideNombre());
-				nombreElegido = pideCadena();
-				repetir = false;
+
+			repetir = compruebaClaseElegida(claseElegida);
+			if (!repetir) {
+				nombreElegido = pideNombre();
 			}
 		} while (repetir);
-		crearPersonaje(claseElegida, nombreElegido);
+		checkEasterEggs(nombreElegido);
+		GestorEntidad.addPersonaje(new Personaje(nombreElegido, claseElegida));
 	}
 
+	/**
+	 * Metodo compruebaClaseElegida
+	 * <hr/>
+	 * <p>
+	 * Comprobara si la clase elegida es 0. Si lo es, imprimira la ayuda.
+	 * </p>
+	 *
+	 * @param claseElegida numero introducido por el usuario al escoger la clase.
+	 * @return true, si es 0, o false si no lo es.
+	 */
+	private static boolean compruebaClaseElegida(int claseElegida) {
+		if (claseElegida == 0) {
+			clear();
+			doublePrintLn(Menu.muestraAyudaClases() + "\n");
+			pause();
+			clear();
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Metodo pideNombre
+	 * <hr/>
+	 * <p>
+	 * Pide el nombre del personaje al usuario.
+	 * Comprueba si el nombre introducido es mayor de 2 caracteres, y si no, lo volvera a pedir.
+	 * </p>
+	 *
+	 * @return nombre valido para la clase introducido por el usuario.
+	 */
+	private static String pideNombre() {
+		boolean repetir;
+		String nombre;
+		do {
+			repetir = false;
+			print(Menu.pideNombre());
+			nombre = pideCadena();
+			if (nombre.length() <= 2) {
+				printLn(Menu.errorNombreNoValido());
+				repetir = true;
+			}
+		} while (repetir);
+		return nombre;
+	}
+
+	/**
+	 * Metodo muestraMsgPersonajeCreado
+	 * <hr/>
+	 * <p>
+	 * Comprueba si el array de personajes esta vacio. Si lo esta, imprime un mensaje de bienvenida.
+	 * </p>
+	 * <p>
+	 * Si no, mostrara confirmacion de la creacion del personaje anterior.
+	 * </p>
+	 *
+	 * @param i Numero del personaje en creacion actual. Se mostrara la informacion del anterior.
+	 */
 	private static void muestraMsgPersonajeCreado(int i) {
 		if (GestorEntidad.isListaPersonajesVacio()) {
 			printLn(Menu.msgCreacionClase());
@@ -120,17 +252,37 @@ public class Main {
 		}
 	}
 
-	private static void crearPersonaje(int clase, String nombre) {
-		checkEasterEggs(nombre);
-		GestorEntidad.addPersonaje(new Personaje(nombre, clase));
-	}
-
+	/**
+	 * wip
+	 *
+	 * @param nombre
+	 */
 	private static void checkEasterEggs(String nombre) {
 		// pinga, jose, david, shiku, wakala, uwu ->(owo,nwn), peko,
 		// misteroliva, rickroll, a, fnaf -> david bisbal(Ataque fisico-> ataque
 		// giratorio)
 	}
 
+	/**
+	 * Metodo empiezaJuego
+	 * <hr/>
+	 * <p>
+	 * aqui ocurrira todo el juego. Es un bucle for que se repetira tantas
+	 * veces como encuentros haya en el juego.
+	 * En ciertas vueltas, comprobando el valor de i, la historia ira avanzando.
+	 * </p>
+	 * <p>
+	 * En cada vuelta imprimira que se acercan nuevos enemigos.
+	 * Y entrara en un bucle while, que se repetira mientras que ambos lados esten vivos.
+	 * Terminara cuando:
+	 *     <ul>
+	 *         <li> Ambos personajes mueran: se lanzara una excepcion y el juego terminara.</li>
+	 *         <li> Ambos enemigos mueran: el combate terminara e iran a la siguiente vuelta del bucle for.</li>
+	 *     </ul>
+	 * </p>
+	 *
+	 * @throws JuegoException Error si ambos personajes mueren, terminando el juego.
+	 */
 	private static void empiezaJuego() throws JuegoException {
 		clear();
 		for (int i = 1; i <= MAX_COMBATES; i++) {
@@ -157,12 +309,10 @@ public class Main {
 					throw new JuegoException(Menu.msgJuegoPerdido());
 				}
 			} while (repetirCombate);
-
-			// crear nuevos enemigos
 		}
 	}
 
-	// TODO planificar turnos
+	//TODO planificar turnos
 
 	private static void ejecutaTurnos() {
 		int arrPersonajeSize = GestorEntidad.getSizePersonaje();
@@ -172,9 +322,6 @@ public class Main {
 			Personaje p = GestorEntidad.getPersonajePorID(i);
 			if (p != null && p.isEstado()) {
 				clear();
-				if (p.isBloqueo()) {
-					p.desactivaBloqueo(); //todo
-				}
 				accionesTurno(p);
 				pause();
 			}
@@ -185,14 +332,10 @@ public class Main {
 		 */
 	}
 
-	private static void accionesTurno(Enemigo e) {
-
-	}
-
 	private static void accionesTurno(Personaje p) {
 		boolean repetirTurno;
 		do {
-			doublePrintLn(Menu.msgTurno().formatted(p.getNombre()));
+			doublePrintLn(String.format(Menu.msgTurno(),p.getNombre()));
 			doublePrintLn(Menu.menuAcciones() + "\n");
 			int accion = pideNumero(1, 5, Menu.pideAccion());
 			try {
@@ -210,11 +353,11 @@ public class Main {
 
 	private static boolean ejecutaAcciones(int accion, Personaje p) {
 		return switch (accion) {
-			case 1 -> accionFisica(p); // System.out.println("Accion fisica");
-			case 2 -> accionMagica(p); // System.out.println("Accion magica");
-			case 3 -> accionVarios(); // System.out.println("varios");
-			case 4 -> accionBloquear(p); // System.out.println("inventario");
-			default -> accionInventario(p); // System.out.println("bloquear");
+			case 1 -> accionFisica(p); // Accion fisica
+			case 2 -> accionMagica(p); // Accion magica
+			case 3 -> accionVarios(); //varios
+			case 4 -> accionBloquear(p); // bloquear
+			default -> accionInventario(p); // inventario
 		};
 	}
 
@@ -224,7 +367,7 @@ public class Main {
 		if (accionF == 4) {
 			return true;
 		}
-		eligeAtaqueFisico(accionF, p);
+		eligeAtaqueFisico(accionF, p.getAd(), p.getAgl());
 		return false;
 	}
 
@@ -234,23 +377,23 @@ public class Main {
 		if (accionM == 4) {
 			return true;
 		}
-		eligeAtaqueMagico(accionM, p);
+		eligeAtaqueMagico(accionM, p.getAp(), p.getAgl());
 		return false;
 	}
 
-	private static void eligeAtaqueFisico(int opcion, Personaje p) throws JuegoException {
-		switch (opcion) {
-			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("af_ad_1"), p.getAd(), p.getAgl());
-			case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gg_ad_2"), p.getAd(), p.getAgl());
-			case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("bf_ad_3"), p.getAd(), p.getAgl());
+	private static void eligeAtaqueFisico(int accionF, int ad, int agl) throws JuegoException {
+		switch (accionF) {
+			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("af_ad_1"), ad, agl);
+			case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gg_ad_2"), ad, agl);
+			case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("bf_ad_3"), ad, agl);
 		}
 	}
 
-	private static void eligeAtaqueMagico(int opcion, Personaje p) throws JuegoException {
+	private static void eligeAtaqueMagico(int opcion, int ap, int agl) throws JuegoException {
 		switch (opcion) {
-			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("as_ap_1"), p.getAp(), p.getAgl());
-			case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gc_ap_2"), p.getAp(), p.getAgl());
-			case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("tm_ap_2"), p.getAp(), p.getAgl());
+			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("as_ap_1"), ap, agl);
+			case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gc_ap_2"), ap, agl);
+			case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("tm_ap_2"), ap, agl);
 		}
 	}
 
@@ -349,6 +492,13 @@ public class Main {
 		return false;
 	}
 
+	//TODO planificar turnos
+
+	/**
+	 * Metodo salirJuego
+	 * <hr/>
+	 * Pide confirmacion y sale del programa.
+	 */
 	private static void salirJuego() {
 		if (pideConfirmacion()) {
 			doublePrintLn(Menu.msgSalirJuego());
@@ -356,18 +506,35 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Metodo muestraHistoria
+	 * <hr/>
+	 * imprime la historia del juego y pausa la ejecucion.
+	 */
 	private static void muestraHistoria() {
 		doublePrintLn(Menu.muestraHistoriaJuego());
 		pause();
 	}
 
+	/**
+	 * Metodo juegoCompletado
+	 * <hr/>
+	 * <p>
+	 *      Mostrara el nuevo menu Principal, al terminar el juego, con la opcion
+	 *      extra de poder empezar nueva partida+.
+	 * </p>
+	 * <p>
+	 *     Si 0 (empezar de nuevo el juego) es introducido, pedira confirmacion. y si se introduce que no,
+	 *     el bucle se repetira sin que ocurra nada.
+	 * </p>
+	 * @return 0, 1 o 5. 0 significa empezar de nuevo, 1 empezar nueva partida +, y 5 es salir del juego.
+	 */
 	private static int juegoCompletado() {
 		clear();
 		int opcion;
 		do {
 			doublePrintLn(Menu.menuInicialSecundario(contadorPartidas));
 			opcion = pideNumero(0, 5, Menu.pideAccion());
-			// si 0 es introducido y luego se introduce que no, el bucle se repetira.
 			if ((opcion == 0) && (!pideConfirmacion())) {
 				opcion = Integer.MIN_VALUE;
 			}
