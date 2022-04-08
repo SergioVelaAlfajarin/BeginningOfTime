@@ -312,8 +312,6 @@ public class Main {
 		}
 	}
 
-	//TODO planificar turnos
-
 	private static void ejecutaTurnos() {
 		int arrPersonajeSize = GestorEntidad.getSizePersonaje();
 		int arrEnemigoSize = GestorEntidad.getSizeEnemigo();
@@ -404,42 +402,39 @@ public class Main {
 		if (!at.isAttackUsable(stat)) {
 			throw new JuegoException(Menu.errorAtaqueNoDisponible());
 		}
-
-		int dmg = at.calculateDamage(stat);
-		boolean isCritico = Ataque.isCritico(agl);
-		if (isCritico) {
-			dmg *= 1.4;
-		}
-
 		Enemigo e = pideEnemigo();
-		dmg -= at.getStat().equalsIgnoreCase("ad") ? Ataque.calcularReduccionDmgArmadura(e.getAr())
-				: Ataque.calcularReduccionDmgMagico(e.getMr());
-
+		boolean isCritico = Ataque.isCritico(agl);
 		boolean isBloqueo = e.isBloqueo();
 
-		if (isBloqueo) {
-			dmg /= 2;
+		int dmg = at.calculateDamage(stat, isCritico, isBloqueo);
+
+		if(at.getStat().equalsIgnoreCase("ad")){
+			dmg -= Ataque.calcularReduccionDmgArmadura(e.getAr());
+		}else{
+			dmg -= Ataque.calcularReduccionDmgMagico(e.getMr());
 		}
 
 		boolean isVivo = e.recibirDmg(dmg);
 
-		String strInfo = buildInfoString(isCritico, isVivo, isBloqueo, dmg, e.getNombre());
+		String strInfo = buildInfoString(e.getNombre(), dmg, isCritico, isBloqueo, isVivo);
 		doublePrintLn(strInfo);
 	}
 
-	private static String buildInfoString(boolean isCritical, boolean isAlive,
-	                                      boolean isBloqueo, int dmg, String name) {
+	static String buildInfoString(
+			String name, int dmg, boolean isCritical, boolean isBloqueo, boolean isVivo
+	) {
 		StringBuilder sb = new StringBuilder();
+		if (isBloqueo)
+			sb.append("El enemigo estaba bloqueando.\n");
+
 		if (isCritical)
 			sb.append("Ataque critico! ");
-		if (isBloqueo) {
-			sb.append("El enemigo estaba bloqueando y ha recibido %d de daño.".formatted(dmg));
-		} else {
-			sb.append("Has conseguido hacer %d pts de daño. ".formatted(dmg));
-		}
-		if (!isAlive)
-			sb.append("%s ha muerto".formatted(name));
-		sb.append("\n");
+
+		sb.append("Has conseguido hacer %d pts de daño.\n".formatted(dmg));
+
+		if (!isVivo)
+			sb.append("%s ha muerto.\n".formatted(name));
+
 		return sb.toString();
 	}
 

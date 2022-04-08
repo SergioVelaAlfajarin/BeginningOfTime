@@ -70,10 +70,17 @@ public final class Ataque {
 		return stat >= minRequerido;
 	}
 
-	public int calculateDamage(int stat) {
+	public int calculateDamage(int stat, boolean isCritico, boolean isBloqueo) {
 		double dmgAdicional = stat * escalado;
 		int dmgAleatorio = Main.generarRandomNum(((dmgAdicional * 18) / 100));
-		return (int) (dmgAtaque + dmgAleatorio + dmgAdicional);
+		double dmgTotal = (dmgAtaque + dmgAleatorio + dmgAdicional);
+		if(isCritico){
+			dmgTotal *= 1.4;
+		}
+		if(isBloqueo){
+			dmgTotal /= 2;
+		}
+		return (int) dmgTotal;
 	}
 
 	public static int calcularReduccionDmgMagico(int mr) {
