@@ -114,6 +114,9 @@ public abstract class Entidad {
 			bloqueo = false;
 			actualHP = 0;
 		}
+		if(bloqueo){
+			bloqueo = false;
+		}
 		return estado;
 	}
 

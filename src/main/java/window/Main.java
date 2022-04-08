@@ -176,7 +176,7 @@ public class Main {
 				nombreElegido = pideNombre();
 			}
 		} while (repetir);
-		checkEasterEggs(nombreElegido);
+		//checkEasterEggs(nombreElegido);
 		GestorEntidad.addPersonaje(new Personaje(nombreElegido, claseElegida));
 	}
 
@@ -253,17 +253,6 @@ public class Main {
 	}
 
 	/**
-	 * wip
-	 *
-	 * @param nombre
-	 */
-	private static void checkEasterEggs(String nombre) {
-		// pinga, jose, david, shiku, wakala, uwu ->(owo,nwn), peko,
-		// misteroliva, rickroll, a, fnaf -> david bisbal(Ataque fisico-> ataque
-		// giratorio)
-	}
-
-	/**
 	 * Metodo empiezaJuego
 	 * <hr/>
 	 * <p>
@@ -312,6 +301,9 @@ public class Main {
 		}
 	}
 
+	/**
+	 * TODO turno enemigos
+	 */
 	private static void ejecutaTurnos() {
 		int arrPersonajeSize = GestorEntidad.getSizePersonaje();
 		int arrEnemigoSize = GestorEntidad.getSizeEnemigo();
@@ -527,7 +519,7 @@ public class Main {
 	 * @param name Nombre del receptor del ataque.
 	 * @param dmg Daño realizado al receptor.
 	 * @param isCritical Si el ataque ha sido critico.
-	 * @param isBloqueo Si el ataque ha sido bloqueado por el receptor.
+	 * @param isBloqueo Si el ataque ha sido bloqueado por el receptor. Este sera desactivado al recibir daño.
 	 * @param isVivo true si el enemigo esta vivo y false si muerto.
 	 * @return cadena editada con la informacion pasada por parametro.
 	 */
@@ -549,38 +541,80 @@ public class Main {
 		return sb.toString();
 	}
 
+	/**
+	 * Metodo accionVarios
+	 * <hr/>
+	 * <p>
+	 *     Mostrara el menu de acciones Varias. Ninguna accion puede pasar el turno.
+	 *     Puede que el juego termine si el usuario asi lo decide.
+	 * </p>
+	 * @return true, pues ninguna accion omitira el turno.
+	 */
 	private static boolean accionVarios() {
 		doublePrintLn(Menu.menuAccionesOtros() + "\n");
 		int accionV = pideNumero(1, 5, Menu.pideAccion());
 		switch (accionV) {
-			case 1 -> accionVariosEstadisticas(); // stats personajes y enemigos
-			case 2 -> accionVariosAyudaJuego(); // info game
-			case 3 -> accionVariosAyudaAtaques(); // info attacks
-			case 4 -> salirJuego(); // exitgame
+			case 1 -> accionVariosEstadisticas();
+			case 2 -> accionVariosAyudaJuego();
+			case 3 -> accionVariosAyudaAtaques();
+			case 4 -> salirJuego();
 			// volver: no hay opcion porque volvera automaticamente.
 		}
 		return true;
 	}
 
+	/**
+	 * Metodo accionVariosEstadisticas
+	 * <hr/>
+	 * <p>
+	 *     Limpia la pantalla y muestra las estadisticas de todos los personajes y enemigos.
+	 * </p>
+	 */
 	private static void accionVariosEstadisticas() {
 		clear();
 		doublePrintLn(Menu.muestraStats());
 		pause();
 	}
 
+	/**
+	 * Metodo accionVariosAyudaJuego
+	 * <hr/>
+	 * <p>
+	 *     Limpia la pantalla y muestra ayuda relacionada con el juego.
+	 * </p>
+	 */
 	private static void accionVariosAyudaJuego() {
 		clear();
 		doublePrintLn(Menu.muestraAyudaJuego());
 		pause();
 	}
 
+	/**
+	 * Metodo accionVariosAyudaAtaques
+	 * <hr/>
+	 * <p>
+	 *     Limpia la pantalla y muestra la ayuda de todos los ataques.
+	 * </p>
+	 */
 	private static void accionVariosAyudaAtaques() {
 		clear();
 		doublePrintLn(Menu.muestraAyudaAtaques());
 		pause();
 	}
 
-	private static boolean accionBloquear(Personaje p) {
+	/**
+	 * Metodo accionBloquear
+	 * <hr/>
+	 * <p>
+	 *      Comprobara si el bloqueo ya esta activo. Si no, pedira confirmacion, y lo activara
+	 *      si es afirmativa.
+	 * </p>
+	 * @param p Personaje el cual se le activara el bloqueo.
+	 * @return La negacion de la confirmacion. Si el usuario activara el bloqueo,
+	 *         el combate no debera ser repetido, y devolvera false
+	 * @throws JuegoException error si el bloqueo ya estaba activo.
+	 */
+	private static boolean accionBloquear(Personaje p) throws JuegoException{
 		if (p.isBloqueo()) {
 			throw new JuegoException(Menu.errorBloqueoYaActivo());
 		}
@@ -593,12 +627,13 @@ public class Main {
 		return !confirmacion;
 	}
 
+	/**
+	 *TODO accion inventario
+	 */
 	private static boolean accionInventario(Personaje p) {
 		doublePrintLn("INV wip");
 		return false;
 	}
-
-	//TODO planificar turnos
 
 	/**
 	 * Metodo salirJuego
@@ -649,6 +684,13 @@ public class Main {
 		return opcion;
 	}
 
+	/**
+	 * Metodo resetJuego
+	 * <hr/>
+	 * <p>
+	 *     Reinicia los arrays del juego y resetea el contador de partidas.
+	 * </p>
+	 */
 	private static void resetJuego() {
 		GestorEntidad.resetArrays();
 		contadorPartidas = 0;
