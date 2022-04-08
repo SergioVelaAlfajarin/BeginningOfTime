@@ -252,6 +252,10 @@ public abstract class Menu {
 		return "Elige una clase para tu Personaje: ";
 	}
 
+	public static String msgEnemigoAtaqueEsquivado() {
+		return "El enemigo ha esquivado el ataque!";
+	}
+
 	// ERRORES -----------------------------------------------------------
 
 	public static String errorEnemigoNoEncontrado() {
@@ -286,4 +290,5 @@ public abstract class Menu {
 	public static String errorNombreNoValido() {
 		return "Introduce un nombre valido.";
 	}
+
 }

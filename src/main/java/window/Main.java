@@ -330,6 +330,22 @@ public class Main {
 		 */
 	}
 
+	/**
+	 * Metodo accionesTurno
+	 * <hr/>
+	 * <p>
+	 *     Creara un bucle while, que se repetira mientras que el turno del personaje
+	 *     no deba terminar.
+	 *     El bucle no terminara hasta que:
+	 *     <ul>
+	 *         <li> Use un ataque que realize algun daño al enemigo </li>
+	 *         <li> Decida bloquear, reduciendo el daño y omitiendo el turno.</li>
+	 *         <li> Salga del menu inventario, despues de realizar minimo una accion.</li>
+	 *         <li> Salga del juego desde el menu varios.</li>
+	 *     </ul>
+	 * </p>
+	 * @param p Personaje al que le corresponde el turno actual.
+	 */
 	private static void accionesTurno(Personaje p) {
 		boolean repetirTurno;
 		do {
@@ -349,17 +365,40 @@ public class Main {
 		} while (repetirTurno);
 	}
 
-	private static boolean ejecutaAcciones(int accion, Personaje p) {
+	/**
+	 * Metodo ejecutaAcciones
+	 * <hr/>
+	 * <p>
+	 *     Evalua la opcion del usuario, y ejecuta la accion correspondiente.
+	 * </p>
+	 *
+	 * @param accion Accion introducida por el usuario, del 1 al 5.
+	 * @param p Personaje que ejecutara la accion.
+	 * @return true o false, dependiendo de si el turno debe ser repetido o no.
+	 * @throws JuegoException Lanzara una excepcion si la ejecucion debe ser detenida.
+	 */
+	private static boolean ejecutaAcciones(int accion, Personaje p) throws JuegoException{
 		return switch (accion) {
-			case 1 -> accionFisica(p); // Accion fisica
-			case 2 -> accionMagica(p); // Accion magica
-			case 3 -> accionVarios(); //varios
-			case 4 -> accionBloquear(p); // bloquear
-			default -> accionInventario(p); // inventario
+			case 1 -> accionFisica(p);
+			case 2 -> accionMagica(p);
+			case 3 -> accionVarios();
+			case 4 -> accionBloquear(p);
+			default -> accionInventario(p);
 		};
 	}
 
-	private static boolean accionFisica(Personaje p) {
+	/**
+	 * Metodo accionFisica
+	 * <hr/>
+	 * <p>
+	 *     Imprime el menu de ataques fisicos.
+	 *     El usuario volvera a introducir un numero del 1 al 4.
+	 * </p>
+	 * @param p Personaje realizando la accion.
+	 * @return true o false si el turno debe ser omitido.
+	 * @throws JuegoException Lanzara una excepcion si el Personaje no puede ejecutar el ataque seleccionado.
+	 */
+	private static boolean accionFisica(Personaje p) throws JuegoException {
 		doublePrintLn(Menu.menuAccionesFisico() + "\n");
 		int accionF = pideNumero(1, 4, Menu.pideAccion());
 		if (accionF == 4) {
@@ -369,7 +408,18 @@ public class Main {
 		return false;
 	}
 
-	private static boolean accionMagica(Personaje p) {
+	/**
+	 * Metodo accionMagica
+	 * <hr/>
+	 * <p>
+	 *     Imprime el menu de ataques magicos.
+	 *     El usuario volvera a introducir un numero del 1 al 4.
+	 * </p>
+	 * @param p Personaje realizando la accion.
+	 * @return true o false si el turno debe ser omitido.
+	 * @throws JuegoException Lanzara una excepcion si el Personaje no puede ejecutar el ataque seleccionado.
+	 */
+	private static boolean accionMagica(Personaje p) throws JuegoException{
 		doublePrintLn(Menu.menuAccionesMagico() + "\n");
 		int accionM = pideNumero(1, 4, Menu.pideAccion());
 		if (accionM == 4) {
@@ -379,6 +429,18 @@ public class Main {
 		return false;
 	}
 
+	/**
+	 * Metodo eligeAtaqueFisico
+	 * <hr/>
+	 * <p>
+	 *     Recoge el ataque correspondiente al elegido por el usuario del array de ataques.
+	 *     Con este ataque, el ad y la agilidad del personaje ejecutara el ataque.
+	 * </p>
+	 * @param accionF Ataque elegido por el usuario. Del 1 al 3.
+	 * @param ad Estadistica AD del personaje ejecutando el ataque.
+	 * @param agl Estadistica AGL del personaje ejecutando el ataque.
+	 * @throws JuegoException Si el ataque no puede ser usado lanzara una excepcion.
+	 */
 	private static void eligeAtaqueFisico(int accionF, int ad, int agl) throws JuegoException {
 		switch (accionF) {
 			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("af_ad_1"), ad, agl);
@@ -387,14 +449,44 @@ public class Main {
 		}
 	}
 
-	private static void eligeAtaqueMagico(int opcion, int ap, int agl) throws JuegoException {
-		switch (opcion) {
+	/**
+	 * Metodo eligeAtaqueMagico
+	 * <hr/>
+	 * <p>
+	 *     Recoge el ataque correspondiente al elegido por el usuario del array de ataques.
+	 *     Con este ataque, el ap y la agilidad del personaje ejecutara el ataque.
+	 * </p>
+	 * @param accionF Ataque elegido por el usuario. Del 1 al 3.
+	 * @param ap Estadistica AP del personaje ejecutando el ataque.
+	 * @param agl Estadistica AGL del personaje ejecutando el ataque.
+	 * @throws JuegoException Si el ataque no puede ser usado lanzara una excepcion.
+	 */
+	private static void eligeAtaqueMagico(int accionF, int ap, int agl) throws JuegoException {
+		switch (accionF) {
 			case 1 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("as_ap_1"), ap, agl);
 			case 2 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("gc_ap_2"), ap, agl);
 			case 3 -> ejecutaAtaque(GestorNoEntidad.getAtaquePorID("tm_ap_2"), ap, agl);
 		}
 	}
 
+	/**
+	 * Metodo ejecutaAtaque
+	 * <hr/>
+	 * <p>
+	 *     <ol>
+	 *         <li>Compueba que el ataque no es nulo y es usable. Si no, lanzara una excepcion.</li>
+	 *         <li>Entonces pedira un enemigo, que sera el objetivo del ataque.</li>
+	 *         <li>Comprobara si el ataque ha sido esquivado con el agl del enemigo. Si ha sido esquivado el metodo terminara.</li>
+	 *         <li>Si no, calculara el dmg del ataque, si es critico, y la reduccion de daño en base a la resistencia del objetivo.</li>
+	 *         <li>Cuando el enemigo reciba el daño, devolvera false si este ha muerto.</li>
+	 *         <li>Por ultimo construira una cadena para devolver informacion al usuario.</li>
+	 *     </ol>
+	 * </p>
+	 * @param at Ataque para ser ejecutado.
+	 * @param stat Estadistica del personaje con la que el ataque escalara.
+	 * @param agl Agilidad del Personaje, para calcular si el ataque es critico.
+	 * @throws JuegoException Lanzara una excepcion si el ataque es nulo o no es usable.
+	 */
 	private static void ejecutaAtaque(Ataque at, int stat, int agl) throws JuegoException {
 		if (at == null) {
 			throw new JuegoException(Menu.errorInesperado());
@@ -403,23 +495,42 @@ public class Main {
 			throw new JuegoException(Menu.errorAtaqueNoDisponible());
 		}
 		Enemigo e = pideEnemigo();
-		boolean isCritico = Ataque.isCritico(agl);
-		boolean isBloqueo = e.isBloqueo();
 
-		int dmg = at.calculateDamage(stat, isCritico, isBloqueo);
+		if(Ataque.calcularAtaqueEsquivado(e.getAgl())){
+			doublePrintLn(Menu.msgEnemigoAtaqueEsquivado());
+		} else{
+			boolean isCritico = Ataque.isCritico(agl);
+			boolean isBloqueo = e.isBloqueo();
 
-		if(at.getStat().equalsIgnoreCase("ad")){
-			dmg -= Ataque.calcularReduccionDmgArmadura(e.getAr());
-		}else{
-			dmg -= Ataque.calcularReduccionDmgMagico(e.getMr());
+			int dmg = at.calculateDamage(stat, isCritico, isBloqueo);
+
+			if(at.getStat().equalsIgnoreCase("ad")){
+				dmg -= Ataque.calcularReduccionDmgArmadura(e.getAr());
+			}else{
+				dmg -= Ataque.calcularReduccionDmgMagico(e.getMr());
+			}
+
+			boolean isVivo = e.recibirDmg(dmg);
+
+			String strInfo = buildInfoString(e.getNombre(), dmg, isCritico, isBloqueo, isVivo);
+			doublePrintLn(strInfo);
 		}
-
-		boolean isVivo = e.recibirDmg(dmg);
-
-		String strInfo = buildInfoString(e.getNombre(), dmg, isCritico, isBloqueo, isVivo);
-		doublePrintLn(strInfo);
 	}
 
+	/**
+	 * Metodo buildInforString
+	 * <hr/>
+	 * <p>
+	 *     Constriura una cadena con la informacion del ataque realizado.
+	 * </p>
+	 *
+	 * @param name Nombre del receptor del ataque.
+	 * @param dmg Daño realizado al receptor.
+	 * @param isCritical Si el ataque ha sido critico.
+	 * @param isBloqueo Si el ataque ha sido bloqueado por el receptor.
+	 * @param isVivo true si el enemigo esta vivo y false si muerto.
+	 * @return cadena editada con la informacion pasada por parametro.
+	 */
 	static String buildInfoString(
 			String name, int dmg, boolean isCritical, boolean isBloqueo, boolean isVivo
 	) {

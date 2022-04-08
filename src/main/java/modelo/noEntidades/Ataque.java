@@ -6,14 +6,6 @@ import window.Main;
 import java.util.Objects;
 
 public final class Ataque {
-	// 1:dmg, 2:minRequired, 3:stat, 4:scaling
-	private static final Object[] af_ad_1_info = {30, 2, "ad", 4.5};
-	private static final Object[] gg_ad_2_info = {60, 10, "ad", 4.0};
-	private static final Object[] bf_ad_3_info = {42, 6, "ad", 3.5};
-	private static final Object[] as_ap_1_info = {20, 2, "ap", 5.5};
-	private static final Object[] gc_ap_2_info = {25, 10, "ap", 6.0};
-	private static final Object[] tm_ap_2_info = {20, 6, "ap", 4.8};
-
 	private String ID;
 	private Integer dmgAtaque;
 	private Integer minRequerido;
@@ -30,14 +22,19 @@ public final class Ataque {
 		return (Main.generarRandomNum(150)) < probabilidad;
 	}
 
+	public static boolean calcularAtaqueEsquivado(int agl) {
+		//TODO hacer esquivar ataque
+		return false;
+	}
+
 	private void initAtaque() {
-		switch (ID.toLowerCase()) {
-			case "af_ad_1" -> rellenaVariables(af_ad_1_info);
-			case "gg_ad_2" -> rellenaVariables(gg_ad_2_info);
-			case "bf_ad_3" -> rellenaVariables(bf_ad_3_info);
-			case "as_ap_1" -> rellenaVariables(as_ap_1_info);
-			case "gc_ap_2" -> rellenaVariables(gc_ap_2_info);
-			case "tm_ap_2" -> rellenaVariables(tm_ap_2_info);
+		switch (ID.toLowerCase()) { // 1:dmg, 2:minRequired, 3:stat, 4:scaling
+			case "af_ad_1" -> rellenaVariables(new Object[]{30, 2 , "ad", 4.5});
+			case "gg_ad_2" -> rellenaVariables(new Object[]{60, 10, "ad", 4.0});
+			case "bf_ad_3" -> rellenaVariables(new Object[]{42, 6 , "ad", 3.5});
+			case "as_ap_1" -> rellenaVariables(new Object[]{20, 2 , "ap", 5.5});
+			case "gc_ap_2" -> rellenaVariables(new Object[]{25, 10, "ap", 6.0});
+			case "tm_ap_2" -> rellenaVariables(new Object[]{20, 6 , "ap", 4.8});
 			default -> throw new JuegoException("Ataque ID no valido");
 		}
 	}
