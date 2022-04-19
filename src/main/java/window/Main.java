@@ -245,7 +245,7 @@ public class Main {
 			int ultPersonajeCreado = i - 1;
 			Personaje p = GestorEntidad.getPersonajePorID(ultPersonajeCreado);
 			if (p != null) {
-				printLn(Menu.msgPersonajeCreado().formatted(
+				printLn(String.format(Menu.msgPersonajeCreado(),
 						p.getNombre(), i, Personaje.MAX_PERSONAJES
 				));
 			}
@@ -526,6 +526,7 @@ public class Main {
 	static String buildInfoString(
 			String name, int dmg, boolean isCritical, boolean isBloqueo, boolean isVivo
 	) {
+		//TODO usar clase menu para los textos
 		StringBuilder sb = new StringBuilder();
 		if (isBloqueo)
 			sb.append("El enemigo estaba bloqueando.\n");
@@ -533,10 +534,10 @@ public class Main {
 		if (isCritical)
 			sb.append("Ataque critico! ");
 
-		sb.append("Has conseguido hacer %d pts de daño.\n".formatted(dmg));
+		sb.append(String.format("Has conseguido hacer %d pts de daño.\n",dmg));
 
 		if (!isVivo)
-			sb.append("%s ha muerto.\n".formatted(name));
+			sb.append(String.format("%s ha muerto.\n",name));
 
 		return sb.toString();
 	}
@@ -553,12 +554,12 @@ public class Main {
 	private static boolean accionVarios() {
 		doublePrintLn(Menu.menuAccionesOtros() + "\n");
 		int accionV = pideNumero(1, 5, Menu.pideAccion());
+		// volver: no hay opcion porque volvera automaticamente.
 		switch (accionV) {
 			case 1 -> accionVariosEstadisticas();
 			case 2 -> accionVariosAyudaJuego();
 			case 3 -> accionVariosAyudaAtaques();
 			case 4 -> salirJuego();
-			// volver: no hay opcion porque volvera automaticamente.
 		}
 		return true;
 	}
@@ -622,7 +623,7 @@ public class Main {
 		boolean confirmacion = pideConfirmacion();
 		if (confirmacion) {
 			p.activarBloqueo();
-			doublePrintLn(Menu.confimaBloqueo().formatted(p.getNombre()));
+			doublePrintLn(String.format(Menu.confimaBloqueo(),p.getNombre()));
 		}
 		return !confirmacion;
 	}
@@ -762,7 +763,7 @@ public class Main {
 			if (System.getProperty("os.name").contains("Windows"))
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 			else
-				Runtime.getRuntime().exec("clear");
+				new ProcessBuilder().command("clear");
 		} catch (Exception ignored) {
 		}
 	}

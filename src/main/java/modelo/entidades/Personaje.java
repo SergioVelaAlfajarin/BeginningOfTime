@@ -1,8 +1,8 @@
 package modelo.entidades;
 
 import gestores.GestorEntidad;
-import modelo.noEntidades.obj.ObjEquipable;
-import modelo.noEntidades.obj.ObjUsable;
+import modelo.noEntidades.Equipo;
+import modelo.noEntidades.Item;
 import window.Menu;
 
 public final class Personaje extends Entidad {
@@ -11,15 +11,15 @@ public final class Personaje extends Entidad {
 	public static final String NOMBRE_PERSONAJE_PRINCIPAL = "Karim";
 
 	private final int ID;
-	private final ObjUsable[] inv = new ObjUsable[MAX_SIZE_INVENTARIO];
+	private final Item[] inv = new Item[MAX_SIZE_INVENTARIO];
 	private int xpRequerida, xpActual;
 
-	private ObjEquipable cabeza;
-	private ObjEquipable pechera;
-	private ObjEquipable pantalones;
-	private ObjEquipable guantes;
-	private ObjEquipable botas;
-	private ObjEquipable colgante;
+	private Equipo cabeza;
+	private Equipo pechera;
+	private Equipo pantalones;
+	private Equipo guantes;
+	private Equipo botas;
+	private Equipo colgante;
 
 	public Personaje(String nombre, int clase) {
 		super(nombre, clase);
