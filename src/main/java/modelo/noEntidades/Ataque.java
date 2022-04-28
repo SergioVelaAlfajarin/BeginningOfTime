@@ -1,7 +1,7 @@
 package modelo.noEntidades;
 
 import exception.JuegoException;
-import window.Main;
+import window.Principal;
 
 import java.util.Objects;
 
@@ -17,18 +17,21 @@ public final class Ataque {
 		initAtaque();
 	}
 
+	//Testeable
 	public static boolean isCritico(int posibilidad) {
 		int probabilidad = (int) (posibilidad * Math.PI);
-		return (Main.generarRandomNum(150)) < probabilidad;
+		return (Principal.generarRandomNum(150)) < probabilidad;
 	}
 
+	//Testeable
 	public static boolean calcularAtaqueEsquivado(int agl) {
 		//TODO hacer esquivar ataque
 		return false;
 	}
 
+	//Testeable
 	private void initAtaque() {
-		switch (ID.toLowerCase()) { // 1:dmg, 2:minRequired, 3:stat, 4:scaling
+		switch (ID) { // 1:dmg, 2:minRequired, 3:stat, 4:scaling
 			case "af_ad_1" -> rellenaVariables(new Object[]{30, 2 , "ad", 4.5});
 			case "gg_ad_2" -> rellenaVariables(new Object[]{60, 10, "ad", 4.0});
 			case "bf_ad_3" -> rellenaVariables(new Object[]{42, 6 , "ad", 3.5});
@@ -39,6 +42,8 @@ public final class Ataque {
 		}
 	}
 
+	//Testeable
+	//hacer reduccion de daño en el propio calculo del daño?
 	public static int calcularReduccionDmgArmadura(int ar) {
 		return (int) (ar * Math.PI);
 	}
@@ -69,7 +74,7 @@ public final class Ataque {
 
 	public int calculateDamage(int stat, boolean isCritico, boolean isBloqueo) {
 		double dmgAdicional = stat * escalado;
-		int dmgAleatorio = Main.generarRandomNum(((dmgAdicional * 18) / 100));
+		int dmgAleatorio = Principal.generarRandomNum(((dmgAdicional * 18) / 100));
 		double dmgTotal = (dmgAtaque + dmgAleatorio + dmgAdicional);
 		if(isCritico){
 			dmgTotal *= 1.4;
@@ -88,11 +93,12 @@ public final class Ataque {
 		if (ID == null || ID.length() == 0) {
 			throw new JuegoException("Ataque ID no puede ser nulo");
 		}
+		ID = ID.toLowerCase();
 		String regExId = "[a-z][a-z]_[a-z][a-z]_[0-9]";
-		if (!(ID.toLowerCase().matches(regExId))) {
+		if (!(ID.matches(regExId))) {
 			throw new JuegoException("Ataque ID no es valido");
 		}
-		this.ID = ID.toLowerCase();
+		this.ID = ID;
 	}
 
 	private void rellenaVariables(Object[] arr) {

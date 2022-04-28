@@ -15,11 +15,13 @@ public final class Enemigo extends Entidad {
 			Personaje.NOMBRE_PERSONAJE_PRINCIPAL};
 	private final int ID;
 
+	//Testeable
 	public Enemigo(int n) throws JuegoException {
 		super(claseEnemigo(2) + n, -1);
 		ID = GestorEntidad.getSizeEnemigo();
 	}
 
+	//Testeable
 	private static String claseEnemigo(int i) throws JuegoException {
 		if (i <= 6) {
 			return tipos[0];

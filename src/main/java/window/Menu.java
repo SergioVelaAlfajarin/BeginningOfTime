@@ -7,38 +7,24 @@ public abstract class Menu {
 
 	// MENUS ----------------------------------------------
 
-	public static String menuInicialSecundario(int vecesJugado) {
-		StringBuilder temp = new StringBuilder(Menu.muestraMarca() + "\n");
+	public static String MENU_PRINCIPAL_2 = Menu.MUESTRA_MARCA + """
 
-		temp.append("0.- Empezar de nuevo");
-		temp.append("\n");
-		temp.append("1.- Nueva Partida");
-		if (vecesJugado >= 5)
-			temp.append("+").append(vecesJugado);
-		else
-			temp.append("+".repeat(Math.max(1, vecesJugado)));
-		temp.append("\n");
-		temp.append("""
+				0.- Empezar de nuevo
+				1.- Nueva Partida %s
 				2.- Extras
 				3.- ChangeLog
 				4.- Cambiar Idioma (Change Language)
-				5.- Salir del juego""");
+				5.- Salir del juego""";
 
-		return temp.toString();
-	}
-
-	public static String menuPrincipal() {
-		return Menu.muestraMarca() + """
+	public static final String MENU_PRINCIPAL = Menu.MUESTRA_MARCA + """
 
 				1.- Nueva Partida
 				2.- Extras
 				3.- ChangeLog
 				4.- Cambiar Idioma (Change Language)
 				5.- Salir del juego""";
-	}
 
-	public static String menuChangeLog() {
-		return """
+	public static final String MENU_CHANGELOG = """
 				========================= ITEMS UPDATE 0.5 (ACTUAL) =========================
 				+ Nombre cambiado a The Beginning of Time.
 				+ Añadida historia.
@@ -56,68 +42,56 @@ public abstract class Menu {
 				========================= CONTENT UPDATE 0.6 (PROXIMAMENTE) =================
 				 + Traduccion a otros idiomas.
 				 + Mas enemigos, personajes, objetos y equipamiento.""";
-	}
 
-	public static String menuCreditos() {
-		return """
+	public static final String MENU_EXTRAS = """
 				Idea original: Shiku.
 				Programador: Shiku.
 				Diseños conceptuales: Josert
 				Testers: Dakos, Josert.""";
-	}
 
-	public static String menuClases() {
-		return """
+	public static String MENU_CLASES = """
 				0.- Ayuda e informacion sobre las clases.
 				1.- Tanque        (HP: 100, AD: 1, AP: 1, AR: 2, MR: 2, AGL: 0)
 				2.- Asesino       (HP: 90,  AD: 2, AP: 1, AR: 1, MR: 0, AGL: 3)
 				3.- Caballero     (HP: 90,  AD: 2, AP: 0, AR: 2, MR: 2, AGL: 1)
 				4.- Mago          (HP: 90,  AD: 1, AP: 3, AR: 0, MR: 0, AGL: 2)
 				5.- Marginado     (HP: 90,  AD: 2, AP: 0, AR: 1, MR: 2, AGL: 2)""";
-	}
 
-	public static String changeLangMenu() {
-		return "\nEsta opcion esta temporalmente deshabilitada.";
-	}
+	public static final String MENU_CAMBIAR_IDIOMA =
+			"Esta opcion esta temporalmente deshabilitada.";
 
-	public static String menuAcciones() {
-		return """
+	public static final String MENU_ACCIONES = """
 				1.- Fisico
 				2.- Magico
 				3.- Varios
 				4.- Bloquear
 				5.- Inventario""";
-	}
 
-	public static String menuAccionesFisico() {
-		return """
+	public static final String MENU_ACCIONES_FISICO = """
 				1.- Ataque rapido   (Minimo: 2 AD)
 				2.- Gran Golpe      (Minimo: 9 AD)
 				3.- Barrido         (Minimo: 5 AD)
 				4.- Volver""";
-	}
+	
 
-	public static String menuAccionesMagico() {
-		return """
-				1.- AquaSplash		(Minimo: 2 AP)
-				2.- Combustion		(Minimo: 9 AP)
-				3.- Tornado			(Minimo: 5 AP)
+	public static final String MENU_ACCIONES_MAGICO = """
+				1.- AquaSplash      (Minimo: 2 AP)
+				2.- Combustion      (Minimo: 9 AP)
+				3.- Tornado         (Minimo: 5 AP)
 				4.- Volver""";
-	}
+	
 
-	public static String menuAccionesOtros() {
-		return """
+	public static final String MENU_ACCIONES_VARIOS = """
 				1.- Estadisticas de Personajes y Enemigos
 				2.- Informacion del Juego
 				3.- Informacion de los ataques
 				4.- Salir del juego
 				5.- volver""";
-	}
+	
 
 	// MUESTRA COSAS -----------------------------------
 
-	public static String muestraMarca() {
-		return """
+	public static final String MUESTRA_MARCA = """
 				         /\\
 				      _-/- \\
 				     - /   -\\-_
@@ -128,10 +102,9 @@ public abstract class Menu {
 				     SHI-GAMES
 				    2021 - SPAIN
 				""";
-	}
+	
 
-	public static String muestraAyudaClases() {
-		return """
+	public static final String MUESTRA_AYUDA_CLASES = """
 				============ AYUDA SOBRE LAS CLASES ================
 
 				1.- Tanque: Clase especializada en la resistencia y el aguante. Mucha vida y armadura.
@@ -153,142 +126,73 @@ public abstract class Menu {
 				5.- Marginado: Clase para jugadores curtidos. No tiene ninguna ventaja. Le costara mas subir de nivel,
 				y sus estadisticas no aumentaran tanto como las otras clases. Un verdadero reto.
 				Nivel 20: (HP: 180,  AD: 8, AP: 8, AR: 5, MR: 6, AGL: 6)""";
-	}
+	
 
-	public static String muestraAyudaAtaques() {
-		return GestorNoEntidad.getInfoAtaques();
-	}
+	public static final String MUESTRA_AYUDA_ATAQUES = GestorNoEntidad.getInfoAtaques();
 
-	public static String muestraAyudaJuego() {
-		return "Aqui ira la ayuda del juego.";
-	}
+	public static final String MUESTRA_AYUDA_JUEGO = "Aqui ira la ayuda del juego.";
 
-	public static String muestraHistoriaJuego() {
-		return "Aqui ira la historia del juego.";
-	}
+	public static final String MUESTRA_HISTORIA = "Aqui ira la historia del juego.";
 
-	public static String muestraStats() {
-		return GestorEntidad.getStatsPersonajes() +
-				"\n" +
-				GestorEntidad.getStatsEnemigos();
-	}
+	public static final String MUESTRA_STATS = GestorEntidad.getStatsPersonajes() + "\n" + GestorEntidad.getStatsEnemigos();
 
 	// MENSAJES --------------------------------------------
 
-	public static String pideAccion() {
-		return "Que quieres hacer?";
-	}
+	public static final String PIDE_ACCION = "Que quieres hacer?";
 
-	public static String pideNombre() {
-		return "Como quieres llamar al personaje?";
-	}
+	public static final String PIDE_NOMBRE = "Como quieres llamar al personaje?";
 
-	public static String msgBienvenida() {
-		return "Bienvenido a The Beginning of Time!";
-	}
+	public static final String MSG_BIENVENIDA = "Bienvenido a The Beginning of Time!";
 
-	public static String msgTurno() {
-		return "===== Turno de %s =====";
-	}
+	public static final String MSG_TURNO = "===== Turno de %s =====";
 
-	public static String msgEnemigosSeAcercan() {
-		int[] cantidadYnivel = GestorEntidad.getSizeYNivelEnemigos();
-		return String.format("Se acercan %d Enemigos de nivel %d...", cantidadYnivel[0], cantidadYnivel[1]);
-	}
+	public static final String msgEnemigosSeAcercan = GestorEntidad.getSizeYNivelEnemigos();
 
-	public static String msgEmpiezaJuego() {
-		return "========= Comienza el juego =========";
-	}
+	public static final String MSG_EMPIEZA_JUEGO = "========= Comienza el juego =========";
 
-	public static String msgPersonajeCreado() {
-		return "%s ha sido creado. (%02d/%02d)";
-	}
+	public static final String MSG_PERSONAJE_CREADO = "%s ha sido creado. (%02d/%02d)";
 
-	public static String msgSubidaNivel() {
-		return "%s ha subido a nivel %d!";
-	}
+	public static final String MSG_SUBIDA_NIVEL = "%s ha subido a nivel %d!";
 
-	public static String msgSalirJuego() {
-		return "Hasta la proxima";
-	}
+	public static final String MSG_SALIR_JUEGO = "Hasta la proxima";
 
-	public static String pideClases() {
-		return "Que clase quieres elegir?";
-	}
+	public static final String PIDE_CLASE = "Que clase quieres elegir?";
 
-	public static String pideConfirmacion() {
-		return "Estas Seguro? (1:si/2:no)";
-	}
+	public static final String PIDE_CONFIRMACION = "Estas Seguro? (1:si/2:no)";
 
-	public static String msgPausa() {
-		return "\nIntroduce enter para continuar....";
-	}
+	public static final String MSG_PAUSA = "\nIntroduce enter para continuar....";
 
-	public static String msgEnemigoDerrotado() {
-		return "Has derrotado a todos los Enemigos!!";
-	}
+	public static final String MSG_ENEMIGO_DERROTADOS = "Has derrotado a todos los Enemigos!!";
 
-	public static String msgJuegoPerdido() {
-		return "Todos los personajes han muerto. Has perdido.";
-	}
+	public static final String MSG_JUEGO_PERDIDO = "Todos los personajes han muerto. Has perdido.";
 
-	public static String pideEnemigo() {
-		return "Que enemigo quieres elegir? ";
-	}
+	public static final String PIDE_ENEMIGO = "Que enemigo quieres elegir? ";
 
-	public static String enemigoElegidoNoDisponible() {
-		return "El enemigo que has elegido esta muerto.";
-	}
+	public static final String MSG_ENEMIGO_NO_DISPONIBLE = "El enemigo que has elegido esta muerto.";
 
-	public static String msgBloqueo() {
-		return "Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.";
-	}
+	public static final String MSG_BLOQUEO = "Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.";
 
-	public static String msgPosicionInventarioVacia() {
-		return "Vacio";
-	}
+	public static final String MSG_POSICION_INVENTARIO_VACIA = "Vacio";
 
-	public static String msgCreacionClase() {
-		return "Elige una clase para tu Personaje: ";
-	}
+	public static final String MSG_CREACION_CLASE = "Elige una clase para tu Personaje: ";
 
-	public static String msgEnemigoAtaqueEsquivado() {
-		return "El enemigo ha esquivado el ataque!";
-	}
+	public static final String MSG_ENEMIGO_ATAQUE_ESQUIVADO = "El enemigo ha esquivado el ataque!";
+
+	public static final String MSG_CONFIRMACION_BLOQUEO = "Ahora %s esta bloqueando.";
 
 	// ERRORES -----------------------------------------------------------
 
-	public static String errorEnemigoNoEncontrado() {
-		return "El Enemigo especificado no ha sido encontrado.";
-	}
+	public static final String ERROR_ENEMIGO_NO_ENCONTRADO = "El Enemigo especificado no ha sido encontrado.";
 
-	public static String errorPersonajeNoEncontrado() {
-		return "El Personaje especificado no ha sido encontrado";
-	}
+	public static final String ERROR_PERSONAJE_NO_ENCONTRADO = "El enemigoPersonaje especificado no ha sido encontrado";
 
-	public static String errorNumeroNoValido() {
-		return "Introduce un numero valido.";
-	}
+	public static final String ERROR_NUMERO_NO_VALIDO = "Introduce un numero valido.";
 
-	public static String errorAtaqueNoDisponible() {
-		return "El ataque seleccionado no esta disponible";
-	}
+	public static final String ERROR_ATAQUE_NO_DISPONIBLE = "El ataque seleccionado no esta disponible";
 
-	public static String errorInesperado() {
-		return "El juego ha encontrado un error y debe cerrarse.";
-	}
+	public static final String ERROR_INESPERADO = "El juego ha encontrado un error y debe cerrarse.";
 
+	public static final String ERROR_BLOQUEO_YA_ACTIVO = "Bloquear ya estaba activo.";
 
-	public static String errorBloqueoYaActivo() {
-		return "Bloquear ya estaba activo.";
-	}
-
-	public static String confimaBloqueo() {
-		return "Ahora %s esta bloqueando.";
-	}
-
-	public static String errorNombreNoValido() {
-		return "Introduce un nombre valido.";
-	}
-
+	public static final String ERROR_NOMBRE_NO_VALIDO = "Introduce un nombre valido.";
 }

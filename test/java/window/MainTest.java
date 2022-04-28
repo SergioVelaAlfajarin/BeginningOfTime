@@ -1,9 +1,12 @@
 package window;
 
+import exception.JuegoException;
+import modelo.entidades.Personaje;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static window.Main.buildInfoString;
+import static window.Principal.buildInfoString;
+import static window.Principal.accionBloquear;
 
 class MainTest {
 	@Test
@@ -32,5 +35,32 @@ class MainTest {
 				"Has conseguido hacer 100 pts de daño.\n",
 				buildInfoString("Enemigo1", 100, false, false, true)
 		);
+	}
+
+	//TODO comprobar todo el codigo para que sea capaz de recibir test (organizar metodos)
+
+	@Test
+	void compruebaAccionBloquear() {
+
+		var per = new Personaje("prueba",1);
+		per.activarBloqueo();
+		assertThrows(
+				JuegoException.class,
+				() -> accionBloquear(per)
+		);
+		per.desactivaBloqueo();
+
+		/*private static boolean accionBloquear(Personaje p) throws JuegoException{
+			if (p.isBloqueo()) {
+				throw new JuegoException(Menu.errorBloqueoYaActivo());
+			}
+			doublePrintLn(Menu.msgBloqueo()); //mover esto a ayuda o dejar permanente???
+			boolean confirmacion = pideConfirmacion();
+			if (confirmacion) {
+				p.activarBloqueo();
+				doublePrintLn(String.format(Menu.confimaBloqueo(),p.getNombre()));
+			}
+			return !confirmacion;
+		}*/
 	}
 }

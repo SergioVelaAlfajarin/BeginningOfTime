@@ -14,6 +14,8 @@ public final class Personaje extends Entidad {
 	private final Item[] inv = new Item[MAX_SIZE_INVENTARIO];
 	private int xpRequerida, xpActual;
 
+	//TODO revisar y comprobar si testeable
+
 	private Equipo cabeza;
 	private Equipo pechera;
 	private Equipo pantalones;
@@ -43,7 +45,7 @@ public final class Personaje extends Entidad {
 			if (inv[i] != null) {
 				sb.append(i + 1).append(" - ").append(inv[i].getNombre()).append("\n");
 			} else {
-				sb.append(i + 1).append(" - ").append(Menu.msgPosicionInventarioVacia()).append("\n");
+				sb.append(i + 1).append(" - ").append(Menu.MSG_POSICION_INVENTARIO_VACIA).append("\n");
 			}
 		}
 

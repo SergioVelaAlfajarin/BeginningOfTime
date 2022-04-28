@@ -125,7 +125,7 @@ public class Main {
 				clear();
 			}
 		} else {
-			GestorEntidad.aumentaEstadisticasAdicionales(contadorPartidas);
+			//GestorEntidad.aumentaEstadisticasAdicionales(contadorPartidas);
 		}
 
 		if (GestorEntidad.isListaEnemigosVacio()) {
@@ -615,7 +615,7 @@ public class Main {
 	 *         el combate no debera ser repetido, y devolvera false
 	 * @throws JuegoException error si el bloqueo ya estaba activo.
 	 */
-	private static boolean accionBloquear(Personaje p) throws JuegoException{
+	protected static boolean accionBloquear(Personaje p) throws JuegoException{
 		if (p.isBloqueo()) {
 			throw new JuegoException(Menu.errorBloqueoYaActivo());
 		}

@@ -1,6 +1,6 @@
 rem ejecutar
 
 cd ..\..\..\out\
-java window.Main
+java window.Principal
 pause
 cd ..\src\main\resources

@@ -84,7 +84,8 @@ public abstract class Entidad {
 	}
 
 	private void initEstadisticas() {
-		initEstadisticasAdicionales(0);
+		//TODO estadisticas
+		initEstadisticasAdicionales(0); //innecesario en la primera ejecucion
 		/*
 		int[] stats = Estadisticas.getStats(3);
 		maxHP = stats[0] + maxHPAdicional;
@@ -97,8 +98,9 @@ public abstract class Entidad {
 		lvl = 3;
 	}
 
+	//Testeable
 	public void initEstadisticasAdicionales(int nPartida) {
-		nPartida *= 11;
+		nPartida *= 3;
 		maxHPAdicional += nPartida;
 		adAdicional += nPartida;
 		apAdicional += nPartida;
@@ -107,6 +109,7 @@ public abstract class Entidad {
 		aglAdicional += nPartida;
 	}
 
+	//Testeable
 	public boolean recibirDmg(int dmg) {
 		actualHP -= dmg;
 		if (actualHP <= 0) {
