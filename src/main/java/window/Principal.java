@@ -3,9 +3,7 @@ package window;
 import exception.*;
 import gestores.*;
 import modelo.entidades.*;
-import modelo.noEntidades.*;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public final class Principal {
@@ -14,6 +12,10 @@ public final class Principal {
 	private static int contadorPartidas = 0;
 
 	public static void main(String[] args) {
+		temp2();
+	}
+
+	private static void temp2(){
 		try{
 			boolean repetir;
 			do {
@@ -23,35 +25,63 @@ public final class Principal {
 				//muestraHistoria();
 				//empiezaJuego();
 				repetir = /*juegoCompletado();*/ true;
+				System.out.println("aqui ira el juego");
 				pause();
 			} while (repetir);
 		}catch(JuegoException e){
-			printLn(e.getMessage());
+			clear();
+			doublePrintLn(e.getMessage());
 		}
 	}
 
 	private static void introduceOpcionInicioJuego() throws JuegoException {
-		boolean hayError = false;
-		String error = "";
-		do{
-			clear();
-			doublePrintLn(Menu.MENU_PRINCIPAL);
+		int opcion = muestraOpcionesYPideNumero(1, 5, Menu.MENU_PRINCIPAL);
 
-			if(hayError)
+		clear();
+		switch(opcion){
+			case 2 -> doublePrintLn(Menu.MENU_EXTRAS);
+			case 3 -> doublePrintLn(Menu.MENU_CHANGELOG);
+			case 4 -> doublePrintLn(Menu.MENU_CAMBIAR_IDIOMA);
+			case 5 -> salirJuego(false);
+		}
+		pause();
+		clear();
+	}
+
+	private static void salirJuego(boolean pideConf) {
+		if(pideConf){
+			if(pideConfirmacion()){
+				throw new JuegoException("Gracias por jugar!");
+			}
+		}else{
+			throw new JuegoException("Gracias por jugar!");
+		}
+	}
+
+	private static int muestraOpcionesYPideNumero(int min, int max, String menu){
+		String error = "";
+		int numero;
+
+		while(true){
+			clear();
+			doublePrintLn(menu);
+
+			if(!error.isEmpty())
 				doublePrintLn(error);
 
-			int numero = pideNumero(Menu.PIDE_ACCION);
+			try{
+				numero = pideNumero(Menu.PIDE_ACCION);
 
-			if(numero <= 0 || numero >= 6){
-				error = Menu.ERROR_NUMERO_NO_VALIDO;
-				hayError = true;
-			}else{
-				realizaAccionMenuPrincipal(numero);
-				hayError = false;
-				error = "";
+				if(numero < min || numero > max)
+					error = Menu.ERROR_NUMERO_NO_VALIDO;
+				else
+					return numero;
+			}catch (JuegoException e){
+				error = e.getMessage();
 			}
-		}while(hayError);
+		}
 	}
+
 
 	private static void realizaAccionMenuPrincipal(int num) throws JuegoException{
 		clear();
@@ -117,12 +147,13 @@ public final class Principal {
 
 	// Utilidades --------------
 
-	private static Enemigo pideEnemigo() {
+
+/*	private static Enemigo pideEnemigo() {
 		boolean repetir;
 		Enemigo e;
 		do {
 			repetir = false;
-			int op = pideNumero(/*1, GestorEntidad.getSizeEnemigo(), */Menu.PIDE_ENEMIGO);
+			int op = pideNumero(Menu.PIDE_ENEMIGO);
 			e = GestorEntidad.getEnemigoPorID(op - 1);
 			if (e == null || !e.isEstado()) {
 				printLn(Menu.MSG_ENEMIGO_NO_DISPONIBLE);
@@ -130,7 +161,7 @@ public final class Principal {
 			}
 		} while (repetir);
 		return e;
-	}
+	}*/
 
 	private static String pideCadena() {
 		Scanner sc = new Scanner(System.in);
