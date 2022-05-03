@@ -3,6 +3,7 @@ package window;
 import exception.*;
 import gestores.*;
 import modelo.entidades.*;
+import modelo.noEntidades.*;
 
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ public final class Principal {
 			do {
 				contadorPartidas++;
 				introduceOpcionInicioJuego();
-				//rellenarArrays();
+				rellenarArrays();
 				//muestraHistoria();
 				//empiezaJuego();
 				repetir = /*juegoCompletado();*/ true;
@@ -34,28 +35,58 @@ public final class Principal {
 		}
 	}
 
+	/**
+	 * Pide opcion y actua en consecuencia. lanza una excepcion si la opcion elegida es salir del juego.
+	 * @throws JuegoException
+	 */
 	private static void introduceOpcionInicioJuego() throws JuegoException {
 		int opcion = muestraOpcionesYPideNumero(1, 5, Menu.MENU_PRINCIPAL);
-
 		clear();
 		switch(opcion){
 			case 2 -> doublePrintLn(Menu.MENU_EXTRAS);
 			case 3 -> doublePrintLn(Menu.MENU_CHANGELOG);
 			case 4 -> doublePrintLn(Menu.MENU_CAMBIAR_IDIOMA);
-			case 5 -> salirJuego(false);
+			case 5 -> throw new JuegoException("Gracias por jugar!");
 		}
 		pause();
 		clear();
 	}
 
-	private static void salirJuego(boolean pideConf) {
-		if(pideConf){
-			if(pideConfirmacion()){
-				throw new JuegoException("Gracias por jugar!");
-			}
-		}else{
-			throw new JuegoException("Gracias por jugar!");
-		}
+	private static void rellenarArrays() {
+		rellenaArrayEnemigo();
+		if(GestorEntidad.isArrayPersonajeVacio())
+			rellenaArrayPersonaje();
+		if(GestorNoEntidad.isArrayEquipoVacio())
+			rellenaArrayEquipo();
+		if(GestorNoEntidad.isArrayItemVacio())
+			rellenarArrayItem();
+		if(GestorNoEntidad.isArrayAtaqueVacio())
+			rellenarArrayAtaque();
+	}
+
+	private static void rellenarArrayAtaque() {
+		GestorNoEntidad.addAtaque(new Ataque("af_ad_1"));
+		GestorNoEntidad.addAtaque(new Ataque("gg_ad_2"));
+		GestorNoEntidad.addAtaque(new Ataque("bf_ad_3"));
+		GestorNoEntidad.addAtaque(new Ataque("as_ap_1"));
+		GestorNoEntidad.addAtaque(new Ataque("gc_ap_2"));
+		GestorNoEntidad.addAtaque(new Ataque("tm_ap_2"));
+	}
+
+	private static void rellenarArrayItem() {
+
+	}
+
+	private static void rellenaArrayEquipo() {
+
+	}
+
+	private static void rellenaArrayEnemigo() {
+
+	}
+			//TODO rellenar arrays
+	private static void rellenaArrayPersonaje() {
+
 	}
 
 	private static int muestraOpcionesYPideNumero(int min, int max, String menu){
@@ -98,6 +129,13 @@ public final class Principal {
 			pause();
 		}
 		clear();
+	}
+
+
+	private static void salirJuego() throws JuegoException {
+		if(pideConfirmacion()){
+			throw new JuegoException("Gracias por jugar!");
+		}
 	}
 
 	/**

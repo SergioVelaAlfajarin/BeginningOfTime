@@ -1,9 +1,7 @@
 package gestores;
 
-import exception.JuegoException;
 import modelo.entidades.Enemigo;
 import modelo.entidades.Personaje;
-import window.Menu;
 
 import java.util.ArrayList;
 
@@ -13,12 +11,12 @@ public abstract class GestorEntidad {
 	private static final ArrayList<Enemigo> listaEnemigos = new ArrayList<>();
 
 	//Testeable
-	public static boolean isListaPersonajesVacio() {
+	public static boolean isArrayPersonajeVacio() {
 		return listaPersonajes.isEmpty();
 	}
 
 	//Testeable
-	public static boolean isListaEnemigosVacio() {
+	public static boolean isArrayEnemigoVacio() {
 		return listaEnemigos.isEmpty();
 	}
 

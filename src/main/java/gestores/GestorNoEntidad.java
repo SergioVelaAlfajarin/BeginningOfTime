@@ -38,11 +38,11 @@ public abstract class GestorNoEntidad {
 	}
 
 	//Testeable
-	public static boolean isArrayAtaquesVacio() {
+	public static boolean isArrayAtaqueVacio() {
 		return listaAtaques.isEmpty();
 	}
 	//Testeable
-	public static boolean isArrayItemsVacio() {
+	public static boolean isArrayItemVacio() {
 		return listaItems.isEmpty();
 	}
 	//Testeable
