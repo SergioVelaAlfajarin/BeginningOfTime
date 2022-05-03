@@ -1,6 +1,6 @@
 rem ejecutar
 
-cd ..\..\..\out\
+cd ..\..\..\target\classes
 java window.Principal
 pause
-cd ..\src\main\resources
+cd ..\..\src\main\resources

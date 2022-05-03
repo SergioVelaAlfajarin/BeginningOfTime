@@ -1,13 +1,7 @@
 package sva.tbot.gestores;
 
-<<<<<<< Updated upstream:src/main/java/gestores/GestorEntidad.java
-import modelo.entidades.Enemigo;
-import modelo.entidades.Personaje;
-=======
 import sva.tbot.modelo.entidades.Enemigo;
 import sva.tbot.modelo.entidades.Personaje;
->>>>>>> Stashed changes:src/main/java/sva/tbot/gestores/GestorEntidad.java
-
 import java.util.ArrayList;
 
 public abstract class GestorEntidad {

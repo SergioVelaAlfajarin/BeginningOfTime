@@ -1,8 +1,8 @@
 package gestores;
 
-import modelo.noEntidades.Ataque;
-import modelo.noEntidades.Equipo;
-import modelo.noEntidades.Item;
+import sva.tbot.modelo.noEntidades.Ataque;
+import sva.tbot.modelo.noEntidades.Equipo;
+import sva.tbot.modelo.noEntidades.Item;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package window;
 
-import gestores.GestorEntidad;
-import gestores.GestorNoEntidad;
+import sva.tbot.gestores.GestorEntidad;
+import sva.tbot.gestores.GestorNoEntidad;
 
 public abstract class Menu {
 

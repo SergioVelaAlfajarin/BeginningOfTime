@@ -1,12 +1,7 @@
 package sva.tbot.modelo.noEntidades;
 
-<<<<<<< Updated upstream:src/main/java/modelo/noEntidades/Ataque.java
-import exception.JuegoException;
-import window.Principal;
-=======
 import sva.tbot.exception.JuegoException;
 import sva.tbot.window.Principal;
->>>>>>> Stashed changes:src/main/java/sva/tbot/modelo/noEntidades/Ataque.java
 
 import java.util.Objects;
 
