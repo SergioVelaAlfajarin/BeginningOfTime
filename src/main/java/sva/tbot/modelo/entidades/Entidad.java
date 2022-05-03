@@ -1,4 +1,4 @@
-package modelo.entidades;
+package sva.tbot.modelo.entidades;
 
 public abstract class Entidad {
 	private final String nombre;

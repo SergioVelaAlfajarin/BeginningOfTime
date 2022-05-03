@@ -1,7 +1,7 @@
-package modelo.entidades;
+package sva.tbot.modelo.entidades;
 
-import exception.JuegoException;
-import gestores.GestorEntidad;
+import sva.tbot.exception.JuegoException;
+import sva.tbot.gestores.GestorEntidad;
 
 public final class Enemigo extends Entidad {
 	/*

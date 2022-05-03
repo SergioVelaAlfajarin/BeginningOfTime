@@ -1,4 +1,4 @@
-package modelo.noEntidades;
+package sva.tbot.modelo.noEntidades;
 
 public final class Item implements Usable {
 	private String ID;

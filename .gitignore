@@ -1,7 +1,6 @@
 /target/
 /out/
-/.idea/
-pom.xml
-/BeginningOfTime.iml
 /test/out/
 /src/out/
+/.idea/shelf/
+/.idea/workspace.xml

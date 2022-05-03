@@ -1,9 +1,9 @@
-package modelo.entidades;
+package sva.tbot.modelo.entidades;
 
-import gestores.GestorEntidad;
-import modelo.noEntidades.Equipo;
-import modelo.noEntidades.Item;
-import window.Menu;
+import sva.tbot.gestores.GestorEntidad;
+import sva.tbot.modelo.noEntidades.Equipo;
+import sva.tbot.modelo.noEntidades.Item;
+import sva.tbot.window.Menu;
 
 public final class Personaje extends Entidad {
 	public static final int MAX_PERSONAJES = 3;

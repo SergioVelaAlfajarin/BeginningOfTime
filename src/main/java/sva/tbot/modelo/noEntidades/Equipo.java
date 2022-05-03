@@ -1,6 +1,6 @@
-package modelo.noEntidades;
+package sva.tbot.modelo.noEntidades;
 
-import exception.JuegoException;
+import sva.tbot.exception.JuegoException;
 
 public final class Equipo implements Equipable {
 	private final String ID;
