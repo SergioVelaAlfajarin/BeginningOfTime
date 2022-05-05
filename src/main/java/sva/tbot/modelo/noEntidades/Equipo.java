@@ -53,6 +53,3 @@ public final class Equipo implements Equipable {
      */
 }
 
-interface Equipable{
-
-}

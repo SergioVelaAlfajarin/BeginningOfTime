@@ -19,7 +19,3 @@ public final class Item implements Usable {
 		return null;
 	}
 }
-
-interface Usable{
-
-}
