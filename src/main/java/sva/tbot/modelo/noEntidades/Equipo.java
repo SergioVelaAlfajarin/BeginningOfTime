@@ -1,6 +1,7 @@
 package sva.tbot.modelo.noEntidades;
 
 import sva.tbot.exception.JuegoException;
+import sva.tbot.modelo.interfaces.Equipable;
 
 public final class Equipo implements Equipable {
 	private final String ID;

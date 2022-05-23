@@ -1,7 +1,6 @@
 package sva.tbot.window;
 
 import sva.tbot.gestores.GestorEntidad;
-import sva.tbot.gestores.GestorNoEntidad;
 
 public abstract class Menu {
 
@@ -128,7 +127,7 @@ public abstract class Menu {
 				Nivel 20: (HP: 180,  AD: 8, AP: 8, AR: 5, MR: 6, AGL: 6)""";
 	
 
-	public static final String MUESTRA_AYUDA_ATAQUES = GestorNoEntidad.getInfoAtaques();
+	public static final String MUESTRA_AYUDA_ATAQUES = null;
 
 	public static final String MUESTRA_AYUDA_JUEGO = "Aqui ira la ayuda del juego.";
 

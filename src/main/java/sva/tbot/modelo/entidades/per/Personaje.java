@@ -1,6 +1,7 @@
-package sva.tbot.modelo.entidades;
+package sva.tbot.modelo.entidades.per;
 
 import sva.tbot.gestores.GestorEntidad;
+import sva.tbot.modelo.entidades.Entidad;
 import sva.tbot.modelo.noEntidades.Equipo;
 import sva.tbot.modelo.noEntidades.Item;
 import sva.tbot.window.Menu;

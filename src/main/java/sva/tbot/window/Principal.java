@@ -2,7 +2,7 @@ package sva.tbot.window;
 
 import sva.tbot.exception.*;
 import sva.tbot.gestores.*;
-import sva.tbot.modelo.entidades.*;
+import sva.tbot.modelo.entidades.per.Personaje;
 import sva.tbot.modelo.noEntidades.*;
 
 import java.util.Scanner;

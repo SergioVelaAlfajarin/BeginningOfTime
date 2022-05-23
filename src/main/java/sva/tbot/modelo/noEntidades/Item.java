@@ -1,7 +1,9 @@
 package sva.tbot.modelo.noEntidades;
 
-public final class Item implements Usable {
-	private String ID;
+import sva.tbot.modelo.interfaces.Activo;
+
+public final class Item implements Activo {
+	private final String ID;
 	private String nombre;
 	private String descripcion;
 	private String efecto;

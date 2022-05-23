@@ -1,7 +1,7 @@
 package sva.tbot.gestores;
 
-import sva.tbot.modelo.entidades.Enemigo;
-import sva.tbot.modelo.entidades.Personaje;
+import sva.tbot.modelo.entidades.ene.Enemigo;
+import sva.tbot.modelo.entidades.per.Personaje;
 import java.util.ArrayList;
 
 public abstract class GestorEntidad {

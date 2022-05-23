@@ -1,7 +1,9 @@
-package sva.tbot.modelo.entidades;
+package sva.tbot.modelo.entidades.ene;
 
 import sva.tbot.exception.JuegoException;
 import sva.tbot.gestores.GestorEntidad;
+import sva.tbot.modelo.entidades.Entidad;
+import sva.tbot.modelo.entidades.per.Personaje;
 
 public final class Enemigo extends Entidad {
 	/*
@@ -13,12 +15,13 @@ public final class Enemigo extends Entidad {
 	// types -1, -2, -3, -4
 	private static final String[] tipos = {"Lobo Generico", "Oso Marron", "Serpiente amenazante",
 			Personaje.NOMBRE_PERSONAJE_PRINCIPAL};
-	private final int ID;
+	//private final int ID;
 
 	//Testeable
 	public Enemigo(int n) throws JuegoException {
-		super(claseEnemigo(2) + n, -1);
-		ID = GestorEntidad.getSizeEnemigo();
+		super(null, null);
+		//super(claseEnemigo(2) + n, -1);
+		//ID = GestorEntidad.getSizeEnemigo();
 	}
 
 	//Testeable
@@ -34,9 +37,5 @@ public final class Enemigo extends Entidad {
 		} else {
 			throw new JuegoException("error");
 		}
-	}
-
-	public int getID() {
-		return ID;
 	}
 }
