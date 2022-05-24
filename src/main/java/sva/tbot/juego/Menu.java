@@ -2,10 +2,22 @@ package sva.tbot.juego;
 
 public abstract class Menu {
 
+	public static final String LOGO_DEV = """
+				         /\\
+				      _-/- \\
+				     - /   -\\-_
+				     -/__    \\_-
+				     /     _--\\
+				     ----------
+
+				     SHI-GAMES
+				    2021 - SPAIN
+				""";
+
 	// MENUS ----------------------------------------------
 
 	public static String menuInicialSecundario(int vecesJugado) {
-		StringBuilder temp = new StringBuilder(Menu.muestraMarca() + "\n");
+		StringBuilder temp = new StringBuilder(LOGO_DEV + "\n");
 
 		temp.append("0.- Empezar de nuevo");
 		temp.append("\n");
@@ -25,7 +37,7 @@ public abstract class Menu {
 	}
 
 	public static String menuPrincipal() {
-		return Menu.muestraMarca() + """
+		return LOGO_DEV + """
 
 				1.- Nueva Partida
 				2.- Extras
@@ -37,30 +49,30 @@ public abstract class Menu {
 	public static String menuChangeLog() {
 		return """
 				========================= ITEMS UPDATE 0.5 (ACTUAL) =========================
-				+ Nombre cambiado a The Beginning of Time.
-				+ Añadida historia.
-				+ Añadida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.
-				+ Revisadas todas las opciones y mejorada la seleccion de las mismas.
-				+ Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.
-				+ Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.
-				+ Añadido nuevos menus, para incrementar la accesibilidad.
-				+ Estadisticas rediseñadas por completo, con mas niveles.
-				+ Rama de habilidades de apoyo sustituidas por objetos.
-				+ Ahora los enemigos se dividen en 4 tipos.
-				+ Posibilidad de empezar Nueva Partida +, con tus personajes de la anterior partida y enemigos mas complicados.
-				+ Juego publicado en GitHub!
+				~  Nombre cambiado a The Beginning of Time.
+				~  Añadida historia.
+				~  Añadida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.
+				~  Revisadas todas las opciones y mejorada la seleccion de las mismas.
+				~  Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.
+				~  Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.
+				~  Añadido nuevos menus, para incrementar la accesibilidad.
+				~  Estadisticas rediseñadas por completo, con mas niveles.
+				~  Rama de habilidades de apoyo sustituidas por objetos.
+				~  Ahora los enemigos se dividen en 4 tipos.
+				~  Posibilidad de empezar Nueva Partida +, con tus personajes de la anterior partida y enemigos mas complicados.
+				~  Juego publicado en GitHub!
 
 				========================= CONTENT UPDATE 0.6 (PROXIMAMENTE) =================
-				 + Traduccion a otros idiomas.
-				 + Mas enemigos, personajes, objetos y equipamiento.""";
+				~  Traduccion a otros idiomas.
+				~  Mas enemigos, personajes, objetos y equipamiento.""";
 	}
-
 	public static String menuExtras() {
 		return """
 				Idea original: Shiku.
 				Programador: Shiku.
 				Diseños conceptuales: Josert
-				Testers: Dakos, Josert.""";
+				Testers: Dakos, Josert.
+				""";
 	}
 
 	public static String menuClases() {
@@ -113,19 +125,6 @@ public abstract class Menu {
 
 	// MUESTRA COSAS -----------------------------------
 
-	public static String muestraMarca() {
-		return """
-				         /\\
-				      _-/- \\
-				     - /   -\\-_
-				     -/__    \\_-
-				     /     _--\\
-				     ----------
-
-				     SHI-GAMES
-				    2021 - SPAIN
-				""";
-	}
 
 	public static String muestraAyudaClases() {
 		return """
