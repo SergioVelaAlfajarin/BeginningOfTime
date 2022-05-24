@@ -2,7 +2,6 @@ package sva.tbot.juego;
 
 import sva.tbot.exception.*;
 import sva.tbot.gestores.*;
-import sva.tbot.modelo.ataques.Ataque;
 import sva.tbot.modelo.entidades.per.Personaje;
 
 import java.util.Scanner;
@@ -13,16 +12,11 @@ public final class Principal {
 	private static int contadorPartidas = 0;
 
 	public static void main(String[] args) {
-		temp2();
-	}
-
-	private static void temp2(){
 		try{
 			boolean repetir;
 			do {
 				contadorPartidas++;
 				introduceOpcionInicioJuego();
-				rellenarArrays();
 				//muestraHistoria();
 				//empiezaJuego();
 				repetir = /*juegoCompletado();*/ true;
@@ -35,58 +29,31 @@ public final class Principal {
 		}
 	}
 
-	/**
-	 * Pide opcion y actua en consecuencia. lanza una excepcion si la opcion elegida es salir del juego.
-	 * @throws JuegoException
-	 */
 	private static void introduceOpcionInicioJuego() throws JuegoException {
-		int opcion = muestraOpcionesYPideNumero(1, 5, Menu.MENU_PRINCIPAL);
+		int opcion = muestraOpcionesYPideNumero(1, 5, Menu.menuPrincipal());
 		clear();
 		switch(opcion){
-			case 2 -> doublePrintLn(Menu.MENU_EXTRAS);
-			case 3 -> doublePrintLn(Menu.MENU_CHANGELOG);
-			case 4 -> doublePrintLn(Menu.MENU_CAMBIAR_IDIOMA);
+			case 2 -> menuExtras();
+			case 3 -> menuChangelog();
+			case 4 -> menuCambiaIdioma();
 			case 5 -> throw new JuegoException("Gracias por jugar!");
 		}
+	}
+
+	private static void menuExtras() {
+		doublePrintLn(Menu.menuExtras());
 		pause();
 		clear();
 	}
 
-	private static void rellenarArrays() {
-		rellenaArrayEnemigo();
-		//if(GestorEntidad.isArrayPersonajeVacio())
-			rellenaArrayPersonaje();
-		//if(GestorNoEntidad.isArrayEquipoVacio())
-			rellenaArrayEquipo();
-		//if(GestorNoEntidad.isArrayItemVacio())
-			rellenarArrayItem();
-		//if(GestorNoEntidad.isArrayAtaqueVacio())
-			rellenarArrayAtaque();
+	private static void menuChangelog(){
+		doublePrintLn(Menu.menuChangeLog());
+		pause();
+		clear();
 	}
 
-	private static void rellenarArrayAtaque() {
-		//GestorNoEntidad.addAtaque(new Ataque("af_ad_1"));
-		//GestorNoEntidad.addAtaque(new Ataque("gg_ad_2"));
-		//GestorNoEntidad.addAtaque(new Ataque("bf_ad_3"));
-		//GestorNoEntidad.addAtaque(new Ataque("as_ap_1"));
-		//GestorNoEntidad.addAtaque(new Ataque("gc_ap_2"));
-		//GestorNoEntidad.addAtaque(new Ataque("tm_ap_2"));
-	}
-
-	private static void rellenarArrayItem() {
-
-	}
-
-	private static void rellenaArrayEquipo() {
-
-	}
-
-	private static void rellenaArrayEnemigo() {
-
-	}
-			//TODO rellenar arrays
-	private static void rellenaArrayPersonaje() {
-
+	private static void menuCambiaIdioma(){
+		doublePrintLn(Menu.menuCambiaIdioma());
 	}
 
 	private static int muestraOpcionesYPideNumero(int min, int max, String menu){
@@ -101,34 +68,16 @@ public final class Principal {
 				doublePrintLn(error);
 
 			try{
-				numero = pideNumero(Menu.PIDE_ACCION);
+				numero = pideNumero(Menu.pideAccion());
 
 				if(numero < min || numero > max)
-					error = Menu.ERROR_NUMERO_NO_VALIDO;
+					error = Menu.errorNumeroNoValido();
 				else
 					return numero;
 			}catch (JuegoException e){
 				error = e.getMessage();
 			}
 		}
-	}
-
-
-	private static void realizaAccionMenuPrincipal(int num) throws JuegoException{
-		clear();
-		if (num == 0) {
-			resetJuego();
-		} else if (num == 2) {
-			doublePrintLn(Menu.MENU_EXTRAS);
-			pause();
-		} else if (num == 3) {
-			doublePrintLn(Menu.MENU_CHANGELOG);
-			pause();
-		} else if (num == 4) {
-			doublePrintLn(Menu.MENU_CAMBIAR_IDIOMA);
-			pause();
-		}
-		clear();
 	}
 
 
@@ -214,12 +163,12 @@ public final class Principal {
 			print("\n" + cadena);
 			return Integer.parseInt(pideCadena());
 		} catch (Exception e) {
-			throw new JuegoException(Menu.ERROR_NUMERO_NO_VALIDO);
+			throw new JuegoException(Menu.errorNumeroNoValido());
 		}
 	}
 
 	private static boolean pideConfirmacion() {
-		print("\n" + Menu.PIDE_CONFIRMACION);
+		print("\n" + Menu.pideConfirmacion());
 		String text = pideCadena();
 		return text.equalsIgnoreCase("1")       ||
 				text.equalsIgnoreCase("si")     ||
@@ -239,7 +188,7 @@ public final class Principal {
 	}
 
 	private static void pause() {
-		print("\n" + Menu.MSG_PAUSA);
+		print("\n" + Menu.msgPausa());
 		Scanner sc = new Scanner(System.in);
 		sc.nextLine();
 	}

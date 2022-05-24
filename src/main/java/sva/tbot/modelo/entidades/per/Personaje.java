@@ -46,7 +46,7 @@ public final class Personaje extends Entidad {
 			if (inv[i] != null) {
 				sb.append(i + 1).append(" - ").append(inv[i].getNombre()).append("\n");
 			} else {
-				sb.append(i + 1).append(" - ").append(Menu.MSG_POSICION_INVENTARIO_VACIA).append("\n");
+				sb.append(i + 1).append(" - ").append(Menu.msgPosicionInventarioVacia()).append("\n");
 			}
 		}
 
