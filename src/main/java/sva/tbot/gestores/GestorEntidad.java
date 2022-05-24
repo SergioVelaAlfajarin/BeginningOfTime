@@ -70,9 +70,9 @@ public abstract class GestorEntidad {
 	//Testeable
 	public static Enemigo getEnemigoPorID(int ID) {
 		for (Enemigo e : listaEnemigos) {
-			if (e.getID() == ID) {
+			/*if (e.getID() == ID) {
 				return e;
-			}
+			}*/
 		}
 		return null;
 	}
@@ -98,9 +98,9 @@ public abstract class GestorEntidad {
 	//Testeable
 	public static boolean isAnyPersonajeVivo() {
 		for (Personaje p : listaPersonajes) {
-			if (p.isEstado()) {
+			/*if (p.isEstado()) {
 				return true;
-			}
+			}*/
 		}
 		return false;
 	}
@@ -108,9 +108,9 @@ public abstract class GestorEntidad {
 	//Testeable
 	public static boolean isAnyEnemigoVivo() {
 		for (Enemigo e : listaEnemigos) {
-			if (e.isEstado()) {
+			/*if (e.isEstado()) {
 				return true;
-			}
+			}*/
 		}
 		return false;
 	}

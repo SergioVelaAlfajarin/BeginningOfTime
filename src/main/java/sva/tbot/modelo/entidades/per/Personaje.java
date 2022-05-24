@@ -2,9 +2,9 @@ package sva.tbot.modelo.entidades.per;
 
 import sva.tbot.gestores.GestorEntidad;
 import sva.tbot.modelo.entidades.Entidad;
-import sva.tbot.modelo.noEntidades.Equipo;
-import sva.tbot.modelo.noEntidades.Item;
-import sva.tbot.window.Menu;
+import sva.tbot.modelo.equipamiento.Equipo;
+import sva.tbot.modelo.items.Item;
+import sva.tbot.juego.Menu;
 
 public final class Personaje extends Entidad {
 	public static final int MAX_PERSONAJES = 3;
@@ -25,7 +25,7 @@ public final class Personaje extends Entidad {
 	private Equipo colgante;
 
 	public Personaje(String nombre, int clase) {
-		super(nombre, clase);
+		super(nombre, null);
 		ID = GestorEntidad.getSizePersonaje();
 		initPersonaje();
 	}

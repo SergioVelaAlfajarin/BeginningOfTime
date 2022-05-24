@@ -1,6 +1,4 @@
-package sva.tbot.modelo.noEntidades;
-
-import sva.tbot.modelo.interfaces.Activo;
+package sva.tbot.modelo.items;
 
 public final class Item implements Activo {
 	private final String ID;

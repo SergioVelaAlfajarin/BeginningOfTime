@@ -1,9 +1,9 @@
-package sva.tbot.window;
+package sva.tbot.juego;
 
 import sva.tbot.exception.*;
 import sva.tbot.gestores.*;
+import sva.tbot.modelo.ataques.Ataque;
 import sva.tbot.modelo.entidades.per.Personaje;
-import sva.tbot.modelo.noEntidades.*;
 
 import java.util.Scanner;
 
@@ -54,23 +54,23 @@ public final class Principal {
 
 	private static void rellenarArrays() {
 		rellenaArrayEnemigo();
-		if(GestorEntidad.isArrayPersonajeVacio())
+		//if(GestorEntidad.isArrayPersonajeVacio())
 			rellenaArrayPersonaje();
-		if(GestorNoEntidad.isArrayEquipoVacio())
+		//if(GestorNoEntidad.isArrayEquipoVacio())
 			rellenaArrayEquipo();
-		if(GestorNoEntidad.isArrayItemVacio())
+		//if(GestorNoEntidad.isArrayItemVacio())
 			rellenarArrayItem();
-		if(GestorNoEntidad.isArrayAtaqueVacio())
+		//if(GestorNoEntidad.isArrayAtaqueVacio())
 			rellenarArrayAtaque();
 	}
 
 	private static void rellenarArrayAtaque() {
-		GestorNoEntidad.addAtaque(new Ataque("af_ad_1"));
-		GestorNoEntidad.addAtaque(new Ataque("gg_ad_2"));
-		GestorNoEntidad.addAtaque(new Ataque("bf_ad_3"));
-		GestorNoEntidad.addAtaque(new Ataque("as_ap_1"));
-		GestorNoEntidad.addAtaque(new Ataque("gc_ap_2"));
-		GestorNoEntidad.addAtaque(new Ataque("tm_ap_2"));
+		//GestorNoEntidad.addAtaque(new Ataque("af_ad_1"));
+		//GestorNoEntidad.addAtaque(new Ataque("gg_ad_2"));
+		//GestorNoEntidad.addAtaque(new Ataque("bf_ad_3"));
+		//GestorNoEntidad.addAtaque(new Ataque("as_ap_1"));
+		//GestorNoEntidad.addAtaque(new Ataque("gc_ap_2"));
+		//GestorNoEntidad.addAtaque(new Ataque("tm_ap_2"));
 	}
 
 	private static void rellenarArrayItem() {
@@ -171,7 +171,7 @@ public final class Principal {
 	}
 
 	static boolean accionBloquear(Personaje p) throws JuegoException{
-		if (p.isBloqueo()) {
+		/*if (p.isBloqueo()) {
 			throw new JuegoException(Menu.ERROR_BLOQUEO_YA_ACTIVO);
 		}
 		doublePrintLn(Menu.MSG_BLOQUEO); //mover esto a ayuda o dejar permanente???
@@ -180,7 +180,8 @@ public final class Principal {
 			p.activarBloqueo();
 			doublePrintLn(String.format(Menu.MSG_CONFIRMACION_BLOQUEO,p.getNombre()));
 		}
-		return !confirmacion;
+		return !confirmacion;*/
+		return false;
 	}
 
 	// Utilidades --------------

@@ -1,4 +1,4 @@
-package sva.tbot.window;
+package sva.tbot.juego;
 
 import sva.tbot.gestores.GestorEntidad;
 
@@ -17,7 +17,7 @@ public abstract class Menu {
 
 	public static final String MENU_PRINCIPAL = Menu.MUESTRA_MARCA + """
 
-				1.- Nueva Partida
+				1.- Nueva Partida ññ
 				2.- Extras
 				3.- ChangeLog
 				4.- Cambiar Idioma (Change Language)
@@ -26,13 +26,13 @@ public abstract class Menu {
 	public static final String MENU_CHANGELOG = """
 				========================= ITEMS UPDATE 0.5 (ACTUAL) =========================
 				+ Nombre cambiado a The Beginning of Time.
-				+ AÃ±adida historia.
-				+ AÃ±adida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.
+				+ Añadida historia.
+				+ Añadida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.
 				+ Revisadas todas las opciones y mejorada la seleccion de las mismas.
 				+ Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.
 				+ Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.
-				+ AÃ±adido nuevos menus, para incrementar la accesibilidad.
-				+ Estadisticas rediseÃ±adas por completo, con mas niveles.
+				+ Añadido nuevos menus, para incrementar la accesibilidad.
+				+ Estadisticas rediseñadas por completo, con mas niveles.
 				+ Rama de habilidades de apoyo sustituidas por objetos.
 				+ Ahora los enemigos se dividen en 4 tipos.
 				+ Posibilidad de empezar Nueva Partida +, con tus personajes de la anterior partida y enemigos mas complicados.
@@ -45,7 +45,7 @@ public abstract class Menu {
 	public static final String MENU_EXTRAS = """
 				Idea original: Shiku.
 				Programador: Shiku.
-				DiseÃ±os conceptuales: Josert
+				Diseños conceptuales: Josert
 				Testers: Dakos, Josert.""";
 
 	public static String MENU_CLASES = """
@@ -110,16 +110,16 @@ public abstract class Menu {
 				Sera capaz de aguantar mas golpes que ninguna clase, pero sera poco agil.
 				Nivel 20: (HP: 320, AD: 3, AP: 6, AR: 13, MR: 13, AGL: 4)
 
-				2.- Asesino: Clase especializada en el daÃ±o Fisico. Mucho daÃ±o fisico y agilidad.
+				2.- Asesino: Clase especializada en el daño Fisico. Mucho daño fisico y agilidad.
 				Tendra mas posibilidad de esquivar los ataques, pero a cambio tendra muy poca armadura.
 				Nivel 20: (HP: 200,  AD: 18, AP: 4, AR: 5, MR: 5, AGL: 18)
 
 				3.- Caballero: Clase especializada en la estabilidad. Tendra un poco de todo.
-				Esta clase hara un daÃ±o normal, y recibira daÃ±o normal.
+				Esta clase hara un daño normal, y recibira daño normal.
 				Nivel 20: (HP: 250,  AD: 12, AP: 7, AR: 8, MR: 8, AGL: 10)
 
-				4.- Mago: Clase especializada en el daÃ±o Magico. Mucho daÃ±o magico.
-				Clase para jugadores veteranos. Sera capaz de realizar mucho daÃ±o, pero tendra muy poca resistencia.
+				4.- Mago: Clase especializada en el daño Magico. Mucho daño magico.
+				Clase para jugadores veteranos. Sera capaz de realizar mucho daño, pero tendra muy poca resistencia.
 				Nivel 20: (HP: 160,  AD: 5, AP: 20, AR: 6, MR: 10, AGL: 12)
 
 				5.- Marginado: Clase para jugadores curtidos. No tiene ninguna ventaja. Le costara mas subir de nivel,
@@ -169,7 +169,7 @@ public abstract class Menu {
 
 	public static final String MSG_ENEMIGO_NO_DISPONIBLE = "El enemigo que has elegido esta muerto.";
 
-	public static final String MSG_BLOQUEO = "Bloquear pasara el turno y reducira el daÃ±o del siguiente ataque recibido.";
+	public static final String MSG_BLOQUEO = "Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.";
 
 	public static final String MSG_POSICION_INVENTARIO_VACIA = "Vacio";
 

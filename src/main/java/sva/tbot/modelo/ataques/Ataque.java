@@ -1,12 +1,11 @@
-package sva.tbot.modelo.noEntidades;
+package sva.tbot.modelo.ataques;
 
 import sva.tbot.exception.JuegoException;
-import sva.tbot.modelo.enums.TiposAtaque;
-import sva.tbot.window.Principal;
+import sva.tbot.juego.Principal;
 
 import java.util.Objects;
 
-public final class Ataque {
+public final class Ataque implements Atacable {
 	private String ID;
 	private Integer dmgAtaque;
 	private Integer minRequerido;

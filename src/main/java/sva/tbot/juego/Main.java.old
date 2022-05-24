@@ -278,7 +278,7 @@ public class Main {
 			boolean repetirCombate;
 			if (i == 4) {
 				clear();
-				doublePrintLn("aquÃ­ pasara algo relacionado con la historia \n");
+				doublePrintLn("aquí pasara algo relacionado con la historia \n");
 				pause();
 				clear();
 			}
@@ -330,8 +330,8 @@ public class Main {
 	 *     no deba terminar.
 	 *     El bucle no terminara hasta que:
 	 *     <ul>
-	 *         <li> Use un ataque que realize algun daÃ±o al enemigo </li>
-	 *         <li> Decida bloquear, reduciendo el daÃ±o y omitiendo el turno.</li>
+	 *         <li> Use un ataque que realize algun daño al enemigo </li>
+	 *         <li> Decida bloquear, reduciendo el daño y omitiendo el turno.</li>
 	 *         <li> Salga del menu inventario, despues de realizar minimo una accion.</li>
 	 *         <li> Salga del juego desde el menu varios.</li>
 	 *     </ul>
@@ -469,8 +469,8 @@ public class Main {
 	 *         <li>Compueba que el ataque no es nulo y es usable. Si no, lanzara una excepcion.</li>
 	 *         <li>Entonces pedira un enemigo, que sera el objetivo del ataque.</li>
 	 *         <li>Comprobara si el ataque ha sido esquivado con el agl del enemigo. Si ha sido esquivado el metodo terminara.</li>
-	 *         <li>Si no, calculara el dmg del ataque, si es critico, y la reduccion de daÃ±o en base a la resistencia del objetivo.</li>
-	 *         <li>Cuando el enemigo reciba el daÃ±o, devolvera false si este ha muerto.</li>
+	 *         <li>Si no, calculara el dmg del ataque, si es critico, y la reduccion de daño en base a la resistencia del objetivo.</li>
+	 *         <li>Cuando el enemigo reciba el daño, devolvera false si este ha muerto.</li>
 	 *         <li>Por ultimo construira una cadena para devolver informacion al usuario.</li>
 	 *     </ol>
 	 * </p>
@@ -517,9 +517,9 @@ public class Main {
 	 * </p>
 	 *
 	 * @param name Nombre del receptor del ataque.
-	 * @param dmg DaÃ±o realizado al receptor.
+	 * @param dmg Daño realizado al receptor.
 	 * @param isCritical Si el ataque ha sido critico.
-	 * @param isBloqueo Si el ataque ha sido bloqueado por el receptor. Este sera desactivado al recibir daÃ±o.
+	 * @param isBloqueo Si el ataque ha sido bloqueado por el receptor. Este sera desactivado al recibir daño.
 	 * @param isVivo true si el enemigo esta vivo y false si muerto.
 	 * @return cadena editada con la informacion pasada por parametro.
 	 */
@@ -534,7 +534,7 @@ public class Main {
 		if (isCritical)
 			sb.append("Ataque critico! ");
 
-		sb.append(String.format("Has conseguido hacer %d pts de daÃ±o.\n",dmg));
+		sb.append(String.format("Has conseguido hacer %d pts de daño.\n",dmg));
 
 		if (!isVivo)
 			sb.append(String.format("%s ha muerto.\n",name));

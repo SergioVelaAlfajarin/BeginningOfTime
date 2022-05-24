@@ -1,4 +1,4 @@
-package sva.tbot.modelo.enums;
+package sva.tbot.modelo.entidades.ene;
 
 public enum ClasesEnemigo {
 	LOBO (100,4,1,1,1,2),

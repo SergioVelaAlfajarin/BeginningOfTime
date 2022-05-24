@@ -1,4 +1,4 @@
-package sva.tbot.modelo.enums;
+package sva.tbot.modelo.ataques;
 
 public enum TiposAtaque {
 	ATAQUE_RAPIDO("af_ad_1"),

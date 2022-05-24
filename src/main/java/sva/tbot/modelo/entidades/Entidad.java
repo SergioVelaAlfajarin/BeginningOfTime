@@ -1,6 +1,6 @@
 package sva.tbot.modelo.entidades;
 
-import sva.tbot.modelo.enums.ClasesPersonaje;
+import sva.tbot.modelo.entidades.per.ClasesPersonaje;
 
 public abstract class Entidad {
 	private String nombre, claseEntidad;
