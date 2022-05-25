@@ -1,7 +1,16 @@
 package sva.tbot.juego;
 
-public abstract class Menu {
+import sva.tbot.exception.JuegoException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public abstract class Menu {
+	private static int columnaIdioma = 1; //por defecto sera español
+	public static final String SALTO_LINEA = "\n";
+	public static final String CSV_SEPARATOR = ";";
+	public static final String CSV_RPATH = "src/main/resources/a.csv";
 	public static final String LOGO_DEV = """
 				         /\\
 				      _-/- \\
@@ -16,261 +25,305 @@ public abstract class Menu {
 
 	// MENUS ----------------------------------------------
 
-	public static String menuInicialSecundario(int vecesJugado) {
-		StringBuilder temp = new StringBuilder(LOGO_DEV + "\n");
-
-		temp.append("0.- Empezar de nuevo");
-		temp.append("\n");
-		temp.append("1.- Nueva Partida");
-		if (vecesJugado >= 5)
-			temp.append("+").append(vecesJugado);
-		else
-			temp.append("+".repeat(Math.max(1, vecesJugado)));
-		temp.append("\n");
-		temp.append("""
-				2.- Extras
-				3.- ChangeLog
-				4.- Cambiar Idioma (Change Language)
-				5.- Salir del juego""");
-
-		return temp.toString();
-	}
-
-	public static String menuPrincipal() {
-		return LOGO_DEV + """
-
-				1.- Nueva Partida
-				2.- Extras
-				3.- ChangeLog
-				4.- Cambiar Idioma (Change Language)
-				5.- Salir del juego""";
+	public static String menuPrincipal(int vecesJugado) {
+		StringBuilder sb = new StringBuilder(LOGO_DEV + SALTO_LINEA);
+		if(vecesJugado >= 1){
+			sb.append("0.- ").append(buscaTexto("option0")).append(SALTO_LINEA);
+			sb.append("1.- ").append(buscaTexto("option1"));
+			if (vecesJugado >= 5) {
+				sb.append("+").append(vecesJugado);
+			} else {
+				sb.append("+".repeat(vecesJugado));
+			}
+			sb.append(SALTO_LINEA);
+		}else{
+			sb.append("1.- ").append(buscaTexto("option1")).append(SALTO_LINEA);
+		}
+		sb.append("2.- ").append(buscaTexto("option2")).append(SALTO_LINEA);
+		sb.append("3.- ").append(buscaTexto("option3")).append(SALTO_LINEA);
+		sb.append("4.- ").append(buscaTexto("option4")).append(SALTO_LINEA);
+		sb.append("5.- ").append(buscaTexto("option15")).append(SALTO_LINEA);
+		return sb.toString();
 	}
 
 	public static String menuChangeLog() {
-		return """
-				========================= ITEMS UPDATE 0.5 (ACTUAL) =========================
-				~  Nombre cambiado a The Beginning of Time.
-				~  Añadida historia.
-				~  Añadida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.
-				~  Revisadas todas las opciones y mejorada la seleccion de las mismas.
-				~  Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.
-				~  Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.
-				~  Añadido nuevos menus, para incrementar la accesibilidad.
-				~  Estadisticas rediseñadas por completo, con mas niveles.
-				~  Rama de habilidades de apoyo sustituidas por objetos.
-				~  Ahora los enemigos se dividen en 4 tipos.
-				~  Posibilidad de empezar Nueva Partida +, con tus personajes de la anterior partida y enemigos mas complicados.
-				~  Juego publicado en GitHub!
-
-				========================= CONTENT UPDATE 0.6 (PROXIMAMENTE) =================
-				~  Traduccion a otros idiomas.
-				~  Mas enemigos, personajes, objetos y equipamiento.""";
+		StringBuilder sb = new StringBuilder();
+		sb.append("========================= ").append(buscaTexto("changelogmenu0")).append(" =========================");
+		sb.append(SALTO_LINEA);
+		for(int i=1; i<= 12; i++){
+			sb.append("+ ").append(buscaTexto("changelogmenu" + i)).append(SALTO_LINEA);
+		}
+		sb.append(SALTO_LINEA);
+		sb.append("========================= ").append(buscaTexto("changelogmenu13")).append(" =================");
+		sb.append(SALTO_LINEA);
+		for(int i=14; i<= 15; i++){
+			sb.append("+ ").append(buscaTexto("changelogmenu" + i)).append(SALTO_LINEA);
+		}
+		return sb.toString();
 	}
+
 	public static String menuExtras() {
-		return """
-				Idea original: Shiku.
-				Programador: Shiku.
-				Diseños conceptuales: Josert
-				Testers: Dakos, Josert.
-				""";
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i <= 5; i++){
+			sb.append(buscaTexto("extras" + i)).append(SALTO_LINEA);
+		}
+		return sb.toString();
 	}
 
 	public static String menuClases() {
-		return """
-				0.- Ayuda e informacion sobre las clases.
-				1.- Tanque        (HP: 100, AD: 1, AP: 1, AR: 2, MR: 2, AGL: 0)
-				2.- Asesino       (HP: 90,  AD: 2, AP: 1, AR: 1, MR: 0, AGL: 3)
-				3.- Caballero     (HP: 90,  AD: 2, AP: 0, AR: 2, MR: 2, AGL: 1)
-				4.- Mago          (HP: 90,  AD: 1, AP: 3, AR: 0, MR: 0, AGL: 2)
-				5.- Marginado     (HP: 90,  AD: 2, AP: 0, AR: 1, MR: 2, AGL: 2)""";
+		return  "0.- " + buscaTexto("option11") + SALTO_LINEA +
+				"1.- " + String.format("%-12s", buscaTexto("class0")) + "(HP: 100, AD: 1, AP: 1, AR: 2, MR: 2, AGL: 0)"
+				+ SALTO_LINEA +
+				"2.- " + String.format("%-12s", buscaTexto("class1")) + "(HP: 90,  AD: 2, AP: 1, AR: 1, MR: 0, AGL: 3)"
+				+ SALTO_LINEA +
+				"3.- " + String.format("%-12s", buscaTexto("class2")) + "(HP: 90,  AD: 2, AP: 0, AR: 2, MR: 2, AGL: 1)"
+				+ SALTO_LINEA +
+				"4.- " + String.format("%-12s", buscaTexto("class3")) + "(HP: 90,  AD: 1, AP: 3, AR: 0, MR: 0, AGL: 2)"
+				+ SALTO_LINEA +
+				"5.- " + String.format("%-12s", buscaTexto("class4")) + "(HP: 90,  AD: 2, AP: 0, AR: 1, MR: 2, AGL: 2)"
+				+ SALTO_LINEA;
 	}
 
 	public static String menuCambiaIdioma() {
-		return "\nEsta opcion esta temporalmente deshabilitada.";
+		StringBuilder sb = new StringBuilder();
+		sb.append(buscaTexto("langmenu0")).append(SALTO_LINEA);
+		String[] idiomas = getIdiomasDisponibles();
+		for (int i = 0; i < idiomas.length; i++) {
+			sb.append(i+1).append(".- ").append(idiomas[i]).append(SALTO_LINEA);
+		}
+		return sb.toString();
 	}
 
 	public static String menuAcciones() {
-		return """
-				1.- Fisico
-				2.- Magico
-				3.- Varios
-				4.- Bloquear
-				5.- Inventario""";
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < 5; i++) {
+			sb.append(i+1).append(".- ").append(buscaTexto("option" + (i +5))).append(SALTO_LINEA);
+		}
+		return sb.toString();
 	}
 
 	public static String menuAccionesFisico() {
-		return """
-				1.- Ataque rapido   (Minimo: 2 AD)
-				2.- Gran Golpe      (Minimo: 9 AD)
-				3.- Barrido         (Minimo: 5 AD)
-				4.- Volver""";
+		return  "1.- " + String.format("%-12s", buscaTexto("attack0")) + "(Min: 2 AD)" + SALTO_LINEA +
+				"2.- " + String.format("%-12s", buscaTexto("attack1")) + "(Min: 10 AD)" + SALTO_LINEA +
+				"3.- " + String.format("%-12s", buscaTexto("attack2")) + "(Min: 6 AD)" + SALTO_LINEA +
+				"4.- " + buscaTexto("option10") + SALTO_LINEA;
 	}
 
 	public static String menuAccionesMagico() {
-		return """
-				1.- AquaSplash		(Minimo: 2 AP)
-				2.- Combustion		(Minimo: 9 AP)
-				3.- Tornado			(Minimo: 5 AP)
-				4.- Volver""";
+		return  "1.- " + String.format("%-12s", buscaTexto("attack3")) + "(Min: 2 AD)" + SALTO_LINEA +
+				"2.- " + String.format("%-12s", buscaTexto("attack4")) + "(Min: 10 AD)" + SALTO_LINEA +
+				"3.- " + String.format("%-12s", buscaTexto("attack5")) + "(Min: 6 AD)" + SALTO_LINEA +
+				"4.- " + buscaTexto("option10") + SALTO_LINEA;
 	}
 
 	public static String menuAccionesOtros() {
-		return """
-				1.- Estadisticas de Personajes y Enemigos
-				2.- Informacion del Juego
-				3.- Informacion de los ataques
-				4.- Salir del juego
-				5.- volver""";
+		return "1.- "  + buscaTexto("option12") + SALTO_LINEA +
+				"2.- " + buscaTexto("option13") + SALTO_LINEA +
+				"3.- " + buscaTexto("option14") + SALTO_LINEA +
+				"4.- " + buscaTexto("option15") + SALTO_LINEA +
+				"5.- " + buscaTexto("option10") + SALTO_LINEA;
 	}
 
 	// MUESTRA COSAS -----------------------------------
 
-
 	public static String muestraAyudaClases() {
-		return """
-				============ AYUDA SOBRE LAS CLASES ================
-
-				1.- Tanque: Clase especializada en la resistencia y el aguante. Mucha vida y armadura.
-				Sera capaz de aguantar mas golpes que ninguna clase, pero sera poco agil.
-				Nivel 20: (HP: 320, AD: 3, AP: 6, AR: 13, MR: 13, AGL: 4)
-
-				2.- Asesino: Clase especializada en el daño Fisico. Mucho daño fisico y agilidad.
-				Tendra mas posibilidad de esquivar los ataques, pero a cambio tendra muy poca armadura.
-				Nivel 20: (HP: 200,  AD: 18, AP: 4, AR: 5, MR: 5, AGL: 18)
-
-				3.- Caballero: Clase especializada en la estabilidad. Tendra un poco de todo.
-				Esta clase hara un daño normal, y recibira daño normal.
-				Nivel 20: (HP: 250,  AD: 12, AP: 7, AR: 8, MR: 8, AGL: 10)
-
-				4.- Mago: Clase especializada en el daño Magico. Mucho daño magico.
-				Clase para jugadores veteranos. Sera capaz de realizar mucho daño, pero tendra muy poca resistencia.
-				Nivel 20: (HP: 160,  AD: 5, AP: 20, AR: 6, MR: 10, AGL: 12)
-
-				5.- Marginado: Clase para jugadores curtidos. No tiene ninguna ventaja. Le costara mas subir de nivel,
-				y sus estadisticas no aumentaran tanto como las otras clases. Un verdadero reto.
-				Nivel 20: (HP: 180,  AD: 8, AP: 8, AR: 5, MR: 6, AGL: 6)""";
+		return "============ " + buscaTexto("classInfo0") + " ============" +
+				SALTO_LINEA + SALTO_LINEA +
+				"1.- " + buscaTexto("classInfo1") + SALTO_LINEA +
+				buscaTexto("classInfo2") + SALTO_LINEA +
+				buscaTexto("classInfo3") + SALTO_LINEA +
+				SALTO_LINEA +
+				"2.- " + buscaTexto("classInfo4") + SALTO_LINEA +
+				buscaTexto("classInfo5") + SALTO_LINEA +
+				buscaTexto("classInfo6") + SALTO_LINEA +
+				SALTO_LINEA +
+				"3.- " + buscaTexto("classInfo7") + SALTO_LINEA +
+				buscaTexto("classInfo8") + SALTO_LINEA +
+				buscaTexto("classInfo9") + SALTO_LINEA +
+				SALTO_LINEA +
+				"4.- " + buscaTexto("classInfo10") + SALTO_LINEA +
+				buscaTexto("classInfo11") + SALTO_LINEA +
+				buscaTexto("classInfo12") + SALTO_LINEA +
+				SALTO_LINEA +
+				"5.- " + buscaTexto("classInfo13") + SALTO_LINEA +
+				buscaTexto("classInfo14") + SALTO_LINEA +
+				buscaTexto("classInfo15") + SALTO_LINEA;
 	}
 
 	public static String muestraAyudaJuego() {
-		return "Aqui ira la ayuda del juego.";
+		return buscaTexto("gameinfo0");
 	}
 
 	public static String muestraHistoriaJuego() {
-		return "Aqui ira la historia del juego.";
+		return buscaTexto("gameStory0");
 	}
-
 
 	// MENSAJES --------------------------------------------
 
 	public static String pideAccion() {
-		return "Que quieres hacer?";
+		return buscaTexto("message1");
 	}
 
 	public static String pideNombre() {
-		return "Como quieres llamar al personaje?";
+		return buscaTexto("message2");
 	}
 
 	public static String msgBienvenida() {
-		return "Bienvenido a The Beginning of Time!";
+		return buscaTexto("message3");
 	}
 
 	public static String msgTurno() {
-		return "===== Turno de %s =====";
+		return "===== " + buscaTexto("message4") + " %s =====";
 	}
 
 	public static String msgEmpiezaJuego() {
-		return "========= Comienza el juego =========";
+		return "========= " + buscaTexto("message5") +" =========";
 	}
 
 	public static String msgPersonajeCreado() {
-		return "%s ha sido creado. (%02d/%02d)";
+		return "%s " + buscaTexto("message6") + " (%02d/%02d)";
 	}
 
 	public static String msgSubidaNivel() {
-		return "%s ha subido a nivel %d!";
+		return "%s " + buscaTexto("message7") + " %d!";
 	}
 
 	public static String msgSalirJuego() {
-		return "Hasta la proxima";
+		return buscaTexto("message8");
 	}
 
 	public static String pideClases() {
-		return "Que clase quieres elegir?";
+		return buscaTexto("message9");
 	}
 
 	public static String pideConfirmacion() {
-		return "Estas Seguro? (1:si/2:no)";
+		return buscaTexto("message10");
 	}
 
 	public static String msgPausa() {
-		return "\nIntroduce enter para continuar....";
+		return SALTO_LINEA + buscaTexto("message11");
 	}
 
 	public static String msgEnemigoDerrotado() {
-		return "Has derrotado a todos los Enemigos!!";
+		return buscaTexto("message12");
 	}
 
 	public static String msgJuegoPerdido() {
-		return "Todos los personajes han muerto. Has perdido.";
+		return buscaTexto("message13");
 	}
 
 	public static String pideEnemigo() {
-		return "Que enemigo quieres elegir? ";
+		return buscaTexto("message14");
 	}
 
 	public static String enemigoElegidoNoDisponible() {
-		return "El enemigo que has elegido esta muerto.";
+		return buscaTexto("message15");
 	}
 
 	public static String msgBloqueo() {
-		return "Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.";
+		return buscaTexto("message16");
 	}
 
-	public static String msgPosicionInventarioVacia() {
-		return "Vacio";
+	public static String msgConfirmaBloqueo() {
+		return buscaTexto("message17");
+	}
+
+	public static String msgPosVacia(){
+		return buscaTexto("message18");
 	}
 
 	public static String msgCreacionClase() {
-		return "Elige una clase para tu Personaje: ";
+		return buscaTexto("message19");
 	}
 
 	public static String msgEnemigoAtaqueEsquivado() {
-		return "El enemigo ha esquivado el ataque!";
+		return buscaTexto("message23");
+	}
+
+	public static String msgPersonajeAtaqueEsquivado() {
+		return buscaTexto("message29");
+	}
+
+	public static String msgDespedida(){
+		return buscaTexto("message22");
+	}
+
+	public static String confimaBloqueo() {
+		return buscaTexto("message20") + " %s " + buscaTexto("message21");
 	}
 
 	// ERRORES -----------------------------------------------------------
 
 	public static String errorEnemigoNoEncontrado() {
-		return "El Enemigo especificado no ha sido encontrado.";
+		return buscaTexto("errormessage0");
 	}
 
 	public static String errorPersonajeNoEncontrado() {
-		return "El Personaje especificado no ha sido encontrado";
+		return buscaTexto("errormessage1");
 	}
 
 	public static String errorNumeroNoValido() {
-		return "Introduce un numero valido.";
+		return buscaTexto("errormessage2");
 	}
 
 	public static String errorAtaqueNoDisponible() {
-		return "El ataque seleccionado no esta disponible";
+		return buscaTexto("errormessage3");
 	}
 
 	public static String errorInesperado() {
-		return "El juego ha encontrado un error y debe cerrarse.";
+		return buscaTexto("errormessage4");
 	}
-
 
 	public static String errorBloqueoYaActivo() {
-		return "Bloquear ya estaba activo.";
-	}
-
-	public static String confimaBloqueo() {
-		return "Ahora %s esta bloqueando.";
+		return buscaTexto("errormessage5");
 	}
 
 	public static String errorNombreNoValido() {
-		return "Introduce un nombre valido.";
+		return buscaTexto("errormessage6");
 	}
 
+	// metodos configuradores del lector. -----------------------------------------------
+
+	public static boolean cambiarIdioma(String nuevoIdioma){
+		String[] idiomas = getIdiomasDisponibles();
+		for (int i = 0; i < idiomas.length; i++) {
+			if(idiomas[i].equalsIgnoreCase(nuevoIdioma)){
+				columnaIdioma = i;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static String[] getIdiomasDisponibles(){
+		try (Scanner sc = new Scanner(new File(CSV_RPATH))){
+			String header = sc.nextLine();
+			String[] headerSplitted = header.split(CSV_SEPARATOR);
+			String[] idiomas = new String[headerSplitted.length-1];
+			System.arraycopy(headerSplitted, 1, idiomas, 0, idiomas.length);
+			return idiomas;
+		}catch(FileNotFoundException e){
+			throw new JuegoException("Archivo de idioma no encontrado.");
+		}
+	}
+
+	private static String buscaTexto(String id){
+		try (Scanner sc = new Scanner(new File(CSV_RPATH))){
+			sc.nextLine(); //quitamos el header
+			while(sc.hasNextLine()) {
+				String line = sc.nextLine();
+				String[] splitted = line.split(CSV_SEPARATOR);
+				if(splitted[0].equalsIgnoreCase(id)){
+					String text = splitted[columnaIdioma].trim();
+					if(text.isEmpty()){
+						throw new JuegoException("No se ha encontrado el texto requerido.");
+					}
+					return text;
+				}
+			}
+			throw new JuegoException("Dialogo inexiste en archivo.");
+		}catch(FileNotFoundException e){
+			throw new JuegoException("Archivo de idioma no encontrado.");
+		}
+	}
 }

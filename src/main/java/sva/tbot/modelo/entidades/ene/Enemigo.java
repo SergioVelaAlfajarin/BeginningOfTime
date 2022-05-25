@@ -1,7 +1,6 @@
 package sva.tbot.modelo.entidades.ene;
 
 import sva.tbot.exception.JuegoException;
-import sva.tbot.gestores.GestorEntidad;
 import sva.tbot.modelo.entidades.Entidad;
 import sva.tbot.modelo.entidades.per.Personaje;
 

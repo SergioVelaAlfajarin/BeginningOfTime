@@ -2,6 +2,7 @@ package sva.tbot.juego;
 
 import sva.tbot.exception.*;
 import sva.tbot.gestores.*;
+import sva.tbot.modelo.entidades.ene.Enemigo;
 import sva.tbot.modelo.entidades.per.Personaje;
 
 import java.util.Scanner;
@@ -12,6 +13,11 @@ public final class Principal {
 	private static int contadorPartidas = 0;
 
 	public static void main(String[] args) {
+		//extracted();
+		System.out.println(Menu.menuCambiaIdioma());
+	}
+
+	private static void extracted() {
 		try{
 			boolean repetir;
 			do {
@@ -30,7 +36,7 @@ public final class Principal {
 	}
 
 	private static void introduceOpcionInicioJuego() throws JuegoException {
-		int opcion = muestraOpcionesYPideNumero(1, 5, Menu.menuPrincipal());
+		int opcion = muestraOpcionesYPideNumero(1, 5, Menu.menuPrincipal(0));
 		clear();
 		switch(opcion){
 			case 2 -> menuExtras();
@@ -95,7 +101,7 @@ public final class Principal {
 	 * </p>
 	 */
 	private static void resetJuego() {
-		GestorEntidad.resetArrays();
+
 		contadorPartidas = 0;
 	}
 
@@ -111,7 +117,7 @@ public final class Principal {
 		if (isCritical)
 			sb.append("Ataque critico! ");
 
-		sb.append(String.format("Has conseguido hacer %d pts de daÃ±o.\n",dmg));
+		sb.append(String.format("Has conseguido hacer %d pts de daño.\n",dmg));
 
 		if (!isVivo)
 			sb.append(String.format("%s ha muerto.\n",name));

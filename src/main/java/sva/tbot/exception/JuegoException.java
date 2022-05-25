@@ -2,7 +2,7 @@ package sva.tbot.exception;
 
 public final class JuegoException extends RuntimeException {
 	public JuegoException() {
-		super();
+		super("Unexpected Exception");
 	}
 
 	public JuegoException(String str) {
