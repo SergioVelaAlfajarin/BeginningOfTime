@@ -8,7 +8,7 @@ import sva.tbot.juego.Menu;
 public final class Personaje extends Entidad {
 	public static final int MAX_PERSONAJES = 3;
 	public static final int MAX_SIZE_INVENTARIO = 8;
-	public static final String NOMBRE_PERSONAJE_PRINCIPAL = "Karim";
+	public static final String NOMBRE_PERSONAJE_PRINCIPAL = "Tiid";
 
 	private final Item[] inv = new Item[MAX_SIZE_INVENTARIO];
 	private int xpRequerida, xpActual;
@@ -35,16 +35,6 @@ public final class Personaje extends Entidad {
 
 
 	public String getInv() {
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < inv.length; i++) {
-			if (inv[i] != null) {
-				sb.append(i + 1).append(" - ").append(inv[i].getNombre()).append("\n");
-			} else {
-				sb.append(i + 1).append(" - ").append(Menu.msgConfirmaBloqueo()).append("\n");
-			}
-		}
-
-		return sb.toString();
+		return null;
 	}
 }

@@ -5,13 +5,13 @@ import sva.tbot.juego.Principal;
 import java.util.Objects;
 
 public final class Ataque implements Atacable {
-	private String ID;
-	private Integer dmgAtaque, minRequerido;
-	private Character stat;
-	private Double escalado;
+	private final String nombre;
+	private final Integer dmgAtaque, minRequerido;
+	private final Character stat;
+	private final Double escalado;
 
 	public Ataque(TiposAtaque ta) {
-		this.ID = ta.ID;
+		this.nombre = ta.ID;
 		this.dmgAtaque = ta.dmgAtaque;
 		this.minRequerido = ta.minRequerido;
 		this.stat = ta.stat;
@@ -50,20 +50,18 @@ public final class Ataque implements Atacable {
 
 	@Override
 	public String toString() {
-		return "Ataque{wip}";
+		return String.format("%s: (DMG: %d, MIN:%d, %s", nombre, dmgAtaque, minRequerido, stat == 'd' ? "ad" : "ap");
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (!(o instanceof Ataque attack))
-			return false;
-		return Objects.equals(ID, attack.ID);
+		if (this == o) return true;
+		if (!(o instanceof Ataque ataque)) return false;
+		return nombre.equals(ataque.nombre);
 	}
 
 	@Override
 	public int hashCode() {
-		return ID != null ? ID.hashCode() : 0;
+		return Objects.hash(nombre);
 	}
 }

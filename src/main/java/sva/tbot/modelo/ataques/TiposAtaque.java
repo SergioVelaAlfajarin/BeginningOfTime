@@ -1,12 +1,14 @@
 package sva.tbot.modelo.ataques;
 
+import sva.tbot.juego.Menu;
+
 public enum TiposAtaque {
-	ATAQUE_RAPIDO       ("af_ad_1",30, 2 , 'd', 4.5),
-	GRAN_GOLPE          ("gg_ad_2",60, 10, 'd', 4.0),
-	BARRIDO_FISICO      ("bf_ad_3",42, 6 , 'd', 3.5),
-	AQUASPLASH          ("as_ap_1",20, 2 , 'p', 5.5),
-	GRAN_COMBUSTION     ("gc_ap_2",25, 10, 'p', 6.0),
-	TORNADO_MAGICO      ("tm_ap_3",20, 6 , 'p', 4.8);
+	AT_RA_1 (Menu.getMenu().buscaTexto("attack0"),30, 2 , 'd', 4.5),
+	GR_GO_2 (Menu.getMenu().buscaTexto("attack1"),60, 10, 'd', 4.0),
+	BA_FI_3 (Menu.getMenu().buscaTexto("attack2"),42, 6 , 'd', 3.5),
+	AQ_PL_4 (Menu.getMenu().buscaTexto("attack3"),20, 2 , 'p', 5.5),
+	GR_CO_5 (Menu.getMenu().buscaTexto("attack4"),25, 10, 'p', 6.0),
+	TO_MA_6 (Menu.getMenu().buscaTexto("attack5"),20, 6 , 'p', 4.8);
 
 	public final String ID;
 	public final Integer dmgAtaque;

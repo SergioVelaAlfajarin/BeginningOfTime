@@ -1,20 +1,18 @@
 package sva.tbot.modelo.entidades;
 
-import sva.tbot.modelo.entidades.per.ClasesPersonaje;
-
 public abstract class Entidad {
 	private String nombre, claseEntidad;
 	private Integer actualHP, maxHP, ad, ap, ar, mr, agl, lvl;
 	private Integer adAdicional, apAdicional, arAdicional, mrAdicional, aglAdicional, maxHPAdicional;
 	private Boolean estado, bloqueo;
 
-	protected Entidad(String nombre, ClasesPersonaje classEntity) {
+	protected Entidad(String nombre, TiposClase classEntity) {
 		this.nombre = nombre;
 		claseEntidad = classEntity.toString();
 		initEntidad(classEntity);
 	}
 
-	private void initEntidad(ClasesPersonaje classEntity) {
+	private void initEntidad(TiposClase classEntity) {
 		//set base stats
 		this.maxHP = classEntity.hp;
 		this.actualHP = maxHP;

@@ -1,105 +1,106 @@
 ID;ESPAÑOL;ENGLISH
-option0;Empezar de nuevo;
-option1;Nueva Partida;
-option2;Extras;
-option3;Historial de cambios;
-option4;Cambiar Idioma (Change Language);
-option5;Fisico;
-option6;Magico;
-option7;Varios;
-option8;Bloquear;
-option9;Inventario;
-option10;Volver;
-option11;Ayuda e informacion sobre las clases.;
-option12;Estadisticas de Personajes y Enemigos;
-option13;Informacion del Juego;
-option14;Informacion de los ataques;
-option15;Salir del juego;
-changelogMenu0;ITEMS UPDATE 0.5 (ACTUAL);
-changelogMenu1;Nombre cambiado a The Beginning of Time.;
-changelogMenu2;Añadida historia.;
-changelogMenu3;Añadida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.;
-changelogMenu4;Revisadas todas las opciones y mejorada la seleccion de las mismas.;
-changelogMenu5;Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.;
-changelogMenu6;Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.;
-changelogMenu7;Añadido nuevos menus, para incrementar la accesibilidad.;
-changelogMenu8;Estadisticas rediseñadas por completo, con mas niveles.;
-changelogMenu9;Rama de habilidades de apoyo sustituidas por objetos.;
-changelogMenu10;Ahora los enemigos se dividen en 4 tipos.;
-changelogMenu11;Posibilidad de empezar Nueva Partida +, con tus personajes de la anterior partida y enemigos mas complicados.;
-changelogMenu12;Juego publicado en GitHub!;
-changelogMenu13;CONTENT UPDATE 0.6 (PROXIMAMENTE);
-changelogMenu14;Traduccion a otros idiomas.;
-changelogMenu15;Mas enemigos, personajes, objetos y equipamiento.;
-langmenu0;Que idioma quieres elegir?;
-extras0;Idea original: Shiku.;
-extras1;Programador: Shiku.;
-extras2;Diseños conceptuales: Josert;
-extras3;Testers: Dakos, Josert.;
-extras4;Traductor al ingles: Dakos.;
-extras5;Historia basada en el origen de tiid.;
-class0;Tanque;
-class1;Asesino;
-class2;Caballero;
-class3;Mago;
-class4;Marginado;
-attack0;Ataque rapido;
-attack1;Gran Golpe;
-attack2;Barrido;
-attack3;AquaSplash;
-attack4;Combustion;
-attack5;Tornado;
-classInfo0;AYUDA SOBRE LAS CLASES;
-classInfo1;Tanque: Clase especializada en la resistencia y el aguante. Mucha vida y armadura.;
-classInfo2;Sera capaz de aguantar mas golpes que ninguna clase, pero sera poco agil.;
-classInfo3;Nivel 20: (HP: 320, AD: 3, AP: 6, AR: 13, MR: 13, AGL: 4);
-classInfo4;Asesino: Clase especializada en el daño Fisico. Mucho daño fisico y agilidad.;
-classInfo5;Tendra mas posibilidad de esquivar los ataques, pero a cambio tendra muy poca armadura.;
-classInfo6;Nivel 20: (HP: 200,  AD: 18, AP: 4, AR: 5, MR: 5, AGL: 18);
-classInfo7;Caballero: Clase especializada en la estabilidad. Tendra un poco de todo.;
-classInfo8;Esta clase hara un daño normal, y recibira daño normal.;
-classInfo9;Nivel 20: (HP: 250,  AD: 12, AP: 7, AR: 8, MR: 8, AGL: 10);
-classInfo10;Mago: Clase especializada en el daño Magico. Mucho daño magico.;
-classInfo11;Clase para jugadores veteranos. Sera capaz de realizar mucho daño, pero tendra muy poca resistencia.;
-classInfo12;Nivel 20: (HP: 160,  AD: 5, AP: 20, AR: 6, MR: 10, AGL: 12);
-classInfo13;Marginado: Clase para jugadores curtidos. No tiene ninguna ventaja. Le costara mas subir de nivel,;
-classInfo14;y sus estadisticas no aumentaran tanto como las otras clases. Un verdadero reto.;
-classInfo15;Nivel 20: (HP: 180,  AD: 8, AP: 8, AR: 5, MR: 6, AGL: 6);
-gameInfo0;Aqui ira la ayuda del juego.;
-gameStory0;Aqui ira la historia del juego.;
-message1;Que quieres hacer?;
-message2;Como quieres llamar al personaje?;
-message3;Bienvenido a The Beginning of Time!;
-message4;Turno de;
-message5;Comienza el juego;
-message6;ha sido creado.;
-message7;ha subido al nivel;
-message8;Hasta la proxima!;
-message9;Que clase quieres elegir?;
-message10;Estas Seguro? (1:si/2:no);
-message11;Pulsa enter para continuar....;
-message12;Has derrotado a todos los Enemigos!;
-message13;Todos los personajes han muerto. Has perdido.;
-message14;Que enemigo quieres elegir?;
-message15;El enemigo que has elegido esta muerto.;
-message16;Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.;
-message17;Quieres bloquear?;
-message18;Vacio;
-message19;Elige una clase para tu Personaje:;
-message20;Ahora;
-message21;esta bloqueando.;
-message22;Gracias por jugar!;
-message23;El enemigo ha esquivado el ataque!;
-message24;El enemigo estaba bloqueando.;
-message25;Ataque critico!;
-message26;Has conseguido realizar;
-message27;pts de daño.;
-message28;ha muerto.;
-message29;Has esquivado el ataque.;
-errorMessage0;El Enemigo especificado no ha sido encontrado.;
-errorMessage1;El Personaje especificado no ha sido encontrado.;
-errorMessage2;Introduce un numero valido.;
-errorMessage3;El ataque seleccionado no esta disponible.;
-errorMessage4;El juego ha encontrado un error y debe cerrarse.;
-errorMessage5;Bloquear ya estaba activo.;
-errorMessage6;Introduce un nombre valido.;
+option0;Empezar de nuevo;a
+option1;Nueva Partida;a
+option2;Extras;a
+option3;Historial de cambios;a
+option4;Cambiar Idioma (Change Language);a
+option5;Fisico;a
+option6;Magico;a
+option7;Varios;a
+option8;Bloquear;a
+option9;Inventario;a
+option10;Volver;a
+option11;Ayuda e informacion sobre las clases.;a
+option12;Estadisticas de Personajes y Enemigos;a
+option13;Informacion del Juego;a
+option14;Informacion de los ataques;a
+option15;Salir del juego;a
+changelogMenu0;ITEMS UPDATE 0.5 (ACTUAL);a
+changelogMenu1;Nombre cambiado a The Beginning of Time.;a
+changelogMenu2;Añadida historia.;a
+changelogMenu3;Añadida posibilidad de que los enemigos suelten objetos, equipamiento y experiencia despues de cada combate.;a
+changelogMenu4;Revisadas todas las opciones y mejorada la seleccion de las mismas.;a
+changelogMenu5;Ahora cada personaje tiene inventario propio, con posibilidad de usar objetos y equiparse armadura.;a
+changelogMenu6;Ahora para subir de nivel sera necesario alcanzar cierto nivel de XP.;a
+changelogMenu7;Añadido nuevos menus, para incrementar la accesibilidad.;a
+changelogMenu8;Estadisticas rediseñadas por completo, con mas niveles.;a
+changelogMenu9;Rama de habilidades de apoyo sustituidas por objetos.;a
+changelogMenu10;Ahora los enemigos se dividen en 4 tipos.;a
+changelogMenu11;Posibilidad de empezar Nueva Partida +, con tus personajes de la anterior partida y enemigos mas complicados.;a
+changelogMenu12;Juego publicado en GitHub!;a
+changelogMenu13;CONTENT UPDATE 0.6 (PROXIMAMENTE);a
+changelogMenu14;Traduccion a otros idiomas.;a
+changelogMenu15;Mas enemigos, personajes, objetos y equipamiento.;a
+langmenu0;Que idioma quieres elegir?;a
+langmenu1;Se ha cambiado el idioma correctamente.;a
+extras0;Idea original: Shiku.;a
+extras1;Programador: Shiku.;a
+extras2;Diseños conceptuales: Josert;a
+extras3;Testers: Dakos, Josert.;a
+extras4;Traductor al ingles: Dakos.;a
+extras5;Historia basada en el origen de tiid.;a
+class0;Tanque;a
+class1;Asesino;a
+class2;Caballero;a
+class3;Mago;a
+class4;Marginado;a
+attack0;Ataque rapido;a
+attack1;Gran Golpe;a
+attack2;Barrido;a
+attack3;AquaSplash;a
+attack4;Combustion;a
+attack5;Tornado;a
+classInfo0;AYUDA SOBRE LAS CLASES;a
+classInfo1;Tanque: Clase especializada en la resistencia y el aguante. Mucha vida y armadura.;a
+classInfo2;Sera capaz de aguantar mas golpes que ninguna clase, pero sera poco agil.;a
+classInfo3;Nivel 20: (HP: 320, AD: 3, AP: 6, AR: 13, MR: 13, AGL: 4);a
+classInfo4;Asesino: Clase especializada en el daño Fisico. Mucho daño fisico y agilidad.;a
+classInfo5;Tendra mas posibilidad de esquivar los ataques, pero a cambio tendra muy poca armadura.;a
+classInfo6;Nivel 20: (HP: 200,  AD: 18, AP: 4, AR: 5, MR: 5, AGL: 18);a
+classInfo7;Caballero: Clase especializada en la estabilidad. Tendra un poco de todo.;a
+classInfo8;Esta clase hara un daño normal, y recibira daño normal.;a
+classInfo9;Nivel 20: (HP: 250,  AD: 12, AP: 7, AR: 8, MR: 8, AGL: 10);a
+classInfo10;Mago: Clase especializada en el daño Magico. Mucho daño magico.;a
+classInfo11;Clase para jugadores veteranos. Sera capaz de realizar mucho daño, pero tendra muy poca resistencia.;a
+classInfo12;Nivel 20: (HP: 160,  AD: 5, AP: 20, AR: 6, MR: 10, AGL: 12);a
+classInfo13;Marginado: Clase para jugadores curtidos. No tiene ninguna ventaja. Le costara mas subir de nivel,;a
+classInfo14;y sus estadisticas no aumentaran tanto como las otras clases. Un verdadero reto.;a
+classInfo15;Nivel 20: (HP: 180,  AD: 8, AP: 8, AR: 5, MR: 6, AGL: 6);a
+gameInfo0;Aqui ira la ayuda del juego.;a
+gameStory0;Aqui ira la historia del juego.;a
+message1;Que quieres hacer?;a
+message2;Como quieres llamar al personaje?;a
+message3;Bienvenido a The Beginning of Time!;a
+message4;Turno de;a
+message5;Comienza el juego;a
+message6;ha sido creado.;a
+message7;ha subido al nivel;a
+message8;Hasta la proxima!;a
+message9;Que clase quieres elegir?;a
+message10;Estas Seguro? (1:si/2:no);a
+message11;Pulsa enter para continuar....;a
+message12;Has derrotado a todos los Enemigos!;a
+message13;Todos los personajes han muerto. Has perdido.;a
+message14;Que enemigo quieres elegir?;a
+message15;El enemigo que has elegido esta muerto.;a
+message16;Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.;a
+message17;Quieres bloquear?;a
+message18;Vacio;a
+message19;Elige una clase para tu Personaje:;a
+message20;Ahora;a
+message21;esta bloqueando.;a
+message22;Gracias por jugar!;a
+message23;El enemigo ha esquivado el ataque!;a
+message24;El enemigo estaba bloqueando.;a
+message25;Ataque critico!;a
+message26;Has conseguido realizar;a
+message27;pts de daño.;a
+message28;ha muerto.;a
+message29;Has esquivado el ataque.;a
+errorMessage0;El Enemigo especificado no ha sido encontrado.;a
+errorMessage1;El Personaje especificado no ha sido encontrado.;a
+errorMessage2;Introduce un numero valido.;a
+errorMessage3;El ataque seleccionado no esta disponible.;a
+errorMessage4;El juego ha encontrado un error y debe cerrarse.;a
+errorMessage5;Bloquear ya estaba activo.;a
+errorMessage6;Introduce un nombre valido.;a

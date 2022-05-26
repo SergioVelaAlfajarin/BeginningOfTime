@@ -2,15 +2,16 @@ package sva.tbot.juego;
 
 import sva.tbot.exception.JuegoException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public abstract class Menu {
-	private static int columnaIdioma = 1; //por defecto sera español
+public final class Menu {
+	public static Menu singleton = null;
 	public static final String SALTO_LINEA = "\n";
 	public static final String CSV_SEPARATOR = ";";
-	public static final String CSV_RPATH = "src/main/resources/a.csv";
+	public static final String CSV_RPATH = "a.csv";
 	public static final String LOGO_DEV = """
 				         /\\
 				      _-/- \\
@@ -23,9 +24,28 @@ public abstract class Menu {
 				    2021 - SPAIN
 				""";
 
+	public static Menu getMenu(){
+		if(singleton == null){
+			singleton = new Menu();
+		}
+		return singleton;
+	}
+
+	private int columnaIdioma;
+	private final ArrayList<String> TEXTOS_FILE;
+	private final ArrayList<String> LISTA_IDIOMAS;
+
+	public Menu() throws JuegoException{
+		TEXTOS_FILE = new ArrayList<>();
+		LISTA_IDIOMAS = new ArrayList<>();
+		rellenaArchivoIdiomas();
+		rellenaListaIdiomas();
+		columnaIdioma = 1; //por defecto sera español
+	}
+
 	// MENUS ----------------------------------------------
 
-	public static String menuPrincipal(int vecesJugado) {
+	public String menuPrincipal(int vecesJugado) {
 		StringBuilder sb = new StringBuilder(LOGO_DEV + SALTO_LINEA);
 		if(vecesJugado >= 1){
 			sb.append("0.- ").append(buscaTexto("option0")).append(SALTO_LINEA);
@@ -46,7 +66,7 @@ public abstract class Menu {
 		return sb.toString();
 	}
 
-	public static String menuChangeLog() {
+	public String menuChangeLog() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("========================= ").append(buscaTexto("changelogmenu0")).append(" =========================");
 		sb.append(SALTO_LINEA);
@@ -62,7 +82,7 @@ public abstract class Menu {
 		return sb.toString();
 	}
 
-	public static String menuExtras() {
+	public String menuExtras() {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i <= 5; i++){
 			sb.append(buscaTexto("extras" + i)).append(SALTO_LINEA);
@@ -70,7 +90,7 @@ public abstract class Menu {
 		return sb.toString();
 	}
 
-	public static String menuClases() {
+	public String menuClases() {
 		return  "0.- " + buscaTexto("option11") + SALTO_LINEA +
 				"1.- " + String.format("%-12s", buscaTexto("class0")) + "(HP: 100, AD: 1, AP: 1, AR: 2, MR: 2, AGL: 0)"
 				+ SALTO_LINEA +
@@ -84,17 +104,16 @@ public abstract class Menu {
 				+ SALTO_LINEA;
 	}
 
-	public static String menuCambiaIdioma() {
+	public String menuCambiaIdioma() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(buscaTexto("langmenu0")).append(SALTO_LINEA);
-		String[] idiomas = getIdiomasDisponibles();
-		for (int i = 0; i < idiomas.length; i++) {
-			sb.append(i+1).append(".- ").append(idiomas[i]).append(SALTO_LINEA);
+		for (int i = 0; i < LISTA_IDIOMAS.size(); i++) {
+			sb.append(i+1).append(".- ").append(LISTA_IDIOMAS.get(i)).append(SALTO_LINEA);
 		}
 		return sb.toString();
 	}
 
-	public static String menuAcciones() {
+	public String menuAcciones() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < 5; i++) {
 			sb.append(i+1).append(".- ").append(buscaTexto("option" + (i +5))).append(SALTO_LINEA);
@@ -102,21 +121,21 @@ public abstract class Menu {
 		return sb.toString();
 	}
 
-	public static String menuAccionesFisico() {
+	public String menuAccionesFisico() {
 		return  "1.- " + String.format("%-12s", buscaTexto("attack0")) + "(Min: 2 AD)" + SALTO_LINEA +
 				"2.- " + String.format("%-12s", buscaTexto("attack1")) + "(Min: 10 AD)" + SALTO_LINEA +
 				"3.- " + String.format("%-12s", buscaTexto("attack2")) + "(Min: 6 AD)" + SALTO_LINEA +
 				"4.- " + buscaTexto("option10") + SALTO_LINEA;
 	}
 
-	public static String menuAccionesMagico() {
+	public String menuAccionesMagico() {
 		return  "1.- " + String.format("%-12s", buscaTexto("attack3")) + "(Min: 2 AD)" + SALTO_LINEA +
 				"2.- " + String.format("%-12s", buscaTexto("attack4")) + "(Min: 10 AD)" + SALTO_LINEA +
 				"3.- " + String.format("%-12s", buscaTexto("attack5")) + "(Min: 6 AD)" + SALTO_LINEA +
 				"4.- " + buscaTexto("option10") + SALTO_LINEA;
 	}
 
-	public static String menuAccionesOtros() {
+	public String menuAccionesOtros() {
 		return "1.- "  + buscaTexto("option12") + SALTO_LINEA +
 				"2.- " + buscaTexto("option13") + SALTO_LINEA +
 				"3.- " + buscaTexto("option14") + SALTO_LINEA +
@@ -126,7 +145,7 @@ public abstract class Menu {
 
 	// MUESTRA COSAS -----------------------------------
 
-	public static String muestraAyudaClases() {
+	public String muestraAyudaClases() {
 		return "============ " + buscaTexto("classInfo0") + " ============" +
 				SALTO_LINEA + SALTO_LINEA +
 				"1.- " + buscaTexto("classInfo1") + SALTO_LINEA +
@@ -150,180 +169,203 @@ public abstract class Menu {
 				buscaTexto("classInfo15") + SALTO_LINEA;
 	}
 
-	public static String muestraAyudaJuego() {
+	public String muestraAyudaJuego() {
 		return buscaTexto("gameinfo0");
 	}
 
-	public static String muestraHistoriaJuego() {
+	public String muestraHistoriaJuego() {
 		return buscaTexto("gameStory0");
 	}
 
 	// MENSAJES --------------------------------------------
 
-	public static String pideAccion() {
+	public String confirmaCambioIdioma() {
+		return buscaTexto("langmenu1");
+	}
+
+	public String pideAccion() {
 		return buscaTexto("message1");
 	}
 
-	public static String pideNombre() {
+	public String pideNombre() {
 		return buscaTexto("message2");
 	}
 
-	public static String msgBienvenida() {
+	public String msgBienvenida() {
 		return buscaTexto("message3");
 	}
 
-	public static String msgTurno() {
+	public String msgTurno() {
 		return "===== " + buscaTexto("message4") + " %s =====";
 	}
 
-	public static String msgEmpiezaJuego() {
+	public String msgEmpiezaJuego() {
 		return "========= " + buscaTexto("message5") +" =========";
 	}
 
-	public static String msgPersonajeCreado() {
+	public String msgPersonajeCreado() {
 		return "%s " + buscaTexto("message6") + " (%02d/%02d)";
 	}
 
-	public static String msgSubidaNivel() {
+	public String msgSubidaNivel() {
 		return "%s " + buscaTexto("message7") + " %d!";
 	}
 
-	public static String msgSalirJuego() {
+	public String msgSalirJuego() {
 		return buscaTexto("message8");
 	}
 
-	public static String pideClases() {
+	public String pideClases() {
 		return buscaTexto("message9");
 	}
 
-	public static String pideConfirmacion() {
+	public String pideConfirmacion() {
 		return buscaTexto("message10");
 	}
 
-	public static String msgPausa() {
+	public String msgPausa() {
 		return SALTO_LINEA + buscaTexto("message11");
 	}
 
-	public static String msgEnemigoDerrotado() {
+	public String msgEnemigoDerrotado() {
 		return buscaTexto("message12");
 	}
 
-	public static String msgJuegoPerdido() {
+	public String msgJuegoPerdido() {
 		return buscaTexto("message13");
 	}
 
-	public static String pideEnemigo() {
+	public String pideEnemigo() {
 		return buscaTexto("message14");
 	}
 
-	public static String enemigoElegidoNoDisponible() {
+	public String enemigoElegidoNoDisponible() {
 		return buscaTexto("message15");
 	}
 
-	public static String msgBloqueo() {
+	public String msgBloqueo() {
 		return buscaTexto("message16");
 	}
 
-	public static String msgConfirmaBloqueo() {
+	public String msgConfirmaBloqueo() {
 		return buscaTexto("message17");
 	}
 
-	public static String msgPosVacia(){
+	public String msgPosVacia(){
 		return buscaTexto("message18");
 	}
 
-	public static String msgCreacionClase() {
+	public String msgCreacionClase() {
 		return buscaTexto("message19");
 	}
 
-	public static String msgEnemigoAtaqueEsquivado() {
+	public String msgEnemigoAtaqueEsquivado() {
 		return buscaTexto("message23");
 	}
 
-	public static String msgPersonajeAtaqueEsquivado() {
+	public String msgPersonajeAtaqueEsquivado() {
 		return buscaTexto("message29");
 	}
 
-	public static String msgDespedida(){
+	public String msgDespedida(){
 		return buscaTexto("message22");
 	}
 
-	public static String confimaBloqueo() {
+	public String confimaBloqueo() {
 		return buscaTexto("message20") + " %s " + buscaTexto("message21");
 	}
 
 	// ERRORES -----------------------------------------------------------
 
-	public static String errorEnemigoNoEncontrado() {
+	public String errorEnemigoNoEncontrado() {
 		return buscaTexto("errormessage0");
 	}
 
-	public static String errorPersonajeNoEncontrado() {
+	public String errorPersonajeNoEncontrado() {
 		return buscaTexto("errormessage1");
 	}
 
-	public static String errorNumeroNoValido() {
+	public String errorNumeroNoValido() {
 		return buscaTexto("errormessage2");
 	}
 
-	public static String errorAtaqueNoDisponible() {
+	public String errorAtaqueNoDisponible() {
 		return buscaTexto("errormessage3");
 	}
 
-	public static String errorInesperado() {
+	public String errorInesperado() {
 		return buscaTexto("errormessage4");
 	}
 
-	public static String errorBloqueoYaActivo() {
+	public String errorBloqueoYaActivo() {
 		return buscaTexto("errormessage5");
 	}
 
-	public static String errorNombreNoValido() {
+	public String errorNombreNoValido() {
 		return buscaTexto("errormessage6");
 	}
 
 	// metodos configuradores del lector. -----------------------------------------------
 
-	public static boolean cambiarIdioma(String nuevoIdioma){
-		String[] idiomas = getIdiomasDisponibles();
-		for (int i = 0; i < idiomas.length; i++) {
-			if(idiomas[i].equalsIgnoreCase(nuevoIdioma)){
-				columnaIdioma = i;
-				return true;
+	/**
+	 * leera el archivo externo y lo guardara en el arraylist.
+	 * @throws JuegoException si el archivo no existe.
+	 */
+	private void rellenaArchivoIdiomas() throws JuegoException{
+		try (BufferedReader reader = new BufferedReader(new FileReader(new File(CSV_RPATH)))){
+			String linea;
+			while((linea = reader.readLine()) != null) {
+				TEXTOS_FILE.add(linea);
 			}
-		}
-		return false;
-	}
-
-	private static String[] getIdiomasDisponibles(){
-		try (Scanner sc = new Scanner(new File(CSV_RPATH))){
-			String header = sc.nextLine();
-			String[] headerSplitted = header.split(CSV_SEPARATOR);
-			String[] idiomas = new String[headerSplitted.length-1];
-			System.arraycopy(headerSplitted, 1, idiomas, 0, idiomas.length);
-			return idiomas;
-		}catch(FileNotFoundException e){
-			throw new JuegoException("Archivo de idioma no encontrado.");
+		}catch(IOException e){
+			throw new JuegoException(e.getMessage());
 		}
 	}
 
-	private static String buscaTexto(String id){
-		try (Scanner sc = new Scanner(new File(CSV_RPATH))){
-			sc.nextLine(); //quitamos el header
-			while(sc.hasNextLine()) {
-				String line = sc.nextLine();
-				String[] splitted = line.split(CSV_SEPARATOR);
-				if(splitted[0].equalsIgnoreCase(id)){
-					String text = splitted[columnaIdioma].trim();
-					if(text.isEmpty()){
-						throw new JuegoException("No se ha encontrado el texto requerido.");
-					}
-					return text;
+	/**
+	 * Rellena el archivo de idiomas en base al arraylist con el archivo leido.
+	 */
+	private void rellenaListaIdiomas() {
+		System.out.println("imprimiendo TEXTOS file");
+		System.out.println(TEXTOS_FILE);
+		String[] listaIdiomas = TEXTOS_FILE.get(0).split(CSV_SEPARATOR);
+		LISTA_IDIOMAS.addAll(Arrays.asList(listaIdiomas).subList(1, listaIdiomas.length));
+	}
+
+	/**
+	 * Cambia la columna de la que recoger el texto.
+	 * @param numNuevoIdioma numero correspondiente a 1 - num max de idiomas en el archivo.
+	 */
+	public void cambiarIdioma(int numNuevoIdioma){
+		columnaIdioma = numNuevoIdioma;
+	}
+
+	/**
+	 * recorre el archivo con los textos del juego.
+	 * comprueba la columna id con el parametro para saber que dialogo escoger.
+	 * @param id id para buscar en el archivo.
+	 * @return devolvera el dialogo correspondiente a la fila con el mismo id,
+	 *         y la columna dependiendo del idioma elegido.
+	 */
+	public String buscaTexto(String id){
+		for(String i: TEXTOS_FILE){
+			String[] splitted = i.split(CSV_SEPARATOR);
+			if(splitted[0].equalsIgnoreCase(id)){
+				String text = splitted[columnaIdioma].trim();
+				if(text.isEmpty()){
+					throw new JuegoException("No se ha encontrado el texto requerido.");
 				}
+				return text;
 			}
-			throw new JuegoException("Dialogo inexiste en archivo.");
-		}catch(FileNotFoundException e){
-			throw new JuegoException("Archivo de idioma no encontrado.");
 		}
+		throw new JuegoException("Dialogo inexiste en archivo.");
+	}
+
+	/**
+	 * Devuelve la cantidad de idiomas.
+	 * @return longitud del array de idiomas.
+	 */
+	public int getCantidadIdiomas(){
+		return LISTA_IDIOMAS.size();
 	}
 }
