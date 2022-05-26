@@ -14,6 +14,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public final class Principal {
+	/*
+	RUTAS:
+		IDE: src/main/resources/*file*.txt
+		BAT: *file*.txt
+		JAR: resources/*file*.txt
+	 */
 	private static final int MAX_COMBATES = 10;
 	private static Menu menus;
 	private static int contadorPartidas = 0;
