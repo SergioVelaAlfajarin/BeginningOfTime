@@ -20,7 +20,7 @@ public final class Menu {
 	public static Menu singleton = null;
 	public static final String SALTO_LINEA = "\n";
 	public static final String CSV_SEPARATOR = ";";
-	public static final String CSV_RPATH = "src/main/resources/a.csv";
+	public static final String CSV_RPATH = "a.csv";
 	public static final String LOGO_DEV = """
 				         /\\
 				      _-/- \\
@@ -55,7 +55,7 @@ public final class Menu {
 	// MENUS ----------------------------------------------
 
 	public String menuPrincipal(int vecesJugado) {
-		StringBuilder sb = new StringBuilder(LOGO_DEV + SALTO_LINEA);
+		StringBuilder sb = new StringBuilder(LOGO_DEV + SALTO_LINEA+ SALTO_LINEA);
 		if(vecesJugado >= 1){
 			sb.append("0.- ").append(buscaTexto("option0")).append(SALTO_LINEA);
 			sb.append("1.- ").append(buscaTexto("option1"));

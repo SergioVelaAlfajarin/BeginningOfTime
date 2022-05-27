@@ -40,6 +40,12 @@ public final class Personaje {
 		xpActual = 0;
 	}
 
+	@Override
+	public String toString() {
+		return "Personaje{" +
+				"nombre='" + nombre + '\'' +
+				'}';
+	}
 
 	public String getInv() {
 		return null;

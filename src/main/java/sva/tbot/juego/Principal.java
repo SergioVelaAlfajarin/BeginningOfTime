@@ -20,7 +20,7 @@ public final class Principal {
 			do {
 				if(introduceOpcionInicioJuego()){
 					creaPersonajes();
-					System.out.println(Listas.getPerList().getLista());
+					ejecutaJuego();
 					repetir = true;
 					contadorPartidas++;
 				}else{
@@ -39,7 +39,7 @@ public final class Principal {
 	public static boolean introduceOpcionInicioJuego() throws JuegoException {
 		int opcion;
 		do{
-			if(contadorPartidas != 0){
+			if(contadorPartidas == 0){
 				opcion = muestraOpcionesYPideNumero(1, 5, menus.menuPrincipal(0));
 			}else{
 				opcion = muestraOpcionesYPideNumero(0, 5, menus.menuPrincipal(contadorPartidas));
@@ -128,7 +128,17 @@ public final class Principal {
 		while(it.hasNext()) {
 			p = it.next();
 		}
-		return String.format(menus.msgPersonajeCreado(), p.getNombre(), list.size(), Personaje.MAX_PERSONAJES);
+		return String.format(menus.msgPersonajeCreado() + "%n%n", p.getNombre(), list.size(), Personaje.MAX_PERSONAJES);
+	}
+
+	private static void ejecutaJuego() {
+		clear();
+		doublePrintLn(menus.msgBienvenida());
+
+		//TODO sistema de turnos
+		//primero se ejcutaaran los turnos de los aliados,
+		//y despues de los enemigos.
+
 	}
 
 	// Utilidades --------------
