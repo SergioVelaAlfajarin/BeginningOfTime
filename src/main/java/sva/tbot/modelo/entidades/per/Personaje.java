@@ -5,7 +5,7 @@ import sva.tbot.modelo.equipamiento.Equipo;
 import sva.tbot.modelo.items.Item;
 import sva.tbot.juego.Menu;
 
-public final class Personaje extends Entidad {
+public final class Personaje {
 	public static final int MAX_PERSONAJES = 3;
 	public static final int MAX_SIZE_INVENTARIO = 8;
 	public static final String NOMBRE_PERSONAJE_PRINCIPAL = "Tiid";
@@ -23,9 +23,16 @@ public final class Personaje extends Entidad {
 	private Equipo colgante;
 
 	public Personaje(String nombre, int clase) {
-		super(nombre, null);
+		//super(nombre, null);
 		//ID = GestorEntidad.getSizePersonaje();
 		initPersonaje();
+		this.nombre = nombre;
+	}
+
+	String nombre;
+
+	public String getNombre(){
+		return nombre;
 	}
 
 	private void initPersonaje() {

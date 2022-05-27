@@ -2,16 +2,25 @@ package sva.tbot.juego;
 
 import sva.tbot.exception.JuegoException;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
+
+	/*
+	RUTAS:
+		IDE: src/main/resources/*file*.txt
+		BAT: *file*.txt
+		JAR: resources/*file*.txt
+	 */
 
 public final class Menu {
 	public static Menu singleton = null;
 	public static final String SALTO_LINEA = "\n";
 	public static final String CSV_SEPARATOR = ";";
-	public static final String CSV_RPATH = "a.csv";
+	public static final String CSV_RPATH = "src/main/resources/a.csv";
 	public static final String LOGO_DEV = """
 				         /\\
 				      _-/- \\
@@ -105,8 +114,10 @@ public final class Menu {
 	}
 
 	public String menuCambiaIdioma() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(SALTO_LINEA);
 		sb.append(buscaTexto("langmenu0")).append(SALTO_LINEA);
+		sb.append(SALTO_LINEA);
+		sb.append("0.- ").append(buscaTexto("option10")).append(SALTO_LINEA);
 		for (int i = 0; i < LISTA_IDIOMAS.size(); i++) {
 			sb.append(i+1).append(".- ").append(LISTA_IDIOMAS.get(i)).append(SALTO_LINEA);
 		}
@@ -312,7 +323,7 @@ public final class Menu {
 	 * @throws JuegoException si el archivo no existe.
 	 */
 	private void rellenaArchivoIdiomas() throws JuegoException{
-		try (BufferedReader reader = new BufferedReader(new FileReader(new File(CSV_RPATH)))){
+		try (BufferedReader reader = new BufferedReader(new FileReader(CSV_RPATH))){
 			String linea;
 			while((linea = reader.readLine()) != null) {
 				TEXTOS_FILE.add(linea);
