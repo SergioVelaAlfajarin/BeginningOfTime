@@ -7,20 +7,20 @@ import sva.tbot.modelo.entidades.per.Personaje;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Listas<T> {
-	private static Listas<Enemigo> enemigoSingleton;
-	private static Listas<Personaje> personajeSingleton;
+public class ListasEntidad<T> {
+	private static ListasEntidad<Enemigo> enemigoSingleton;
+	private static ListasEntidad<Personaje> personajeSingleton;
 
-	public static Listas<Enemigo> getEneList(){
+	public static ListasEntidad<Enemigo> enemigoList(){
 		if(enemigoSingleton ==null){
-			enemigoSingleton = new Listas<>();
+			enemigoSingleton = new ListasEntidad<>();
 		}
 		return enemigoSingleton;
 	}
 
-	public static Listas<Personaje> getPerList(){
+	public static ListasEntidad<Personaje> personajeList(){
 		if(personajeSingleton == null){
-			personajeSingleton = new Listas<>();
+			personajeSingleton = new ListasEntidad<>();
 		}
 		return personajeSingleton;
 	}
@@ -28,9 +28,6 @@ public class Listas<T> {
 	//objetos de la clase
 
 	private final ArrayList<T> lista = new ArrayList<>();
-
-	public Listas() {
-	}
 
 	@SafeVarargs
 	public final void initLista(T... list){
@@ -67,8 +64,7 @@ public class Listas<T> {
 		return lista.size();
 	}
 
-	public ArrayList<T> getLista() {
+	public ArrayList<T> lista() {
 		return lista;
 	}
-
 }

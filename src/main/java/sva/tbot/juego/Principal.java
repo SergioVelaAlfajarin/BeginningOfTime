@@ -102,7 +102,7 @@ public final class Principal {
 		}
 		Personaje[] arrp = new Personaje[p.size()];
 		arrp = p.toArray(arrp);
-		Listas.getPerList().initLista(arrp);
+		ListasEntidad.personajeList().initLista(arrp);
 	}
 
 	public static String pideNombre() {

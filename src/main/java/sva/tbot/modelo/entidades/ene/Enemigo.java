@@ -4,7 +4,7 @@ import sva.tbot.exception.JuegoException;
 import sva.tbot.modelo.entidades.Entidad;
 import sva.tbot.modelo.entidades.per.Personaje;
 
-public final class Enemigo extends Entidad {
+public final class Enemigo {
 	/*
 	 * AD: 2,4,6 TANQ: 8,10,12 AP: 14,16,18 BOSS: 20 TODO nombrar enemigos String[]
 	 * tiposEnemigos = {"tipo1","tipo2","tipo3","tipo4/boss"};
@@ -18,7 +18,7 @@ public final class Enemigo extends Entidad {
 
 	//Testeable
 	public Enemigo(int n) throws JuegoException {
-		super(null, null);
+
 		//super(claseEnemigo(2) + n, -1);
 		//ID = GestorEntidad.getSizeEnemigo();
 	}
