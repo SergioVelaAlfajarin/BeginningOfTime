@@ -93,8 +93,12 @@ public final class Principal {
 				int claseElegida = muestraOpcionesYPideNumero(0,5, menu);
 				repetir = claseElegida == 0;
 				if(!repetir){
-					String nombreElegido = pideNombre();
-					p.add(new Personaje(nombreElegido,claseElegida));
+					if(i == 0){
+						p.add(new Personaje(Personaje.NOMBRE_PERSONAJE_PRINCIPAL, claseElegida));
+					}else{
+						String nombreElegido = pideNombre();
+						p.add(new Personaje(nombreElegido,claseElegida));
+					}
 				}else{
 					muestraAyudaClases();
 				}
@@ -121,14 +125,23 @@ public final class Principal {
 		ListIterator<Personaje> it = list.listIterator();
 		//si el array esta vacio devolvera esto
 		if(!it.hasNext()){
-			return Menu.getMenu().msgCreacionClase() + Menu.SALTO_LINEA + Menu.SALTO_LINEA;
+			return menus.msgPideClasePrincipal()
+					+ Menu.SALTO_LINEA
+					+ Menu.SALTO_LINEA;
 		}
 		//si no lo esta, devolvera informacion sobre el ultimo en el mismo.
 		Personaje p = it.next();
 		while(it.hasNext()) {
 			p = it.next();
 		}
-		return String.format(menus.msgPersonajeCreado() + "%n%n", p.getNombre(), list.size(), Personaje.MAX_PERSONAJES);
+		return String.format(
+				menus.msgPersonajeCreado() +
+				"%n" +
+				menus.msgCreacionClase() +
+				"%n%n",
+				p.getNombre(),
+				list.size(),
+				Personaje.MAX_PERSONAJES);
 	}
 
 	private static void ejecutaJuego() {
@@ -193,13 +206,17 @@ public final class Principal {
 	}
 
 	public static void clear() {
+		/*
+
+
 		try {
 			if (System.getProperty("os.name").contains("Windows"))
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 			else
 				new ProcessBuilder().command("clear");
 		} catch (Exception ignored) {
-		}
+		} */
+		System.out.println("limpiando pantalla");
 	}
 
 	public static void pause() {

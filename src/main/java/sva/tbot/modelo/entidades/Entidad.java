@@ -6,6 +6,8 @@ public abstract class Entidad {
 	private Integer adAdicional, apAdicional, arAdicional, mrAdicional, aglAdicional, maxHPAdicional;
 	private Boolean estado, bloqueo;
 
+	//INIT ----------------------------------------------------------------------------------------
+
 	protected Entidad(String nombre, TiposClase classEntity) {
 		this.nombre = nombre;
 		claseEntidad = classEntity.toString();
@@ -110,16 +112,6 @@ public abstract class Entidad {
 		this.bloqueo = bloqueo;
 	}
 
-	public boolean recibirDmg(int dmg) {
-		actualHP -= dmg;
-		if (actualHP <= 0) {
-			estado = false;
-			bloqueo = false;
-			actualHP = 0;
-		}
-		return estado;
-	}
-
 	//GETTERS --------------------------------------------------------------------------------
 
 	public String getNombre() {
@@ -192,6 +184,18 @@ public abstract class Entidad {
 
 	public Boolean getBloqueo() {
 		return bloqueo;
+	}
+
+	//METODOS ---------------------------------------------------------------------------------
+
+	public boolean recibirDmg(int dmg) {
+		actualHP -= dmg;
+		if (actualHP <= 0) {
+			estado = false;
+			bloqueo = false;
+			actualHP = 0;
+		}
+		return estado;
 	}
 
 	//OVERRIDE --------------------------------------------------------------------------------

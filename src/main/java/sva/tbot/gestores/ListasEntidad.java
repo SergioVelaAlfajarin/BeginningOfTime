@@ -17,7 +17,6 @@ public class ListasEntidad<T> {
 		}
 		return enemigoSingleton;
 	}
-
 	public static ListasEntidad<Personaje> personajeList(){
 		if(personajeSingleton == null){
 			personajeSingleton = new ListasEntidad<>();
@@ -25,7 +24,7 @@ public class ListasEntidad<T> {
 		return personajeSingleton;
 	}
 
-	//objetos de la clase
+	//-----------------------------------
 
 	private final ArrayList<T> lista = new ArrayList<>();
 
@@ -40,20 +39,11 @@ public class ListasEntidad<T> {
 		lista.addAll(Arrays.asList(list));
 	}
 
-	public T getPorPos(int pos) throws JuegoException {
-		int arrSize = lista.size();
-
-		if(pos >= arrSize || pos < 0){
+	public T get(int pos) throws JuegoException {
+		if(pos >= lista.size() || pos < 0){
 			throw new JuegoException("La posicion no es valida.");
 		}
-
-		for (int i = 0; i < arrSize; i++) {
-			if(i == pos){
-				return lista.get(i);
-			}
-		}
-
-		throw new JuegoException();
+		return lista.get(pos);
 	}
 
 	public boolean isEmpty() {

@@ -18,23 +18,23 @@ public final class Ataque implements Atacable {
 		this.escalado = ta.escalado;
 	}
 
-	public boolean calculaCritico(int posibilidad) {
+	public boolean isCritico(int posibilidad) {
 		int probabilidad = (int) (posibilidad * Math.PI);
 		return (Principal.generarRandomNum(150)) < probabilidad;
 	}
 
 	public boolean calculaEsquive(int agl) {
-		//TODO hacer esquivar ataque
+		//TODO hacer esquivar ataque donde=?
 		return false;
 	}
 
 	@Override
-	public boolean isAtaqueUsable(int stat) {
+	public boolean isUsable(int stat) {
 		return stat >= minRequerido;
 	}
 
 	@Override
-	public int calculaDmgAtaque(int statEmisor, int statReceptor, boolean isCritico, boolean isBloqueo) {
+	public int calculaDmg(int statEmisor, int statReceptor, boolean isCritico, boolean isBloqueo) {
 		double dmgAdicional = statEmisor * escalado;
 		double dmgReduccion = stat == 'd' ? statReceptor * Math.PI : statReceptor * (Math.PI * 1.2);
 		int dmgAleatorio = Principal.generarRandomNum(((dmgAdicional * 18) / 100));

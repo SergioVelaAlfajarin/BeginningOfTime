@@ -14,28 +14,28 @@ class PrincipalTest {
 		ArrayList<Personaje> p = new ArrayList<>();
 
 		assertEquals(
-				Menu.getMenu().msgCreacionClase() + Menu.SALTO_LINEA + Menu.SALTO_LINEA,
+				Menu.getMenu().msgPideClasePrincipal() + Menu.SALTO_LINEA + Menu.SALTO_LINEA,
 				Principal.muestraMsgPersonajeCreado(p)
-				);
+		);
 
 		p.add(new Personaje("jose", 1));
 
 		assertEquals(
-				"jose ha sido creado. (01/03)",
+				String.format("jose ha sido creado. (01/03)%n%s%n%n", Menu.getMenu().msgCreacionClase()),
 				Principal.muestraMsgPersonajeCreado(p)
 			);
 
 		p.add(new Personaje("juan", 1));
 
 		assertEquals(
-				"juan ha sido creado. (02/03)",
+				String.format("juan ha sido creado. (02/03)%n%s%n%n", Menu.getMenu().msgCreacionClase()),
 				Principal.muestraMsgPersonajeCreado(p)
 		);
 
 		p.add(new Personaje("lol", 1));
 
 		assertEquals(
-				"lol ha sido creado. (03/03)",
+				String.format("lol ha sido creado. (03/03)%n%s%n%n", Menu.getMenu().msgCreacionClase()),
 				Principal.muestraMsgPersonajeCreado(p)
 		);
 	}

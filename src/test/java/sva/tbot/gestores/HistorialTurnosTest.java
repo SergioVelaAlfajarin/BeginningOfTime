@@ -19,24 +19,33 @@ class HistorialTurnosTest {
 
 	@Test
 	void checkNextID() {
-		// PONER EN PUBLIC PARA EJECUTAR
-		/*
 		assertEquals(1,HistorialTurnos.getNextID());
 		HistorialTurnos.addTurno();
+		assertEquals(1, HistorialTurnos.getUltimoID());
+		assertEquals(1,HistorialTurnos.getPrimerID());
+
 		assertEquals(2,HistorialTurnos.getNextID());
 		HistorialTurnos.addTurno();
+		assertEquals(2, HistorialTurnos.getUltimoID());
+		assertEquals(1,HistorialTurnos.getPrimerID());
+
 		assertEquals(3,HistorialTurnos.getNextID());
 		HistorialTurnos.addTurno();
+		assertEquals(3, HistorialTurnos.getUltimoID());
+		assertEquals(1,HistorialTurnos.getPrimerID());
+
 		assertEquals(4,HistorialTurnos.getNextID());
 		HistorialTurnos.addTurno();
+		assertEquals(4, HistorialTurnos.getUltimoID());
+		assertEquals(2,HistorialTurnos.getPrimerID());
+
 		assertEquals(5,HistorialTurnos.getNextID());
 		HistorialTurnos.addTurno(); //deberia tener id 5
-		assertEquals(6, HistorialTurnos.getNextID()); //deberia ser 6
 		assertEquals(5, HistorialTurnos.getUltimoID()); //el ulitmo deberia ser 5
 		assertEquals(3, HistorialTurnos.getPrimerID()); //el primero deberia ser 3
-		System.out.println(HistorialTurnos.historial.keySet());
-		System.out.println(HistorialTurnos.getPrimerTurnoDisponible());
-		*/
+
+		assertEquals(6, HistorialTurnos.getNextID()); //deberia ser 6
+		assertNotNull(HistorialTurnos.getPrimerTurnoDisponible());
 	}
 
 	@AfterEach

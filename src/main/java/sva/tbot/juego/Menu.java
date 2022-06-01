@@ -1,9 +1,11 @@
 package sva.tbot.juego;
 
 import sva.tbot.exception.JuegoException;
+import sva.tbot.modelo.entidades.per.Personaje;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public final class Menu {
 	public static final String SALTO_LINEA = "\n";
 	public static final String CSV_SEPARATOR = ";";
 	public static final String CSV_RPATH = "a.csv";
+	public static final String CSV_RPATH2 = "src/main/resources/a.csv";
 	public static final String LOGO_DEV = """
 				         /\\
 				      _-/- \\
@@ -286,6 +289,10 @@ public final class Menu {
 		return buscaTexto("message20") + " %s " + buscaTexto("message21");
 	}
 
+	public String msgPideClasePrincipal(){
+		return buscaTexto("message30") + String.format(" %s:", Personaje.NOMBRE_PERSONAJE_PRINCIPAL);
+	}
+
 	// ERRORES -----------------------------------------------------------
 
 	public String errorEnemigoNoEncontrado() {
@@ -319,11 +326,19 @@ public final class Menu {
 	// metodos configuradores del lector. -----------------------------------------------
 
 	/**
-	 * leera el archivo externo y lo guardara en el arraylist.
+	 * Comprobara si el archivo se encuentra en una de las dos rutas.
+	 * despues, leera el archivo externo y lo guardara en el arraylist.
 	 * @throws JuegoException si el archivo no existe.
 	 */
 	private void rellenaArchivoIdiomas() throws JuegoException{
-		try (BufferedReader reader = new BufferedReader(new FileReader(CSV_RPATH))){
+		File f1 = new File(CSV_RPATH);
+		if(!f1.exists()){
+			f1 = new File(CSV_RPATH2);
+			if(!f1.exists()){
+				throw new JuegoException("Archivo texto no encontrado.");
+			}
+		}
+		try (BufferedReader reader = new BufferedReader(new FileReader(f1))){
 			String linea;
 			while((linea = reader.readLine()) != null) {
 				TEXTOS_FILE.add(linea);
@@ -337,8 +352,6 @@ public final class Menu {
 	 * Rellena el archivo de idiomas en base al arraylist con el archivo leido.
 	 */
 	private void rellenaListaIdiomas() {
-		System.out.println("imprimiendo TEXTOS file");
-		System.out.println(TEXTOS_FILE);
 		String[] listaIdiomas = TEXTOS_FILE.get(0).split(CSV_SEPARATOR);
 		LISTA_IDIOMAS.addAll(Arrays.asList(listaIdiomas).subList(1, listaIdiomas.length));
 	}

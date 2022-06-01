@@ -8,4 +8,8 @@ public final class JuegoException extends RuntimeException {
 	public JuegoException(String str) {
 		super(str);
 	}
+
+	public JuegoException(Exception e) {
+		super(e.getMessage());
+	}
 }

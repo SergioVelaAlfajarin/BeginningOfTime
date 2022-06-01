@@ -86,7 +86,7 @@ message15;El enemigo que has elegido esta muerto.;a
 message16;Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.;a
 message17;Quieres bloquear?;a
 message18;Vacio;a
-message19;Elige una clase para tu Personaje:;a
+message19;Elige una clase para otro Personaje:;a
 message20;Ahora;a
 message21;esta bloqueando.;a
 message22;Gracias por jugar!;a
@@ -97,6 +97,7 @@ message26;Has conseguido realizar;a
 message27;pts de daño.;a
 message28;ha muerto.;a
 message29;Has esquivado el ataque.;a
+message30;Elige la clase para el personaje principal, llamado;a
 errorMessage0;El Enemigo especificado no ha sido encontrado.;a
 errorMessage1;El Personaje especificado no ha sido encontrado.;a
 errorMessage2;Introduce un numero valido.;a

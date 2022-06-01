@@ -1,53 +1,41 @@
 package sva.tbot.modelo.entidades.per;
 
+import sva.tbot.exception.JuegoException;
 import sva.tbot.modelo.entidades.Entidad;
+import sva.tbot.modelo.entidades.TiposClase;
 import sva.tbot.modelo.equipamiento.Equipo;
+import sva.tbot.modelo.equipamiento.TiposEquipamiento;
 import sva.tbot.modelo.items.Item;
-import sva.tbot.juego.Menu;
 
-public final class Personaje {
+public final class Personaje extends Entidad {
 	public static final int MAX_PERSONAJES = 3;
 	public static final int MAX_SIZE_INVENTARIO = 8;
 	public static final String NOMBRE_PERSONAJE_PRINCIPAL = "Tiid";
 
-	private final Item[] inv = new Item[MAX_SIZE_INVENTARIO];
+	private final Item[] inventario = new Item[MAX_SIZE_INVENTARIO];
+	private Equipo cabeza, pechera, pantalones, guantes, botas;
 	private int xpRequerida, xpActual;
 
-	//TODO revisar y comprobar si testeable
-
-	private Equipo cabeza;
-	private Equipo pechera;
-	private Equipo pantalones;
-	private Equipo guantes;
-	private Equipo botas;
-	private Equipo colgante;
-
 	public Personaje(String nombre, int clase) {
-		//super(nombre, null);
-		//ID = GestorEntidad.getSizePersonaje();
+		super(nombre, getTipoClase(clase));
 		initPersonaje();
-		this.nombre = nombre;
 	}
 
-	String nombre;
-
-	public String getNombre(){
-		return nombre;
+	private static TiposClase getTipoClase(int clase) {
+		return switch(clase){
+			case 1 -> TiposClase.ASESINO;
+			case 2 -> TiposClase.TANQUE;
+			case 3 -> TiposClase.CABALLERO;
+			case 4 -> TiposClase.MAGO;
+			case 5 -> TiposClase.MARGINADO;
+			default -> throw new JuegoException("Clase no soportada.");
+		};
 	}
 
 	private void initPersonaje() {
 		xpRequerida = 100;
 		xpActual = 0;
-	}
-
-	@Override
-	public String toString() {
-		return "Personaje{" +
-				"nombre='" + nombre + '\'' +
-				'}';
-	}
-
-	public String getInv() {
-		return null;
+		pechera = new Equipo(TiposEquipamiento.BASE_PECHERA);
+		pantalones = new Equipo(TiposEquipamiento.BASE_PANTALONES);
 	}
 }
