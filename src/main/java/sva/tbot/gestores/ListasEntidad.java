@@ -17,6 +17,7 @@ public class ListasEntidad<T> {
 		}
 		return enemigoSingleton;
 	}
+
 	public static ListasEntidad<Personaje> personajeList(){
 		if(personajeSingleton == null){
 			personajeSingleton = new ListasEntidad<>();
@@ -52,6 +53,13 @@ public class ListasEntidad<T> {
 
 	public int getSize(){
 		return lista.size();
+	}
+
+	public boolean isAnyVivo(){
+		for(T element: lista){
+			return true; //TODO
+		}
+		return false;
 	}
 
 	public ArrayList<T> lista() {

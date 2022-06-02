@@ -80,7 +80,7 @@ message9;Que clase quieres elegir?;a
 message10;Estas Seguro? (1:si/2:no);a
 message11;Pulsa enter para continuar....;a
 message12;Has derrotado a todos los Enemigos!;a
-message13;Todos los personajes han muerto. Has perdido.;a
+message13;Todos los personajes han muerto. Has perdido...;a
 message14;Que enemigo quieres elegir?;a
 message15;El enemigo que has elegido esta muerto.;a
 message16;Bloquear pasara el turno y reducira el daño del siguiente ataque recibido.;a
@@ -98,6 +98,9 @@ message27;pts de daño.;a
 message28;ha muerto.;a
 message29;Has esquivado el ataque.;a
 message30;Elige la clase para el personaje principal, llamado;a
+message31;Se acercan;a
+message32;enemigos de nivel;a
+message33;...;a
 errorMessage0;El Enemigo especificado no ha sido encontrado.;a
 errorMessage1;El Personaje especificado no ha sido encontrado.;a
 errorMessage2;Introduce un numero valido.;a

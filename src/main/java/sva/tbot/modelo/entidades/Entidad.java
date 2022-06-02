@@ -178,11 +178,11 @@ public abstract class Entidad {
 		return maxHPAdicional;
 	}
 
-	public Boolean getEstado() {
+	public Boolean isEstado() {
 		return estado;
 	}
 
-	public Boolean getBloqueo() {
+	public Boolean isBloqueo() {
 		return bloqueo;
 	}
 

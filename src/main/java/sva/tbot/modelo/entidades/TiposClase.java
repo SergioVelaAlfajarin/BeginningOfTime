@@ -7,10 +7,10 @@ public enum TiposClase {
 	MAGO        (100,1,3,1,2,2),
 	MARGINADO   (100,2,1,2,1,1),
 
-	LOBO        (100,4,1,1,1,2),
-	OSO         (100,1,3,2,2,1),
-	SERPIENTE   (120,2,1,2,1,1),
-	DRAGON      (100,1,3,1,2,2);
+	LOBO        (100,1,0,1,1,0), //AD (LVLS: 2,4,6)
+	OSO         (150,4,4,3,3,3), //TANK (LVLS: 8,10,12)
+	SERPIENTE   (220,4,11,4,4,5), //AP (LVLS: 14,16,18)
+	DRAGON      (400,12,14,16,5,10); //BOSS (LVL: 20)
 
 	public final Integer hp, ad, ap, ar, mr, agl;
 

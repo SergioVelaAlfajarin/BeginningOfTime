@@ -1,6 +1,11 @@
 package sva.tbot.juego;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sva.tbot.gestores.ListasEntidad;
+import sva.tbot.modelo.entidades.TiposClase;
+import sva.tbot.modelo.entidades.ene.Enemigo;
 import sva.tbot.modelo.entidades.per.Personaje;
 
 import java.util.ArrayList;
@@ -8,6 +13,14 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PrincipalTest {
+	@BeforeEach
+	void setUp() {
+		var e = new Enemigo[]{new Enemigo(2, TiposClase.LOBO), new Enemigo(2,TiposClase.LOBO)};
+		ListasEntidad.enemigoList().initLista(e);
+		var p = new Personaje[]{new Personaje("e",2), new Personaje("o",3)};
+		ListasEntidad.personajeList().initLista(p);
+	}
+
 	@Test
 	void compruebaMensajeCreacionPersonaje(){
 
@@ -38,5 +51,11 @@ class PrincipalTest {
 				String.format("lol ha sido creado. (03/03)%n%s%n%n", Menu.getMenu().msgCreacionClase()),
 				Principal.muestraMsgPersonajeCreado(p)
 		);
+	}
+
+	@AfterEach
+	void tearDown() {
+		ListasEntidad.enemigoList().lista().clear();
+		ListasEntidad.personajeList().lista().clear();
 	}
 }

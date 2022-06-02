@@ -2,20 +2,29 @@ package sva.tbot.juego;
 
 import sva.tbot.exception.*;
 import sva.tbot.gestores.*;
+import sva.tbot.modelo.entidades.TiposClase;
+import sva.tbot.modelo.entidades.ene.Enemigo;
 import sva.tbot.modelo.entidades.per.Personaje;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Scanner;
 
+
 public final class Principal {
-	private static final int MAX_COMBATES = 10;
+	/**
+	 * MAX_COMBATES:
+	 * Se peleara contra cada enemigo 2 veces por nivel del enemigo.
+	 * Esto quiere decir que habiendo 10 niveles enemigos,
+	 * habra 20 combates. (menos uno en el boss final)
+	 */
+	private static final int MAX_COMBATES = 20;
 	private static int contadorPartidas = 0;
-	private static final Menu menus = Menu.getMenu();
+	private static Menu menus;
 
 	public static void main(String[] args) {
 		try{
+			menus = Menu.getMenu();
 			boolean repetir;
 			do {
 				if(introduceOpcionInicioJuego()){
@@ -29,7 +38,8 @@ public final class Principal {
 				}
 			} while (repetir);
 		}catch(JuegoException e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			doublePrintLn(e.getMessage());
+			pause();
 			System.exit(1);
 		}
 	}
@@ -148,9 +158,69 @@ public final class Principal {
 		clear();
 		doublePrintLn(menus.msgBienvenida());
 
-		//TODO sistema de turnos
-		//primero se ejcutaaran los turnos de los aliados,
-		//y despues de los enemigos.
+		for (int i = 2; i <= MAX_COMBATES; i+=2) {
+			for (int j = 0; j < (i != 20 ? 2 : 1); j++) { //si no es el ultimo combate se ejecutara 2 veces sino 1.
+				int cantidad = rellenaEnemigos(i);
+				doublePrintLn(String.format(menus.msgEnemigosAcercan(), cantidad, 2 /* nivel */));
+				ejecutaCombate();
+			}
+		}
+	}
+
+	private static int rellenaEnemigos(int i){
+		int cantidad = generarRandomNumRango(Enemigo.MIN_ENEMIGOS, Enemigo.MAX_ENEMIGOS);
+		switch(i){
+			case 2, 4, 6 -> generaYAgregaEnemigos(cantidad,TiposClase.LOBO);
+			case 8, 10, 12 -> generaYAgregaEnemigos(cantidad, TiposClase.OSO);
+			case 14, 16, 18 -> generaYAgregaEnemigos(cantidad, TiposClase.SERPIENTE);
+			case 20 -> generaYAgregaEnemigos(1, TiposClase.DRAGON);
+		}
+		return ListasEntidad.enemigoList().getSize();
+	}
+
+	private static void generaYAgregaEnemigos(int cantidad, TiposClase tipo){
+		Enemigo[] lista = new Enemigo[cantidad];
+		for (int i = 0; i < cantidad; i++) {
+			lista[i] = new Enemigo(i + 1, tipo);
+		}
+		ListasEntidad.enemigoList().initLista(lista);
+	}
+
+	private static void ejecutaCombate() {
+		boolean repetirCombate;
+		do{
+			repetirCombate = false;
+			//ejecuta los turnos
+			for(Personaje p: ListasEntidad.personajeList().lista()){
+				if(p.isEstado()){
+					turnoPersonaje(p);
+				}
+			}
+			for(Enemigo e: ListasEntidad.enemigoList().lista()){
+				if(e.isEstado()){
+					turnoEnemigo(e);
+				}
+			}
+			//comprueba que ha ocurrido despues de ambos turnos
+			boolean isAnyPVivo = ListasEntidad.personajeList().isAnyVivo();
+			boolean isAnyEVivo = ListasEntidad.enemigoList().isAnyVivo();
+			//actua dependiendo de quien haya vivido.
+			if(isAnyEVivo && isAnyPVivo){
+				repetirCombate = true;
+			}else if(isAnyPVivo){
+				doublePrintLn(menus.msgEnemigoDerrotado());
+				pause();
+			}else if(isAnyEVivo){
+				throw new JuegoException(menus.msgJuegoPerdido());
+			}
+		}while(repetirCombate);
+	}
+
+	private static void turnoEnemigo(Enemigo e) {
+
+	}
+	//TODO estos metodos
+	private static void turnoPersonaje(Personaje p) {
 
 	}
 
@@ -227,6 +297,10 @@ public final class Principal {
 
 	public static int generarRandomNum(double n) {
 		return (int) (Math.random() * n) + 1;
+	}
+
+	public static int generarRandomNumRango(double min, double max){
+		return (int) ((Math.random() * (max-min)) + min);
 	}
 
 	// metodos print -----------

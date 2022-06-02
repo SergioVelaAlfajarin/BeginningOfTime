@@ -1,6 +1,7 @@
 package sva.tbot.juego;
 
 import sva.tbot.exception.JuegoException;
+import sva.tbot.gestores.ListasEntidad;
 import sva.tbot.modelo.entidades.per.Personaje;
 
 
@@ -293,6 +294,10 @@ public final class Menu {
 		return buscaTexto("message30") + String.format(" %s:", Personaje.NOMBRE_PERSONAJE_PRINCIPAL);
 	}
 
+	public String msgEnemigosAcercan() {
+		return buscaTexto("message31") + " %d " + buscaTexto("message32") + " %d" + buscaTexto("message33");
+	}
+
 	// ERRORES -----------------------------------------------------------
 
 	public String errorEnemigoNoEncontrado() {
@@ -392,4 +397,5 @@ public final class Menu {
 	public int getCantidadIdiomas(){
 		return LISTA_IDIOMAS.size();
 	}
+
 }

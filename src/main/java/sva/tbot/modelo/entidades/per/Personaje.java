@@ -4,7 +4,6 @@ import sva.tbot.exception.JuegoException;
 import sva.tbot.modelo.entidades.Entidad;
 import sva.tbot.modelo.entidades.TiposClase;
 import sva.tbot.modelo.equipamiento.Equipo;
-import sva.tbot.modelo.equipamiento.TiposEquipamiento;
 import sva.tbot.modelo.items.Item;
 
 public final class Personaje extends Entidad {
@@ -16,12 +15,12 @@ public final class Personaje extends Entidad {
 	private Equipo cabeza, pechera, pantalones, guantes, botas;
 	private int xpRequerida, xpActual;
 
-	public Personaje(String nombre, int clase) {
+	public Personaje(String nombre, int clase) throws JuegoException{
 		super(nombre, getTipoClase(clase));
 		initPersonaje();
 	}
 
-	private static TiposClase getTipoClase(int clase) {
+	private static TiposClase getTipoClase(int clase) throws JuegoException{
 		return switch(clase){
 			case 1 -> TiposClase.ASESINO;
 			case 2 -> TiposClase.TANQUE;
@@ -35,7 +34,7 @@ public final class Personaje extends Entidad {
 	private void initPersonaje() {
 		xpRequerida = 100;
 		xpActual = 0;
-		pechera = new Equipo(TiposEquipamiento.BASE_PECHERA);
-		pantalones = new Equipo(TiposEquipamiento.BASE_PANTALONES);
 	}
+
+
 }
