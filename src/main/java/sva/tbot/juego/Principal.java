@@ -159,31 +159,50 @@ public final class Principal {
 		doublePrintLn(menus.msgBienvenida());
 
 		for (int i = 2; i <= MAX_COMBATES; i+=2) {
-			for (int j = 0; j < (i != 20 ? 2 : 1); j++) { //si no es el ultimo combate se ejecutara 2 veces sino 1.
-				int cantidad = rellenaEnemigos(i);
-				doublePrintLn(String.format(menus.msgEnemigosAcercan(), cantidad, 2 /* nivel */));
+			actualizaListaEnemigos(i);
+			for (int j = 0; j < calculaNumeroEncuentros(i); j++) {
 				ejecutaCombate();
 			}
 		}
 	}
-
-	private static int rellenaEnemigos(int i){
-		int cantidad = generarRandomNumRango(Enemigo.MIN_ENEMIGOS, Enemigo.MAX_ENEMIGOS);
-		switch(i){
-			case 2, 4, 6 -> generaYAgregaEnemigos(cantidad,TiposClase.LOBO);
-			case 8, 10, 12 -> generaYAgregaEnemigos(cantidad, TiposClase.OSO);
-			case 14, 16, 18 -> generaYAgregaEnemigos(cantidad, TiposClase.SERPIENTE);
-			case 20 -> generaYAgregaEnemigos(1, TiposClase.DRAGON);
+	
+	private static int calculaNumeroEncuentros(int i){
+		if(i == 20){
+			return 1;
 		}
-		return ListasEntidad.enemigoList().getSize();
+		return 2;
+	}
+
+	private static void actualizaListaEnemigos(int i) {
+		int cantidad = generarRandomNumRango(Enemigo.MIN_ENEMIGOS, Enemigo.MAX_ENEMIGOS);
+		switch (i) {
+			case 2 -> generaYAgregaEnemigos(cantidad, TiposClase.LOBO);
+			case 8 -> generaYAgregaEnemigos(cantidad, TiposClase.OSO);
+			case 14 -> generaYAgregaEnemigos(cantidad, TiposClase.SERPIENTE);
+			case 20 -> generaYAgregaEnemigos(1, TiposClase.DRAGON);
+			default -> subirNivelEnemigos(i);
+		}
+		String msg = String.format(menus.msgEnemigosAcercan(),
+				ListasEntidad.enemigoList().getSize(),
+				ListasEntidad.enemigoList().get(0).getLvl()
+		);
+		doublePrintLn(msg);
+		pause();
+		clear();
 	}
 
 	private static void generaYAgregaEnemigos(int cantidad, TiposClase tipo){
 		Enemigo[] lista = new Enemigo[cantidad];
 		for (int i = 0; i < cantidad; i++) {
-			lista[i] = new Enemigo(i + 1, tipo);
+			lista[i] = new Enemigo(tipo, i + 1);
 		}
 		ListasEntidad.enemigoList().initLista(lista);
+	}
+
+	//TODO estos metodos vvvvvvvvvv
+
+	private static void subirNivelEnemigos(int i) {
+
 	}
 
 	private static void ejecutaCombate() {
@@ -219,7 +238,7 @@ public final class Principal {
 	private static void turnoEnemigo(Enemigo e) {
 
 	}
-	//TODO estos metodos
+
 	private static void turnoPersonaje(Personaje p) {
 
 	}
@@ -276,17 +295,13 @@ public final class Principal {
 	}
 
 	public static void clear() {
-		/*
-
-
 		try {
 			if (System.getProperty("os.name").contains("Windows"))
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 			else
 				new ProcessBuilder().command("clear");
 		} catch (Exception ignored) {
-		} */
-		System.out.println("limpiando pantalla");
+		}
 	}
 
 	public static void pause() {

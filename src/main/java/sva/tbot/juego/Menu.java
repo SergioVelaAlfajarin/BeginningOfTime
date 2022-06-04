@@ -295,6 +295,7 @@ public final class Menu {
 	}
 
 	public String msgEnemigosAcercan() {
+		//ejemplo: se acercan 3 enemigos de nivel 5...
 		return buscaTexto("message31") + " %d " + buscaTexto("message32") + " %d" + buscaTexto("message33");
 	}
 

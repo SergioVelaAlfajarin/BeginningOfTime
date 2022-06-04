@@ -3,7 +3,6 @@ package sva.tbot.modelo.entidades.ene;
 import sva.tbot.exception.JuegoException;
 import sva.tbot.modelo.entidades.Entidad;
 import sva.tbot.modelo.entidades.TiposClase;
-import sva.tbot.modelo.entidades.per.Personaje;
 
 public final class Enemigo extends Entidad{
 	/*
@@ -13,7 +12,7 @@ public final class Enemigo extends Entidad{
 	public static final int MAX_ENEMIGOS = 4;
 	public static final int MIN_ENEMIGOS = 2;
 
-	public Enemigo(int nEne, TiposClase tc) throws JuegoException {
+	public Enemigo(TiposClase tc, int nEne) throws JuegoException {
 		super(tc.toString() + " " + nEne, tc);
 	}
 
