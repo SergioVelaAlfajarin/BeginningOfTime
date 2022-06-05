@@ -1,6 +1,8 @@
 package sva.tbot.modelo.entidades;
 
 public abstract class Entidad {
+	private static int multiplicadorEstadisticas = 0;
+
 	private String nombre, claseEntidad;
 	private Integer actualHP, maxHP, ad, ap, ar, mr, agl, lvl;
 	private Integer adAdicional, apAdicional, arAdicional, mrAdicional, aglAdicional, maxHPAdicional;
@@ -25,12 +27,7 @@ public abstract class Entidad {
 		this.agl = classEntity.agl;
 
 		//set additional stats
-		this.adAdicional = 0;
-		this.apAdicional = 0;
-		this.arAdicional = 0;
-		this.mrAdicional = 0;
-		this.aglAdicional = 0;
-		this.maxHPAdicional = 0;
+		addEstadisticasAdicionales();
 
 		//set normal variables
 		this.estado = true;
@@ -185,6 +182,23 @@ public abstract class Entidad {
 	public Boolean isBloqueo() {
 		return bloqueo;
 	}
+
+	// SETTER AVANZADOS -----------------------------------------------------------------------
+
+	public void addEstadisticasAdicionales(){
+		this.adAdicional    += multiplicadorEstadisticas;
+		this.apAdicional    += multiplicadorEstadisticas;
+		this.arAdicional    += multiplicadorEstadisticas;
+		this.mrAdicional    += multiplicadorEstadisticas;
+		this.aglAdicional   += multiplicadorEstadisticas;
+		this.maxHPAdicional += multiplicadorEstadisticas;
+	}
+
+	public static void aumentarMultiplicadorEstadisticas(int contadorPartidas){
+		multiplicadorEstadisticas = contadorPartidas * 10;
+	}
+
+
 
 	//METODOS ---------------------------------------------------------------------------------
 
